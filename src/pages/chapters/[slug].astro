@@ -1,0 +1,36 @@
+---
+import ChapterNav from "../../components/ChapterNav.astro";
+import SourceDetails from "../../components/SourceDetails.astro";
+import Layout from "../../layouts/Layout.astro";
+import { chapters, getAdjacentChapters, type ChapterMeta } from "../../lib/chapters";
+
+export function getStaticPaths() {
+  return chapters.map((chapter) => ({
+    params: { slug: chapter.slug },
+    props: { chapter }
+  }));
+}
+
+interface Props {
+  chapter: ChapterMeta;
+}
+
+const { chapter } = Astro.props;
+const { previous, next } = getAdjacentChapters(chapter.slug);
+const Content = chapter.Content;
+---
+
+<Layout title={chapter.title} description={chapter.description}>
+  <main class="reader-shell">
+    <header class="chapter-header">
+      <p class="chapter-meta">{chapter.chapterLabel}</p>
+      <h1>{chapter.title}</h1>
+      <p>{chapter.description}</p>
+    </header>
+    <article class="prose">
+      <Content />
+    </article>
+    <SourceDetails sources={chapter.sources} />
+    <ChapterNav previous={previous} next={next} />
+  </main>
+</Layout>

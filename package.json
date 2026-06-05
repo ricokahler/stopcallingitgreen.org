@@ -1,0 +1,23 @@
+{
+  "name": "stopcallingitgreen.org",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "migrate:manuscript": "node scripts/migrate-manuscript.mjs",
+    "check:public-output": "node scripts/check-public-output.mjs",
+    "deploy:cloudflare": "npm run build && npm run check:public-output && wrangler pages deploy dist --project-name stopcallingitgreen-org --branch main",
+    "registrar:nameservers": "node scripts/namecheap-set-nameservers.mjs"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^6.0.2",
+    "astro": "^6.4.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "wrangler": "^4.20.0"
+  }
+}

@@ -1,0 +1,7 @@
+cloudflare_account_id = "replace-me"
+cloudflare_api_token  = "replace-me"
+
+zone_name          = "stopcallingitgreen.org"
+pages_project_name = "stopcallingitgreen-org"
+production_branch  = "main"
+create_dns_records = true

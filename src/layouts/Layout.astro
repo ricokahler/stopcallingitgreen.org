@@ -1,0 +1,99 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "A free online book about how cheap power got dragged into the culture war."
+} = Astro.props;
+
+const pageTitle = title
+  ? `${title} | Stop Calling It Green`
+  : "Stop Calling It Green";
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+  </head>
+  <body>
+    <header class="site-header" data-site-header>
+      <a class="brand" href="/" aria-label="Stop Calling It Green home">
+        <span>Stop Calling It Green</span>
+      </a>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+        aria-label="Open navigation"
+        data-nav-toggle
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation" data-site-nav>
+        <a href="/">Start</a>
+        <a href="/#chapters">Chapters</a>
+        <a href="/about/">About</a>
+      </nav>
+    </header>
+    <slot />
+    <footer class="site-footer">
+      <p>
+        Free, online-only, self-funded, and built to be shared. No donations, no
+        merch, no foundation.
+      </p>
+      <nav aria-label="Footer navigation">
+        <a href="/">Start</a>
+        <a href="/#chapters">Chapters</a>
+        <a href="/about/">About</a>
+      </nav>
+    </footer>
+    <script is:inline>
+      const toggle = document.querySelector("[data-nav-toggle]");
+      const nav = document.querySelector("[data-site-nav]");
+
+      if (toggle && nav) {
+        const closeNav = () => {
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.setAttribute("aria-label", "Open navigation");
+          nav.removeAttribute("data-open");
+        };
+
+        toggle.addEventListener("click", () => {
+          const isOpen = toggle.getAttribute("aria-expanded") === "true";
+          toggle.setAttribute("aria-expanded", String(!isOpen));
+          toggle.setAttribute(
+            "aria-label",
+            isOpen ? "Open navigation" : "Close navigation"
+          );
+          nav.toggleAttribute("data-open", !isOpen);
+        });
+
+        nav.addEventListener("click", (event) => {
+          if (event.target instanceof HTMLAnchorElement) closeNav();
+        });
+
+        window.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") closeNav();
+        });
+      }
+    </script>
+  </body>
+</html>

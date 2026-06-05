@@ -1,0 +1,87 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { chapters } from "../lib/chapters";
+
+const firstChapter = chapters[0];
+---
+
+<Layout>
+  <main>
+    <section class="home-hero" aria-labelledby="site-title">
+      <div class="home-hero-inner">
+        <p class="kicker">Free online book</p>
+        <h1 id="site-title">Stop Calling It Green</h1>
+        <p class="subtitle">How Cheap Power Got Dragged Into The Culture War</p>
+        <p class="lede">
+          Solar is not a virtue product. It is infrastructure. Oil and gas
+          look normal because the incumbent energy system won the framing war
+          first.
+        </p>
+        <div class="actions">
+          <a class="button primary" href={`/chapters/${firstChapter.slug}/`}>
+            Start reading
+          </a>
+          <a class="button" href="#chapters">Browse chapters</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="premise-band" aria-labelledby="premise-title">
+      <h2 id="premise-title">The premise is deliberately plain.</h2>
+      <div class="premise-copy">
+        <p>
+          A panel in a field does not need a train full of coal, a tanker full
+          of oil, a refinery, a pipeline, a drilling lease, a fuel contract, or
+          a protected shipping lane. Sunlight hits it. Electrons move.
+          Electricity comes out.
+        </p>
+        <p>
+          The argument here is not that every solar project is good, or that
+          every other source is evil. It is that Americans should stop letting
+          old energy call itself reality while cheap fuel-free power gets
+          treated like a personality test.
+        </p>
+      </div>
+    </section>
+
+    <section class="chapters-section" id="chapters" aria-labelledby="chapters-title">
+      <header>
+        <h2 id="chapters-title">Read the book.</h2>
+        <p>
+          Each chapter is built for online reading, with sources and videos
+          close to the claims they support.
+        </p>
+      </header>
+      <ol class="chapter-list">
+        {chapters.map((chapter) => (
+          <li>
+            <a href={`/chapters/${chapter.slug}/`}>
+              <span>{chapter.chapterLabel}</span>
+              <div>
+                <strong>{chapter.title}</strong>
+                <p>{chapter.description}</p>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="about-note" aria-labelledby="online-title">
+      <h2 id="online-title">Online-only, on purpose.</h2>
+      <div>
+        <p>
+          This is the only place this book exists. It is self-funded, free,
+          public, and meant to be shared with people who hear "green energy"
+          and check out before the facts arrive.
+        </p>
+        <p>
+          The useful action is simple: send a chapter to someone who already
+          likes asking who profits, then ask them to follow the money all the
+          way through oil, gas, lobbying, schools, land, and fuel dependence.
+        </p>
+        <p><a href="/about/">About the project</a></p>
+      </div>
+    </section>
+  </main>
+</Layout>

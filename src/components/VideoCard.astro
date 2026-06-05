@@ -1,0 +1,36 @@
+---
+interface Props {
+  title: string;
+  embedUrl: string;
+  iframeTitle?: string;
+  caption: string;
+  sourceLabel?: string;
+  sourceUrl: string;
+}
+
+const {
+  title,
+  embedUrl,
+  iframeTitle = title,
+  caption,
+  sourceLabel = "Video",
+  sourceUrl
+} = Astro.props;
+---
+
+<figure class="video-card">
+  <div class="video-frame">
+    <iframe
+      src={embedUrl}
+      title={iframeTitle}
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </div>
+  <figcaption>
+    <strong>{title}</strong>
+    <p>{caption}</p>
+    <a href={sourceUrl} rel="noreferrer" target="_blank">{sourceLabel}</a>
+  </figcaption>
+</figure>

@@ -1,17 +1,66 @@
 # Stop Calling It Green
 
-Free online book: **Stop Calling It Green: How Cheap Power Got Dragged Into The Culture War**.
+Public site for **Stop Calling It Green: How Cheap Power Got Dragged Into The Culture War**.
 
-This repository is the static website for `stopcallingitgreen.org`. It is intentionally simple: plain HTML, CSS, embedded source videos, and chapter pages that can be shared directly.
+This is an Astro static book site for `stopcallingitgreen.org`. It is online-only, free, self-funded, and intentionally not a donation, merch, or foundation project.
 
-There are no donations, no merch, no foundation, and no plan to turn this into an organization. The useful action is to share it with someone who hears "green energy" and checks out before the facts arrive.
-
-## Local Preview
-
-Open `index.html` directly, or run:
+## Local Development
 
 ```bash
-python3 -m http.server 4173
+npm install
+npm run dev
 ```
 
-Then visit `http://127.0.0.1:4173/`.
+The committed MDX files in `src/content/chapters` are the public book source.
+If you keep a private manuscript elsewhere, regenerate the chapters explicitly:
+
+```bash
+export MANUSCRIPT_DIR=/path/to/private/manuscript
+npm run migrate:manuscript
+npm run build
+npm run check:public-output
+```
+
+`npm run check:public-output` verifies that built public pages do not contain local paths, transcript filenames, Codex attachment paths, or private workspace breadcrumbs.
+
+## Cloudflare Pages Direct Upload
+
+The deploy path avoids dashboard-dependent publishing:
+
+```bash
+export CLOUDFLARE_ACCOUNT_ID=...
+export CLOUDFLARE_API_TOKEN=...
+npm run deploy:cloudflare
+```
+
+That runs the Astro build, scans public output, and uploads `dist/` with Wrangler:
+
+```bash
+wrangler pages deploy dist --project-name stopcallingitgreen-org --branch main
+```
+
+## Cloudflare Infrastructure
+
+Cloudflare zone, DNS, Pages project, and custom domains live in `infra/cloudflare`.
+
+```bash
+cd infra/cloudflare
+cp terraform.tfvars.example terraform.tfvars
+terraform init
+terraform plan
+terraform apply
+```
+
+After `terraform apply`, copy the emitted Cloudflare nameservers into Namecheap unless registrar automation is configured.
+
+Optional Namecheap automation:
+
+```bash
+export NAMECHEAP_API_USER=...
+export NAMECHEAP_API_KEY=...
+export NAMECHEAP_CLIENT_IP=...
+export NAMECHEAP_DOMAIN=stopcallingitgreen.org
+npm run registrar:nameservers -- ns1.cloudflare.com ns2.cloudflare.com
+```
+
+Namecheap API access often requires account enablement and IP allowlisting. If that is not available, changing the registrar nameservers is the one manual step.
