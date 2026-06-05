@@ -1,0 +1,70 @@
+---
+import { Image } from "astro:assets";
+import nasaSunSdo from "../assets/visuals/nasa-sun-sdo.jpg";
+import "../styles/global.css";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <meta name="viewport" content="width=1200, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Stop Calling It Green Social Card</title>
+  </head>
+  <body class="m-0 overflow-hidden bg-[oklch(0.12_0.012_72)]">
+    <main
+      id="social-card"
+      class="relative h-[630px] w-[1200px] overflow-hidden bg-[oklch(0.12_0.012_72)] text-[oklch(0.96_0.01_82)]"
+      style="
+        background:
+          radial-gradient(circle at 88% 46%, oklch(0.78 0.16 82 / 0.22), transparent 25%),
+          repeating-linear-gradient(90deg, oklch(0.95 0.01 82 / 0.07) 0, oklch(0.95 0.01 82 / 0.07) 1px, transparent 1px, transparent 44px),
+          repeating-linear-gradient(0deg, oklch(0.95 0.01 82 / 0.055) 0, oklch(0.95 0.01 82 / 0.055) 1px, transparent 1px, transparent 44px),
+          oklch(0.12 0.012 72);
+      "
+    >
+      <div
+        class="absolute inset-[46px] border-[5px] border-[oklch(0.67_0.2_38)]"
+      ></div>
+      <div
+        class="absolute right-[-92px] top-[62px] h-[536px] w-[536px] overflow-hidden rounded-full opacity-95 mix-blend-screen"
+      >
+        <Image
+          src={nasaSunSdo}
+          alt=""
+          width={720}
+          height={720}
+          widths={[720]}
+          sizes="536px"
+          format="webp"
+          quality={90}
+          loading="eager"
+          decoding="sync"
+          class="h-full w-full scale-[1.16] rounded-full object-cover saturate-[1.2] contrast-[1.08]"
+        />
+      </div>
+      <div
+        class="absolute bottom-[46px] right-[46px] top-[46px] w-[30%] bg-gradient-to-r from-transparent via-[oklch(0.12_0.012_72/0.12)] to-[oklch(0.12_0.012_72/0.42)]"
+      ></div>
+      <section class="absolute left-[76px] top-[82px] w-[680px]">
+        <h1
+          class="m-0 max-w-[650px] font-[var(--font-display)] text-[116px] font-bold uppercase leading-[0.86] tracking-[0.008em]"
+        >
+          Stop Calling It Green
+        </h1>
+        <p
+          class="mt-[38px] max-w-[700px] text-[31px] font-medium leading-[1.05] tracking-[0.005em] text-[oklch(0.82_0.012_82)] [font-family:var(--font-sans)]"
+        >
+          Cheap power got dragged into the culture war.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
