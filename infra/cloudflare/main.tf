@@ -30,7 +30,7 @@ resource "cloudflare_record" "apex_pages" {
   zone_id = cloudflare_zone.site.id
   name    = "@"
   type    = "CNAME"
-  value   = "${cloudflare_pages_project.site.name}.pages.dev"
+  content = "${cloudflare_pages_project.site.name}.pages.dev"
   proxied = true
   ttl     = 1
 }
@@ -40,7 +40,7 @@ resource "cloudflare_record" "www_pages" {
   zone_id = cloudflare_zone.site.id
   name    = "www"
   type    = "CNAME"
-  value   = "${cloudflare_pages_project.site.name}.pages.dev"
+  content = "${cloudflare_pages_project.site.name}.pages.dev"
   proxied = true
   ttl     = 1
 }
