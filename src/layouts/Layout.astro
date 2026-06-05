@@ -16,6 +16,20 @@ const pageTitle = title
   ? `${title} | Stop Calling It Green`
   : "Stop Calling It Green";
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+const socialImage = new URL("/og/stop-calling-it-green.png", Astro.site ?? Astro.url).toString();
+const socialImageAlt = "Stop Calling It Green social card with a NASA image of the sun and the line, It is just energy.";
+const pageType = title ? "article" : "website";
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": title ? "Article" : "Book",
+  name: pageTitle,
+  headline: pageTitle,
+  description,
+  url: canonical,
+  image: socialImage,
+  isAccessibleForFree: true,
+  inLanguage: "en-US"
+};
 ---
 
 <!doctype html>
@@ -42,16 +56,30 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString(
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@500..700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap"
       rel="stylesheet"
     />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#161512" />
     <link rel="canonical" href={canonical} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={pageType} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Stop Calling It Green" />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:secure_url" content={socialImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={socialImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
     <header class="site-header" data-site-header>

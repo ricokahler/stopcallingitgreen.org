@@ -1,9 +1,11 @@
 ---
+import { Image } from "astro:assets";
 import BookImage from "../components/BookImage.astro";
 import BottomCTA from "../components/BottomCTA.astro";
 import Layout from "../layouts/Layout.astro";
 import { chapters } from "../lib/chapters";
-import solarPanelsField from "../assets/visuals/solar-panels-field.jpg";
+import nasaSunSdo from "../assets/visuals/nasa-sun-sdo.jpg";
+import solarFarmFarmland from "../assets/visuals/solar-farm-farmland-unsplash.jpg";
 
 const firstChapter = chapters[0];
 ---
@@ -12,30 +14,47 @@ const firstChapter = chapters[0];
   <main class="home-page">
     <section class="home-hero" aria-labelledby="site-title">
       <div class="home-hero-inner">
-        <p class="kicker">Free online book</p>
-        <h1 id="site-title">Stop Calling It Green</h1>
-        <p class="subtitle">How Cheap Power Got Dragged Into The Culture War</p>
-        <p class="lede">
-          Solar is not a virtue product. It is infrastructure. Oil and gas
-          look normal because the incumbent energy system won the framing war
-          first.
-        </p>
-        <div class="actions">
-          <a class="button primary" href={`/chapters/${firstChapter.slug}/`}>
-            Start reading
-          </a>
-          <a class="button" href="#chapters">Browse chapters</a>
+        <div class="home-hero-copy">
+          <p class="kicker">Free online book</p>
+          <h1 id="site-title">Stop Calling It Green</h1>
+          <p class="subtitle">How Cheap Power Got Dragged Into The Culture War</p>
+          <p class="lede">
+            Solar is not a virtue product. It is infrastructure. Oil and gas
+            look normal because the incumbent energy system won the framing war
+            first.
+          </p>
+          <div class="actions">
+            <a class="button primary" href={`/chapters/${firstChapter.slug}/`}>
+              Start reading
+            </a>
+            <a class="button" href="#chapters">Browse chapters</a>
+          </div>
         </div>
+        <figure class="hero-sun">
+          <Image
+            src={nasaSunSdo}
+            alt="A full disk image of the sun captured by NASA's Solar Dynamics Observatory."
+            width={720}
+            widths={[320, 480, 640, 720]}
+            sizes="(min-width: 900px) 38vw, 72vw"
+            format="webp"
+            quality={78}
+            loading="eager"
+            decoding="async"
+            class="hero-sun-image"
+          />
+          <figcaption>NASA/SDO image. The fuel source, not the brand identity.</figcaption>
+        </figure>
       </div>
     </section>
 
-    <section class="home-visual" aria-label="Solar infrastructure">
+    <section class="home-visual" aria-label="Solar and land use scale">
       <BookImage
-        src={solarPanelsField}
-        alt="Rows of blue solar panels mounted across a green field."
-        caption="A field of panels is not a lifestyle product. It is a fuel-free power plant."
-        creditHref="https://www.pexels.com/photo/solar-panels-in-modern-photovoltaic-power-station-4320449/"
-        creditLabel="Photo: Pexels"
+        src={solarFarmFarmland}
+        alt="Aerial view of solar panels installed beside farm fields."
+        caption="A solar farm beside cropland makes the land question visible: panels are not a mood, they are another land-use choice."
+        creditHref="https://unsplash.com/photos/aerial-view-shows-a-solar-farm-next-to-farmland-5czuT4jlN9s"
+        creditLabel="Photo: Aivars Vilks / Unsplash"
         wide
       />
     </section>
