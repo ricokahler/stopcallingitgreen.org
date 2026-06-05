@@ -633,10 +633,10 @@ body.home-shell .button.primary:hover {
   display: grid;
   grid-template-columns:
     minmax(var(--page-inline), 1fr)
-    minmax(0, 26rem)
-    minmax(0, 52rem)
+    minmax(0, 34rem)
+    minmax(0, 42rem)
     minmax(var(--page-inline), 1fr);
-  gap: clamp(1.5rem, 6vw, 5rem);
+  gap: clamp(1.2rem, 4vw, 2.75rem);
   padding-block: clamp(2.5rem, 8vw, 6rem);
   border-block: 2px solid var(--line-strong);
   background:
@@ -680,7 +680,7 @@ body.home-shell .premise-copy p {
 .premise-copy {
   display: grid;
   gap: 1rem;
-  max-width: var(--measure);
+  max-width: 52ch;
   color: var(--muted);
   font-size: clamp(1.06rem, 0.98rem + 0.28vw, 1.2rem);
 }
