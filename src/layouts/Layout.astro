@@ -42,7 +42,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString(
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500..900&family=Source+Serif+4:opsz,wght@8..60,400..900&display=swap"
       rel="stylesheet"
     />
     <title>{pageTitle}</title>
@@ -66,13 +66,15 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString(
         aria-label="Open navigation"
         data-nav-toggle
       >
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
+        <span class="hamburger-lines" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
       </button>
       <div id="site-menu" class="site-menu" data-site-menu>
         <nav class="site-nav" aria-label="Primary navigation">
-          <a href="/">Start</a>
+          <a class="nav-home-link" href="/">Start</a>
           <div class="chapter-menu" data-chapter-menu>
             <button
               class="chapter-menu-button"
@@ -81,11 +83,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString(
               aria-controls="chapter-selector"
               data-chapter-toggle
             >
-              <span class="chapter-menu-icon" aria-hidden="true">
-                <span></span>
-                <span></span>
-                <span></span>
-              </span>
               <span>Chapters</span>
             </button>
             <div

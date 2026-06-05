@@ -21,7 +21,7 @@
   --page-inline: clamp(1rem, 4vw, 3.5rem);
   --measure: 70ch;
   --font-serif: "Source Serif 4", ui-serif, Georgia, Cambria, "Times New Roman", serif;
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 html[data-theme="dark"] {
@@ -154,20 +154,7 @@ select {
 }
 
 .chapter-menu-button {
-  gap: 0.45rem;
-}
-
-.chapter-menu-icon {
-  display: grid;
-  gap: 3px;
-  width: 17px;
-}
-
-.chapter-menu-icon span {
-  display: block;
-  height: 2px;
-  border-radius: 999px;
-  background: currentColor;
+  gap: 0;
 }
 
 .chapter-panel {
@@ -248,27 +235,41 @@ select {
   display: none;
   width: 44px;
   height: 44px;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--paper);
   color: var(--ink);
+  cursor: pointer;
 }
 
-.nav-toggle span {
+.hamburger-lines {
+  display: grid;
+  gap: 5px;
+  width: 21px;
+}
+
+.hamburger-lines span {
   display: block;
-  width: 20px;
-  height: 2px;
+  width: 100%;
+  height: 2.5px;
   border-radius: 999px;
   background: currentColor;
 }
 
-.nav-toggle span + span {
-  margin-top: 4px;
-}
-
 main {
   width: 100%;
+}
+
+h1,
+h2,
+h3,
+.brand,
+.subtitle,
+.chapter-list strong,
+.chapter-nav-link strong {
+  font-family: var(--font-sans);
 }
 
 .home-hero {
@@ -294,9 +295,10 @@ main {
 .page-title h1 {
   max-width: 12ch;
   margin: 0;
-  font-size: clamp(3.25rem, 8.4vw, 6.8rem);
-  line-height: 0.92;
+  font-size: clamp(3rem, 8vw, 6.45rem);
+  line-height: 0.94;
   letter-spacing: 0;
+  font-weight: 880;
 }
 
 .home-hero .subtitle {
@@ -369,9 +371,10 @@ main {
 .about-note h2,
 .about-page h1 {
   margin: 0;
-  font-size: clamp(2rem, 4.8vw, 4.4rem);
-  line-height: 0.98;
+  font-size: clamp(1.9rem, 4.4vw, 4rem);
+  line-height: 1;
   letter-spacing: 0;
+  font-weight: 860;
 }
 
 .premise-copy {
@@ -500,9 +503,10 @@ main {
 
 .chapter-header h1 {
   margin: 0.45rem 0 0;
-  font-size: clamp(2.45rem, 7vw, 5.6rem);
-  line-height: 0.96;
+  font-size: clamp(2.25rem, 6.3vw, 5rem);
+  line-height: 1;
   letter-spacing: 0;
+  font-weight: 880;
 }
 
 .chapter-header p {
@@ -537,6 +541,7 @@ main {
   font-size: clamp(1.45rem, 2.7vw, 2.15rem);
   line-height: 1.1;
   letter-spacing: 0;
+  font-weight: 840;
 }
 
 .prose h3 {
@@ -716,7 +721,7 @@ main {
   }
 
   .nav-toggle {
-    display: grid;
+    display: inline-flex;
   }
 
   .site-menu {
@@ -749,8 +754,12 @@ main {
     min-height: 46px;
   }
 
+  .site-nav .nav-home-link {
+    display: none;
+  }
+
   .chapter-menu-button {
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   .chapter-panel {
