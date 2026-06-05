@@ -42,7 +42,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString(
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500..900&family=Source+Serif+4:opsz,wght@8..60,400..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@500..700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap"
       rel="stylesheet"
     />
     <title>{pageTitle}</title>
@@ -74,7 +74,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString(
       </button>
       <div id="site-menu" class="site-menu" data-site-menu>
         <nav class="site-nav" aria-label="Primary navigation">
-          <a class="nav-home-link" href="/">Start</a>
           <div class="chapter-menu" data-chapter-menu>
             <button
               class="chapter-menu-button"
@@ -103,9 +102,26 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString(
           <a href="/about/">About</a>
         </nav>
         <div class="theme-switcher" role="group" aria-label="Color theme">
-          <button type="button" data-theme-choice="light" aria-pressed="false">Light</button>
-          <button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button>
-          <button type="button" data-theme-choice="system" aria-pressed="false">System</button>
+          <button type="button" data-theme-choice="light" aria-pressed="false">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2.5M12 19.5V22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2 12h2.5M19.5 12H22M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77"></path>
+            </svg>
+            <span>Light</span>
+          </button>
+          <button type="button" data-theme-choice="dark" aria-pressed="false">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M20.3 14.4A7.4 7.4 0 0 1 9.6 3.7 8.6 8.6 0 1 0 20.3 14.4Z"></path>
+            </svg>
+            <span>Dark</span>
+          </button>
+          <button type="button" data-theme-choice="system" aria-pressed="false">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <rect x="3" y="4" width="18" height="13" rx="2"></rect>
+              <path d="M8 21h8M12 17v4"></path>
+            </svg>
+            <span>System</span>
+          </button>
         </div>
       </div>
     </header>
@@ -116,7 +132,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString(
         merch, no foundation.
       </p>
       <nav aria-label="Footer navigation">
-        <a href="/">Start</a>
+        <a href="/">Home</a>
         <a href="/#chapters">Chapters</a>
         <a href="/about/">About</a>
       </nav>

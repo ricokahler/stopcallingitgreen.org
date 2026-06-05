@@ -1,0 +1,30 @@
+---
+interface Props {
+  title?: string;
+  body?: string;
+  primaryHref?: string;
+  primaryLabel?: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+}
+
+const {
+  title = "Send this to one skeptical person.",
+  body = "This project only works if it leaves the page. Share it with someone who hears green energy and suspects a trick, then ask them to follow the money both ways.",
+  primaryHref = "/chapters/introduction/",
+  primaryLabel = "Read from the start",
+  secondaryHref = "mailto:?subject=Stop%20Calling%20It%20Green&body=https%3A%2F%2Fstopcallingitgreen.org%2F",
+  secondaryLabel = "Share the book"
+} = Astro.props;
+---
+
+<section class="bottom-cta" aria-labelledby="bottom-cta-title">
+  <div>
+    <h2 id="bottom-cta-title">{title}</h2>
+    <p>{body}</p>
+  </div>
+  <div class="bottom-cta-actions">
+    <a class="button primary" href={primaryHref}>{primaryLabel}</a>
+    <a class="button" href={secondaryHref}>{secondaryLabel}</a>
+  </div>
+</section>

@@ -7,25 +7,28 @@ interface Props {
 }
 
 const { previous, next } = Astro.props;
+
+const withColon = (label: string) => `${label}:`;
 ---
 
-<nav class="chapter-nav" aria-label="Chapter navigation">
+<nav class:list={["chapter-nav", !previous && "chapter-nav-no-previous"]} aria-label="Chapter navigation">
   {previous ? (
     <a class="chapter-nav-link" href={`/chapters/${previous.slug}/`} rel="prev">
-      <span>Previous</span>
+      <span class="chapter-nav-eyebrow">Previous</span>
+      <span class="chapter-nav-subtitle">{withColon(previous.chapterLabel)}</span>
       <strong>{previous.shortTitle}</strong>
     </a>
-  ) : (
-    <span></span>
-  )}
+  ) : null}
   {next ? (
     <a class="chapter-nav-link next" href={`/chapters/${next.slug}/`} rel="next">
-      <span>Next</span>
+      <span class="chapter-nav-eyebrow">Next</span>
+      <span class="chapter-nav-subtitle">{withColon(next.chapterLabel)}</span>
       <strong>{next.shortTitle}</strong>
     </a>
   ) : (
     <a class="chapter-nav-link next" href="/" rel="index">
-      <span>Back to</span>
+      <span class="chapter-nav-eyebrow">Back to</span>
+      <span class="chapter-nav-subtitle">Index:</span>
       <strong>All chapters</strong>
     </a>
   )}

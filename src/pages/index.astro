@@ -1,5 +1,6 @@
 ---
 import BookImage from "../components/BookImage.astro";
+import BottomCTA from "../components/BottomCTA.astro";
 import Layout from "../layouts/Layout.astro";
 import { chapters } from "../lib/chapters";
 import solarPanelsField from "../assets/visuals/solar-panels-field.jpg";
@@ -8,7 +9,7 @@ const firstChapter = chapters[0];
 ---
 
 <Layout>
-  <main>
+  <main class="home-page">
     <section class="home-hero" aria-labelledby="site-title">
       <div class="home-hero-inner">
         <p class="kicker">Free online book</p>
@@ -96,5 +97,7 @@ const firstChapter = chapters[0];
         <p><a href="/about/">About the project</a></p>
       </div>
     </section>
+
+    <BottomCTA />
   </main>
 </Layout>

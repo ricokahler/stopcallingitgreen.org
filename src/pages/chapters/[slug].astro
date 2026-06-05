@@ -1,4 +1,5 @@
 ---
+import BottomCTA from "../../components/BottomCTA.astro";
 import ChapterNav from "../../components/ChapterNav.astro";
 import SourceDetails from "../../components/SourceDetails.astro";
 import Layout from "../../layouts/Layout.astro";
@@ -32,5 +33,6 @@ const Content = chapter.Content;
     </article>
     <SourceDetails sources={chapter.sources} />
     <ChapterNav previous={previous} next={next} />
+    <BottomCTA />
   </main>
 </Layout>
