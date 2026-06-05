@@ -16,6 +16,9 @@ sources:
     url: "https://www.eia.gov/todayinEnergy/detail.php?id=67205"
 ---
 
+import BookImage from '../../components/BookImage.astro';
+import windLinesField from '../../assets/visuals/wind-lines-field.jpg';
+
 Every family has one guy who says, "What about at night?" like he personally discovered astronomy.
 
 He is not wrong.
@@ -29,6 +32,16 @@ The question is not whether solar varies.
 The question is whether variability is a fatal flaw or an engineering problem.
 
 It is an engineering problem.
+
+<BookImage
+  src={windLinesField}
+  alt={"A wind turbine and power lines standing over green fields under a gray sky."}
+  caption={"Variable generation is not a personality flaw. It is a grid design problem."}
+  creditHref={"https://www.pexels.com/photo/green-fields-with-wind-turbine-and-power-lines-35440924/"}
+  creditLabel={"Photo: Pexels"}
+  wide
+  position={"center 44%"}
+/>
 
 That does not make it easy. Engineering problems can be hard, expensive, political, slow, locally annoying, and full of people using acronyms like they are being charged by the vowel. But they are still engineering problems. The grid has always been a balancing act. Supply and demand must be matched constantly. Demand changes throughout the day. Power plants go offline. Fuel deliveries get interrupted. Weather changes load. Transmission constraints appear. Operators manage all of this with planning, reserves, markets, forecasting, dispatch, backup capacity, and a lot of people whose jobs are more important than their public fame suggests.
 

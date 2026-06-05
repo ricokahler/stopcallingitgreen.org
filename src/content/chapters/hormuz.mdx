@@ -16,6 +16,9 @@ sources:
     url: "https://www.iea.org/about/oil-security-and-emergency-response/strait-of-hormuz"
 ---
 
+import BookImage from '../../components/BookImage.astro';
+import transmissionLines from '../../assets/visuals/transmission-lines.jpg';
+
 A fight in a narrow waterway half a world away can make fuel more expensive at home.
 
 That is a strange definition of independence.
@@ -25,6 +28,16 @@ The Strait of Hormuz is not some obscure geography fact you forgot after a quiz.
 You do not need to be a foreign-policy obsessive to understand the problem.
 
 If a fuel system depends on huge volumes of liquid moving through narrow, militarily sensitive passages, that fuel system is exposed. It does not matter how many speeches call it independence. The map gets a vote.
+
+<BookImage
+  src={transmissionLines}
+  alt={"Tall transmission towers carrying power lines across a field at sunset."}
+  caption={"A stronger grid is geography too: wires, regions, redundancy, and fewer fragile fuel chains."}
+  creditHref={"https://www.pexels.com/photo/power-lines-over-cornfield-at-sunset-36579198/"}
+  creditLabel={"Photo: Pexels"}
+  wide
+  position={"center 48%"}
+/>
 
 ## The Slogan Problem
 

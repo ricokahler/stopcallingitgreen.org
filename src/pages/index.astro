@@ -1,6 +1,8 @@
 ---
+import BookImage from "../components/BookImage.astro";
 import Layout from "../layouts/Layout.astro";
 import { chapters } from "../lib/chapters";
+import solarPanelsField from "../assets/visuals/solar-panels-field.jpg";
 
 const firstChapter = chapters[0];
 ---
@@ -24,6 +26,17 @@ const firstChapter = chapters[0];
           <a class="button" href="#chapters">Browse chapters</a>
         </div>
       </div>
+    </section>
+
+    <section class="home-visual" aria-label="Solar infrastructure">
+      <BookImage
+        src={solarPanelsField}
+        alt="Rows of blue solar panels mounted across a green field."
+        caption="A field of panels is not a lifestyle product. It is a fuel-free power plant."
+        creditHref="https://www.pexels.com/photo/solar-panels-in-modern-photovoltaic-power-station-4320449/"
+        creditLabel="Photo: Pexels"
+        wide
+      />
     </section>
 
     <section class="premise-band" aria-labelledby="premise-title">
