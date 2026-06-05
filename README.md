@@ -39,6 +39,18 @@ That runs the Astro build, scans public output, and uploads `dist/` with Wrangle
 wrangler pages deploy dist --project-name stopcallingitgreen-org --branch main
 ```
 
+## Optional Token Bootstrap
+
+Cloudflare can create API tokens by API, but only after one bootstrap token exists. Create that first token in the dashboard with the **Create additional tokens** template. It should only need token-creation permission.
+
+```bash
+export CLOUDFLARE_ACCOUNT_ID=...
+export CLOUDFLARE_BOOTSTRAP_API_TOKEN=...
+npm run cloudflare:create-deploy-token
+```
+
+The script creates an account-owned deploy token with Pages, Zone, and DNS write permissions. The secret is printed once. Put it into `CLOUDFLARE_API_TOKEN` or `TF_VAR_cloudflare_api_token`; do not commit it.
+
 ## Cloudflare Infrastructure
 
 Cloudflare zone, DNS, Pages project, and custom domains live in `infra/cloudflare`.

@@ -9,6 +9,7 @@
     "preview": "astro preview",
     "migrate:manuscript": "node scripts/migrate-manuscript.mjs",
     "check:public-output": "node scripts/check-public-output.mjs",
+    "cloudflare:create-deploy-token": "node scripts/create-cloudflare-deploy-token.mjs",
     "deploy:cloudflare": "npm run build && npm run check:public-output && wrangler pages deploy dist --project-name stopcallingitgreen-org --branch main",
     "registrar:nameservers": "node scripts/namecheap-set-nameservers.mjs"
   },
