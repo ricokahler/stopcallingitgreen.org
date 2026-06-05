@@ -176,12 +176,16 @@ body.home-shell .chapter-menu-button {
 }
 
 .site-nav a:hover,
-.chapter-menu-button:hover {
+.chapter-menu-button:hover,
+.site-nav a:focus-visible,
+.chapter-menu-button:focus-visible {
   background: var(--hover);
 }
 
 body.home-shell .site-nav a:hover,
-body.home-shell .chapter-menu-button:hover {
+body.home-shell .chapter-menu-button:hover,
+body.home-shell .site-nav a:focus-visible,
+body.home-shell .chapter-menu-button:focus-visible {
   background: oklch(0.22 0.026 58);
   color: var(--gold);
 }
@@ -240,11 +244,14 @@ body.home-shell .chapter-panel {
   padding: 0.72rem 0.75rem;
 }
 
-.chapter-panel a:hover {
+.chapter-panel a:hover,
+.chapter-panel a:focus-visible {
   background: var(--hover);
+  outline: none;
 }
 
-body.home-shell .chapter-panel a:hover {
+body.home-shell .chapter-panel a:hover,
+body.home-shell .chapter-panel a:focus-visible {
   background: oklch(0.23 0.03 58);
 }
 
@@ -796,10 +803,10 @@ body.home-shell .chapter-list p {
   display: grid;
   grid-template-columns:
     minmax(var(--page-inline), 1fr)
-    minmax(0, 30rem)
-    minmax(0, 52rem)
+    minmax(0, 34rem)
+    minmax(0, 42rem)
     minmax(var(--page-inline), 1fr);
-  gap: clamp(1.5rem, 6vw, 4.5rem);
+  gap: clamp(1.2rem, 4vw, 2.75rem);
   padding-block: clamp(2.75rem, 8vw, 6rem);
   border-top: 2px solid var(--line-strong);
   background: var(--footer-bg);
@@ -820,6 +827,7 @@ body.home-shell .about-note {
 }
 
 .about-note p {
+  max-width: 52ch;
   color: oklch(0.74 0.012 82);
 }
 
