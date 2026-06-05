@@ -33,6 +33,15 @@ const Content = chapter.Content;
     </article>
     <SourceDetails sources={chapter.sources} />
     <ChapterNav previous={previous} next={next} />
-    <BottomCTA />
+    {chapter.slug === "conclusion" && (
+      <BottomCTA
+        title="What now?"
+        body="Keep the useful skepticism. Vote for wires, storage, local power, and less fuel dependence. Share the argument when it comes up naturally."
+        primaryHref="/chapters/introduction/"
+        primaryLabel="Read from the start"
+        secondaryHref="/about/"
+        secondaryLabel="About the project"
+      />
+    )}
   </main>
 </Layout>

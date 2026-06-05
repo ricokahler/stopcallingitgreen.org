@@ -10,7 +10,7 @@ import solarFarmFarmland from "../assets/visuals/solar-farm-farmland-unsplash.jp
 const firstChapter = chapters[0];
 ---
 
-<Layout>
+<Layout bodyClass="home-shell">
   <main class="home-page">
     <section class="home-hero" aria-labelledby="site-title">
       <div class="home-hero-inner">
@@ -109,14 +109,21 @@ const firstChapter = chapters[0];
           and check out before the facts arrive.
         </p>
         <p>
-          The useful action is simple: send a chapter to someone who already
-          likes asking who profits, then ask them to follow the money all the
-          way through oil, gas, lobbying, schools, land, and fuel dependence.
+          There is no organization behind it, no donation page, and no merch
+          table waiting at the end. The point is source literacy, sharper
+          energy instincts, and a public argument that is easy to inspect.
         </p>
         <p><a href="/about/">About the project</a></p>
       </div>
     </section>
 
-    <BottomCTA />
+    <BottomCTA
+      title="Read it straight through."
+      body="It is short on purpose. Start at the beginning, or jump to the part that already sounds like the argument you keep hearing."
+      primaryHref={`/chapters/${firstChapter.slug}/`}
+      primaryLabel="Start reading"
+      secondaryHref="#chapters"
+      secondaryLabel="Browse chapters"
+    />
   </main>
 </Layout>

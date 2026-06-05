@@ -22,6 +22,7 @@
   --radius: 6px;
   --page-inline: clamp(1rem, 4vw, 3.5rem);
   --measure: 75ch;
+  --bleed: min(1080px, calc(100vw - (var(--page-inline) * 2)));
   --home-max: 1360px;
   --font-serif: "Source Serif 4", ui-serif, Georgia, Cambria, "Times New Roman", serif;
   --font-sans: "Barlow", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -76,6 +77,11 @@ body {
   font-optical-sizing: auto;
 }
 
+body.home-shell {
+  background: oklch(0.12 0.012 72);
+  color: oklch(0.94 0.01 82);
+}
+
 a {
   color: color-mix(in oklch, var(--red), var(--ink) 20%);
   text-decoration-thickness: 0.08em;
@@ -111,6 +117,11 @@ select {
   font-family: var(--font-sans);
 }
 
+body.home-shell .site-header {
+  border-bottom-color: oklch(0.28 0.016 72);
+  background: oklch(0.12 0.012 72 / 0.94);
+}
+
 .brand {
   display: inline-flex;
   align-items: center;
@@ -120,6 +131,12 @@ select {
   letter-spacing: 0.035em;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+body.home-shell .brand,
+body.home-shell .site-nav a,
+body.home-shell .chapter-menu-button {
+  color: oklch(0.94 0.01 82);
 }
 
 .brand span {
@@ -163,6 +180,17 @@ select {
   background: var(--hover);
 }
 
+body.home-shell .site-nav a:hover,
+body.home-shell .chapter-menu-button:hover {
+  background: oklch(0.22 0.026 58);
+  color: var(--gold);
+}
+
+body.home-shell .site-menu[data-open] {
+  border-color: oklch(0.34 0.018 72);
+  background: oklch(0.14 0.012 72);
+}
+
 .site-nav a:focus-visible,
 .chapter-menu-button:focus-visible,
 .theme-switcher button:focus-visible,
@@ -196,6 +224,11 @@ select {
   box-shadow: var(--shadow);
 }
 
+body.home-shell .chapter-panel {
+  border-color: oklch(0.34 0.018 72);
+  background: oklch(0.16 0.014 72);
+}
+
 .chapter-menu[data-open] .chapter-panel {
   display: grid;
 }
@@ -209,6 +242,10 @@ select {
 
 .chapter-panel a:hover {
   background: var(--hover);
+}
+
+body.home-shell .chapter-panel a:hover {
+  background: oklch(0.23 0.03 58);
 }
 
 .chapter-panel span {
@@ -225,6 +262,10 @@ select {
   line-height: 1.15;
 }
 
+body.home-shell .chapter-panel strong {
+  color: oklch(0.94 0.01 82);
+}
+
 .theme-switcher {
   display: flex;
   gap: 0.15rem;
@@ -235,13 +276,18 @@ select {
   font-family: var(--font-sans);
 }
 
+body.home-shell .theme-switcher {
+  background: oklch(0.15 0.012 72);
+  box-shadow: inset 0 0 0 1px oklch(0.34 0.018 72);
+}
+
 .theme-switcher button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.38rem;
-  min-height: 34px;
-  padding: 0.35rem 0.58rem;
+  width: 38px;
+  height: 34px;
+  padding: 0;
   border: 0;
   border-radius: 6px;
   background: transparent;
@@ -249,13 +295,15 @@ select {
   cursor: pointer;
   font-size: 0.86rem;
   font-weight: 650;
-  text-transform: uppercase;
-  letter-spacing: 0.035em;
+}
+
+body.home-shell .theme-switcher button {
+  color: oklch(0.72 0.012 82);
 }
 
 .theme-switcher svg {
-  width: 1rem;
-  height: 1rem;
+  width: 1.05rem;
+  height: 1.05rem;
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
@@ -268,9 +316,19 @@ select {
   background: var(--hover);
 }
 
+body.home-shell .theme-switcher button:hover {
+  background: oklch(0.22 0.026 58);
+  color: oklch(0.96 0.01 82);
+}
+
 .theme-switcher button[aria-pressed="true"] {
   background: var(--ink);
   color: var(--paper);
+}
+
+body.home-shell .theme-switcher button[aria-pressed="true"] {
+  background: var(--red);
+  color: oklch(0.13 0.012 72);
 }
 
 .nav-toggle {
@@ -285,6 +343,11 @@ select {
   box-shadow: inset 0 0 0 1px var(--line-strong);
   color: var(--ink);
   cursor: pointer;
+}
+
+body.home-shell .nav-toggle {
+  box-shadow: inset 0 0 0 1px oklch(0.42 0.02 72);
+  color: oklch(0.94 0.01 82);
 }
 
 .hamburger-lines {
@@ -340,16 +403,11 @@ h3,
   font-family: var(--font-display);
 }
 
-.home-page > section {
-  width: min(var(--home-max), 100%);
-  margin-inline: auto;
-}
-
 .home-hero {
   min-height: clamp(560px, calc(100svh - 104px), 760px);
   display: grid;
   align-items: center;
-  margin-top: clamp(0.5rem, 1.5vw, 1rem);
+  margin-top: 0;
   padding: clamp(2.75rem, 7vw, 5.5rem) var(--page-inline);
   border-block: 1px solid oklch(0.33 0.016 72);
   background:
@@ -383,10 +441,21 @@ h3,
 
 .home-visual {
   padding: clamp(1.2rem, 3vw, 2rem) var(--page-inline) clamp(2.5rem, 7vw, 5rem);
+  background: oklch(0.12 0.012 72);
 }
 
 .home-visual .book-image {
   margin: 0 auto;
+}
+
+body.home-shell .home-visual .book-image-frame {
+  border-color: oklch(0.32 0.018 72);
+  background: oklch(0.16 0.014 72);
+}
+
+body.home-shell .home-visual .book-image figcaption,
+body.home-shell .home-visual .book-image figcaption a {
+  color: oklch(0.72 0.012 82);
 }
 
 .kicker {
@@ -510,6 +579,28 @@ h3,
   color: oklch(0.14 0.012 72);
 }
 
+body.home-shell .button {
+  border-color: oklch(0.84 0.012 82 / 0.32);
+  color: oklch(0.92 0.012 82);
+}
+
+body.home-shell .button.primary {
+  border-color: var(--red);
+  background: var(--red);
+  color: oklch(0.14 0.012 72);
+}
+
+body.home-shell .button:hover {
+  border-color: var(--gold);
+  background: oklch(0.96 0.01 82 / 0.1);
+  color: oklch(0.98 0.01 82);
+}
+
+body.home-shell .button.primary:hover {
+  background: var(--gold);
+  color: oklch(0.14 0.012 72);
+}
+
 .home-hero .button {
   border-color: oklch(0.84 0.012 82 / 0.32);
   color: oklch(0.9 0.012 82);
@@ -533,13 +624,38 @@ h3,
 
 .premise-band {
   display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  grid-template-columns:
+    minmax(var(--page-inline), 1fr)
+    minmax(0, 26rem)
+    minmax(0, 52rem)
+    minmax(var(--page-inline), 1fr);
   gap: clamp(1.5rem, 6vw, 5rem);
-  padding: clamp(2.5rem, 8vw, 6rem) var(--page-inline);
+  padding-block: clamp(2.5rem, 8vw, 6rem);
   border-block: 2px solid var(--line-strong);
   background:
     linear-gradient(90deg, transparent, color-mix(in oklch, var(--gold), transparent 88%)),
     var(--paper);
+}
+
+body.home-shell .premise-band {
+  border-block-color: oklch(0.54 0.16 38);
+  background:
+    linear-gradient(90deg, oklch(0.18 0.014 72), oklch(0.13 0.012 72) 48%, oklch(0.19 0.026 48)),
+    oklch(0.13 0.012 72);
+  color: oklch(0.94 0.01 82);
+}
+
+.premise-band h2 {
+  grid-column: 2;
+}
+
+.premise-copy {
+  grid-column: 3;
+}
+
+body.home-shell .premise-copy,
+body.home-shell .premise-copy p {
+  color: oklch(0.78 0.012 82);
 }
 
 .premise-band h2,
@@ -571,8 +687,16 @@ h3,
   background: var(--paper);
 }
 
+body.home-shell .chapters-section {
+  padding-inline: 0;
+  background: oklch(0.12 0.012 72);
+  color: oklch(0.94 0.01 82);
+}
+
 .chapters-section header {
-  max-width: 780px;
+  width: min(var(--bleed), 100%);
+  max-width: none;
+  margin-inline: auto;
   margin-bottom: clamp(1.75rem, 5vw, 3.4rem);
 }
 
@@ -583,12 +707,22 @@ h3,
   font-size: 1.08rem;
 }
 
+body.home-shell .chapters-section header p {
+  color: oklch(0.75 0.012 82);
+}
+
 .chapter-list {
   display: grid;
-  margin: 0;
+  width: min(var(--bleed), 100%);
+  margin: 0 auto;
   padding: 0;
   border-top: 2px solid var(--line-strong);
   list-style: none;
+}
+
+body.home-shell .chapter-list {
+  width: 100%;
+  border-top-color: oklch(0.48 0.04 58);
 }
 
 .chapter-list a {
@@ -602,9 +736,21 @@ h3,
   transition: background-color 160ms ease-out, padding-inline 160ms ease-out;
 }
 
+body.home-shell .chapter-list a {
+  padding-inline: max(var(--page-inline), calc((100% - var(--bleed)) / 2));
+  border-bottom-color: oklch(0.28 0.016 72);
+  color: oklch(0.94 0.01 82);
+  transition: background-color 160ms ease-out, color 160ms ease-out;
+}
+
 .chapter-list a:hover {
   padding-inline: 0.75rem;
   background: var(--hover);
+}
+
+body.home-shell .chapter-list a:hover {
+  padding-inline: max(var(--page-inline), calc((100% - var(--bleed)) / 2));
+  background: oklch(0.18 0.018 72);
 }
 
 .chapter-list a:hover strong {
@@ -628,20 +774,49 @@ h3,
   line-height: 1.06;
 }
 
+body.home-shell .chapter-list strong {
+  color: oklch(0.94 0.01 82);
+}
+
+body.home-shell .chapter-list a:hover strong {
+  color: var(--gold);
+}
+
 .chapter-list p {
   max-width: 58ch;
   margin: 0.5rem 0 0;
   color: var(--quiet);
 }
 
+body.home-shell .chapter-list p {
+  color: oklch(0.68 0.012 82);
+}
+
 .about-note {
   display: grid;
-  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  grid-template-columns:
+    minmax(var(--page-inline), 1fr)
+    minmax(0, 30rem)
+    minmax(0, 52rem)
+    minmax(var(--page-inline), 1fr);
   gap: clamp(1.5rem, 6vw, 4.5rem);
-  padding: clamp(2.75rem, 8vw, 6rem) var(--page-inline);
+  padding-block: clamp(2.75rem, 8vw, 6rem);
   border-top: 2px solid var(--line-strong);
   background: var(--footer-bg);
   color: oklch(0.91 0.01 82);
+}
+
+body.home-shell .about-note {
+  border-top-color: oklch(0.36 0.018 72);
+  background: oklch(0.1 0.01 72);
+}
+
+.about-note h2 {
+  grid-column: 2;
+}
+
+.about-note > div {
+  grid-column: 3;
 }
 
 .about-note p {
@@ -694,6 +869,8 @@ h3,
 }
 
 .chapter-header {
+  justify-self: center;
+  width: var(--bleed);
   padding-top: clamp(1rem, 3vw, 2.5rem);
   padding-bottom: clamp(1rem, 3vw, 2rem);
 }
@@ -734,6 +911,8 @@ h3,
 }
 
 .prose h2 {
+  width: min(900px, var(--bleed));
+  max-width: min(900px, var(--bleed));
   margin: clamp(2.6rem, 7vw, 4.2rem) 0 0.8rem;
   padding-top: 0.8rem;
   border-top: 1px solid color-mix(in oklch, var(--line), transparent 12%);
@@ -743,6 +922,11 @@ h3,
   letter-spacing: 0.01em;
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.prose h2 {
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
 
 .prose h3 {
@@ -777,7 +961,8 @@ h3,
 }
 
 .video-card {
-  max-width: min(var(--measure), 100%);
+  width: min(var(--bleed), 100vw - (var(--page-inline) * 2));
+  max-width: min(var(--bleed), 100vw - (var(--page-inline) * 2));
   margin: clamp(1.8rem, 5vw, 3rem) 0;
   overflow: hidden;
   border: 1px solid var(--line-strong);
@@ -786,14 +971,19 @@ h3,
   box-shadow: none;
 }
 
+.prose .video-card {
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
 .book-image {
   max-width: min(var(--measure), 100%);
   margin: clamp(1.8rem, 5vw, 3rem) 0;
 }
 
 .book-image-wide {
-  width: min(1040px, calc(100vw - (var(--page-inline) * 2)));
-  max-width: min(1040px, calc(100vw - (var(--page-inline) * 2)));
+  width: var(--bleed);
+  max-width: var(--bleed);
 }
 
 .prose .book-image-wide {
@@ -1006,11 +1196,37 @@ h3,
 }
 
 .home-page > .bottom-cta {
-  max-width: min(var(--home-max), 100%);
-  margin-inline: auto;
-  padding: clamp(2.75rem, 8vw, 5rem) var(--page-inline);
+  grid-template-columns:
+    minmax(var(--page-inline), 1fr)
+    minmax(0, 34rem)
+    minmax(0, 42rem)
+    minmax(var(--page-inline), 1fr);
+  max-width: none;
+  margin-top: 0;
+  margin-inline: 0;
+  padding: clamp(2.75rem, 8vw, 5rem) 0;
   border-top: 2px solid var(--line-strong);
   border-bottom: 0;
+}
+
+body.home-shell .home-page > .bottom-cta {
+  border-top-color: oklch(0.54 0.16 38);
+  background:
+    linear-gradient(90deg, oklch(0.18 0.014 72), oklch(0.11 0.01 72) 58%),
+    oklch(0.11 0.01 72);
+  color: oklch(0.94 0.01 82);
+}
+
+body.home-shell .home-page > .bottom-cta p {
+  color: oklch(0.76 0.012 82);
+}
+
+.home-page > .bottom-cta > div:first-child {
+  grid-column: 2;
+}
+
+.home-page > .bottom-cta > .bottom-cta-actions {
+  grid-column: 3;
 }
 
 .about-page {
@@ -1035,6 +1251,7 @@ h3,
 .site-footer {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 1rem;
   padding: 1.25rem var(--page-inline) 1.5rem;
   border-top: 1px solid var(--line-strong);
@@ -1044,8 +1261,10 @@ h3,
 }
 
 .site-footer p {
+  min-width: 0;
   max-width: 48rem;
   margin: 0;
+  overflow-wrap: anywhere;
 }
 
 .site-footer a {
@@ -1055,6 +1274,7 @@ h3,
 .site-footer nav {
   display: flex;
   flex-wrap: wrap;
+  flex-shrink: 0;
   gap: 0.85rem;
 }
 
@@ -1133,8 +1353,19 @@ h3,
   }
 
   .premise-band,
-  .about-note {
-    grid-template-columns: 1fr;
+  .about-note,
+  .home-page > .bottom-cta {
+    grid-template-columns: var(--page-inline) minmax(0, 1fr) var(--page-inline);
+    gap: 1.25rem;
+  }
+
+  .premise-band h2,
+  .premise-copy,
+  .about-note h2,
+  .about-note > div,
+  .home-page > .bottom-cta > div:first-child,
+  .home-page > .bottom-cta > .bottom-cta-actions {
+    grid-column: 2;
   }
 
   .chapter-list a {
