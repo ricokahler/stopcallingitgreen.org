@@ -192,6 +192,19 @@ const jsonLd = {
       const chapterToggle = document.querySelector("[data-chapter-toggle]");
       const chapterPanel = document.querySelector("[data-chapter-panel]");
       const root = document.documentElement;
+      let navScrollY = 0;
+
+      const lockPageScroll = () => {
+        navScrollY = window.scrollY || root.scrollTop || 0;
+        document.body.style.top = `-${navScrollY}px`;
+        root.setAttribute("data-nav-open", "");
+      };
+
+      const unlockPageScroll = () => {
+        root.removeAttribute("data-nav-open");
+        document.body.style.top = "";
+        window.scrollTo(0, navScrollY);
+      };
 
       const closeChapterMenu = () => {
         if (!chapterMenu || !chapterToggle) return;
@@ -201,22 +214,25 @@ const jsonLd = {
 
       if (toggle && siteMenu) {
         const closeNav = () => {
+          const wasOpen = toggle.getAttribute("aria-expanded") === "true";
           toggle.setAttribute("aria-expanded", "false");
           toggle.setAttribute("aria-label", "Open navigation");
           siteMenu.removeAttribute("data-open");
-          root.removeAttribute("data-nav-open");
+          if (wasOpen) unlockPageScroll();
           closeChapterMenu();
         };
 
         toggle.addEventListener("click", () => {
           const isOpen = toggle.getAttribute("aria-expanded") === "true";
-          toggle.setAttribute("aria-expanded", String(!isOpen));
-          toggle.setAttribute(
-            "aria-label",
-            isOpen ? "Open navigation" : "Close navigation"
-          );
-          siteMenu.toggleAttribute("data-open", !isOpen);
-          root.toggleAttribute("data-nav-open", !isOpen);
+          if (isOpen) {
+            closeNav();
+            return;
+          }
+
+          toggle.setAttribute("aria-expanded", "true");
+          toggle.setAttribute("aria-label", "Close navigation");
+          siteMenu.setAttribute("data-open", "");
+          lockPageScroll();
         });
 
         siteMenu.addEventListener("click", (event) => {

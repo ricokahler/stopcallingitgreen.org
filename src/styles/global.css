@@ -58,11 +58,6 @@ html {
   scroll-behavior: smooth;
 }
 
-html[data-nav-open],
-html[data-nav-open] body {
-  overflow: hidden;
-}
-
 body {
   margin: 0;
   background:
@@ -1653,8 +1648,26 @@ body.home-shell .home-page > .bottom-cta p {
 }
 
 @media (max-width: 780px) {
+  html[data-nav-open] {
+    overscroll-behavior: none;
+  }
+
+  html[data-nav-open] body {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+
   .site-header {
     min-height: 58px;
+  }
+
+  html[data-nav-open] .site-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
   }
 
   .nav-toggle {
@@ -1663,11 +1676,12 @@ body.home-shell .home-page > .bottom-cta p {
 
   .site-menu {
     position: fixed;
-    top: calc(58px + 0.5rem);
+    top: calc(env(safe-area-inset-top, 0px) + 58px + 0.5rem);
     right: var(--page-inline);
     left: var(--page-inline);
     display: none;
-    max-height: calc(100svh - 58px - 1rem);
+    z-index: 30;
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 58px - 1rem);
     padding: 0.45rem;
     overflow-y: auto;
     border: 1px solid var(--line-strong);
@@ -1676,6 +1690,12 @@ body.home-shell .home-page > .bottom-cta p {
     box-shadow: var(--shadow);
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
+  }
+
+  @supports not (height: 100dvh) {
+    .site-menu {
+      max-height: calc(100svh - env(safe-area-inset-top, 0px) - 58px - 1rem);
+    }
   }
 
   .site-menu[data-open] {
