@@ -1611,7 +1611,8 @@ body.home-shell .home-page > .bottom-cta p {
   .about-note,
   .home-page > .bottom-cta {
     grid-template-columns: var(--page-inline) minmax(0, 1fr) var(--page-inline);
-    gap: 1.25rem;
+    column-gap: 0;
+    row-gap: 1.25rem;
   }
 
   .premise-band h2,
