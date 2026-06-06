@@ -113,6 +113,9 @@ const jsonLd = {
               data-chapter-toggle
             >
               <span>Chapters</span>
+              <svg class="chapter-menu-chevron" aria-hidden="true" viewBox="0 0 24 24">
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
             </button>
             <div
               id="chapter-selector"
@@ -188,6 +191,7 @@ const jsonLd = {
       const chapterMenu = document.querySelector("[data-chapter-menu]");
       const chapterToggle = document.querySelector("[data-chapter-toggle]");
       const chapterPanel = document.querySelector("[data-chapter-panel]");
+      const root = document.documentElement;
 
       const closeChapterMenu = () => {
         if (!chapterMenu || !chapterToggle) return;
@@ -200,6 +204,7 @@ const jsonLd = {
           toggle.setAttribute("aria-expanded", "false");
           toggle.setAttribute("aria-label", "Open navigation");
           siteMenu.removeAttribute("data-open");
+          root.removeAttribute("data-nav-open");
           closeChapterMenu();
         };
 
@@ -211,6 +216,7 @@ const jsonLd = {
             isOpen ? "Open navigation" : "Close navigation"
           );
           siteMenu.toggleAttribute("data-open", !isOpen);
+          root.toggleAttribute("data-nav-open", !isOpen);
         });
 
         siteMenu.addEventListener("click", (event) => {

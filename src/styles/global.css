@@ -58,6 +58,11 @@ html {
   scroll-behavior: smooth;
 }
 
+html[data-nav-open],
+html[data-nav-open] body {
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   background:
@@ -210,7 +215,24 @@ body.home-shell .site-menu[data-open] {
 }
 
 .chapter-menu-button {
-  gap: 0;
+  gap: 0.35rem;
+  justify-content: space-between;
+}
+
+.chapter-menu-chevron {
+  width: 1.05em;
+  height: 1.05em;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.4;
+  transition: transform 160ms ease-out;
+}
+
+.chapter-menu[data-open] .chapter-menu-chevron {
+  transform: rotate(180deg);
 }
 
 .chapter-panel {
@@ -1510,16 +1532,20 @@ body.home-shell .home-page > .bottom-cta p {
   }
 
   .site-menu {
-    position: absolute;
-    top: calc(100% + 0.35rem);
+    position: fixed;
+    top: calc(58px + 0.5rem);
     right: var(--page-inline);
+    left: var(--page-inline);
     display: none;
-    min-width: min(18rem, calc(100vw - 2rem));
+    max-height: calc(100svh - 58px - 1rem);
     padding: 0.45rem;
+    overflow-y: auto;
     border: 1px solid var(--line-strong);
     border-radius: var(--radius);
     background: var(--paper);
     box-shadow: var(--shadow);
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
   .site-menu[data-open] {
@@ -1539,15 +1565,20 @@ body.home-shell .home-page > .bottom-cta p {
     min-height: 46px;
   }
 
-  .chapter-menu-button {
-    justify-content: flex-start;
+  .chapter-menu {
+    width: 100%;
+  }
+
+  .chapter-menu .chapter-menu-button {
+    justify-content: space-between;
   }
 
   .chapter-panel {
     position: static;
     width: 100%;
-    max-height: min(28rem, calc(100svh - 17rem));
+    max-height: none;
     margin-top: 0.25rem;
+    overflow: visible;
     box-shadow: none;
   }
 
