@@ -1,17 +1,44 @@
 import process from "node:process";
+import { spawnSync } from "node:child_process";
 
 const apiBase = "https://api.cloudflare.com/client/v4";
 const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
 const bootstrapToken = process.env.CLOUDFLARE_BOOTSTRAP_API_TOKEN;
 const tokenName =
-  process.env.CLOUDFLARE_DEPLOY_TOKEN_NAME || "stopcallingitgreen-org-deploy";
+  process.env.CLOUDFLARE_DEPLOY_TOKEN_NAME || "stopcallingitgreen-org-pages-ci";
 const expiresOn = process.env.CLOUDFLARE_DEPLOY_TOKEN_EXPIRES_ON;
+const args = new Set(process.argv.slice(2));
+const storeInGitHub = args.has("--github") || process.env.GITHUB_STORE_SECRETS === "1";
+const printToken = args.has("--print-token") || process.env.PRINT_TOKEN === "1";
+const githubRepository =
+  process.env.GITHUB_REPOSITORY || "ricokahler/stopcallingitgreen.org";
 
 if (!accountId || !bootstrapToken) {
   console.error(
     "Set CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_BOOTSTRAP_API_TOKEN before running this script."
   );
   process.exit(1);
+}
+
+if (!storeInGitHub && !printToken) {
+  console.error(
+    "Choose an output mode: pass --github to store secrets with gh, or --print-token for a manual one-time token print."
+  );
+  process.exit(1);
+}
+
+if (storeInGitHub) {
+  const ghStatus = spawnSync("gh", ["auth", "status", "-h", "github.com"], {
+    encoding: "utf8",
+    stdio: "pipe"
+  });
+
+  if (ghStatus.status !== 0) {
+    console.error(
+      "GitHub CLI is not authenticated. Run `gh auth login -h github.com`, then rerun this script with --github."
+    );
+    process.exit(1);
+  }
 }
 
 async function cloudflare(pathname, options = {}) {
@@ -62,24 +89,12 @@ function findPermission(groups, names, scope) {
   return { id: match.id, name: match.name };
 }
 
-const permissionGroups = await cloudflare(
-  `/accounts/${accountId}/tokens/permission_groups`
-);
+const permissionGroups = await cloudflare("/user/tokens/permission_groups");
 
 const pagesWrite = findPermission(
   permissionGroups,
   ["Pages Write", "Cloudflare Pages Write", "Pages Edit", "Cloudflare Pages Edit"],
   "com.cloudflare.api.account"
-);
-const dnsWrite = findPermission(
-  permissionGroups,
-  ["DNS Write", "DNS Edit"],
-  "com.cloudflare.api.account.zone"
-);
-const zoneWrite = findPermission(
-  permissionGroups,
-  ["Zone Write", "Zone Edit"],
-  "com.cloudflare.api.account.zone"
 );
 
 const payload = {
@@ -91,22 +106,13 @@ const payload = {
         [`com.cloudflare.api.account.${accountId}`]: "*"
       },
       permission_groups: [pagesWrite]
-    },
-    {
-      effect: "allow",
-      resources: {
-        [`com.cloudflare.api.account.${accountId}`]: {
-          "com.cloudflare.api.account.zone.*": "*"
-        }
-      },
-      permission_groups: [dnsWrite, zoneWrite]
     }
   ]
 };
 
 if (expiresOn) payload.expires_on = expiresOn;
 
-const created = await cloudflare(`/accounts/${accountId}/tokens`, {
+const created = await cloudflare("/user/tokens", {
   method: "POST",
   body: JSON.stringify(payload)
 });
@@ -117,11 +123,36 @@ if (!created.value) {
   process.exit(1);
 }
 
-console.log("Created Cloudflare deploy token. The secret is shown once:");
-console.log("");
-console.log(`export CLOUDFLARE_ACCOUNT_ID=${accountId}`);
-console.log(`export CLOUDFLARE_API_TOKEN=${created.value}`);
-console.log(`export TF_VAR_cloudflare_account_id=${accountId}`);
-console.log(`export TF_VAR_cloudflare_api_token=${created.value}`);
-console.log("");
-console.log("Do not commit this token. Revoke the bootstrap token when you are done.");
+function ghSecretSet(name, value) {
+  const result = spawnSync(
+    "gh",
+    ["secret", "set", name, "--repo", githubRepository, "--body", value],
+    {
+      encoding: "utf8",
+      stdio: "pipe"
+    }
+  );
+
+  if (result.status !== 0) {
+    console.error(`Failed to set GitHub secret ${name}.`);
+    console.error(result.stderr || result.stdout);
+    process.exit(1);
+  }
+}
+
+if (storeInGitHub) {
+  ghSecretSet("CLOUDFLARE_ACCOUNT_ID", accountId);
+  ghSecretSet("CLOUDFLARE_API_TOKEN", created.value);
+  console.log(
+    `Created Cloudflare Pages deploy token and stored it in GitHub Secrets for ${githubRepository}.`
+  );
+  console.log(`Token name: ${tokenName}`);
+  console.log("Revoke the short-lived bootstrap token when you are done.");
+} else if (printToken) {
+  console.log("Created Cloudflare deploy token. The secret is shown once:");
+  console.log("");
+  console.log(`export CLOUDFLARE_ACCOUNT_ID=${accountId}`);
+  console.log(`export CLOUDFLARE_API_TOKEN=${created.value}`);
+  console.log("");
+  console.log("Do not commit this token. Revoke the bootstrap token when you are done.");
+}
