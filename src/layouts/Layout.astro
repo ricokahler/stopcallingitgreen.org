@@ -1,36 +1,138 @@
 ---
 import "../styles/global.css";
-import { chapters } from "../lib/chapters";
+import { chapters, type ChapterMeta } from "../lib/chapters";
 
 interface Props {
   title?: string;
   description?: string;
   bodyClass?: string;
+  pageKind?: "home" | "chapter" | "about" | "page";
+  chapter?: ChapterMeta;
 }
 
 const {
   title,
   description = "A free online book about how cheap power got dragged into the culture war.",
-  bodyClass
+  bodyClass,
+  pageKind,
+  chapter
 } = Astro.props;
 
+const siteUrl = Astro.site ?? new URL("https://stopcallingitgreen.org");
 const pageTitle = title
   ? `${title} | Stop Calling It Green`
   : "Stop Calling It Green";
-const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
-const socialImage = new URL("/og/stop-calling-it-green.png", Astro.site ?? Astro.url).toString();
+const canonical = new URL(Astro.url.pathname, siteUrl).toString();
+const homeUrl = new URL("/", siteUrl).toString();
+const bookId = new URL("/#book", siteUrl).toString();
+const websiteId = new URL("/#website", siteUrl).toString();
+const pageId = `${canonical}#webpage`;
+const workId = `${canonical}#work`;
+const socialImage = new URL("/og/stop-calling-it-green.png", siteUrl).toString();
 const socialImageAlt = "Stop Calling It Green social card with a NASA image of the sun and the subtitle, Cheap power got dragged into the culture war.";
-const pageType = title ? "article" : "website";
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": title ? "Article" : "Book",
-  name: pageTitle,
-  headline: pageTitle,
-  description,
-  url: canonical,
-  image: socialImage,
+const resolvedKind = pageKind ?? (chapter ? "chapter" : title ? "page" : "home");
+const pageType = resolvedKind === "chapter" ? "article" : "website";
+const chapterList = chapters.map((item) => ({
+  "@type": "Chapter",
+  "@id": new URL(`/chapters/${item.slug}/#work`, siteUrl).toString(),
+  name: item.title,
+  position: item.order,
+  url: new URL(`/chapters/${item.slug}/`, siteUrl).toString(),
+  description: item.description,
   isAccessibleForFree: true,
   inLanguage: "en-US"
+}));
+const breadcrumbItems = [
+  {
+    "@type": "ListItem",
+    position: 1,
+    name: "Home",
+    item: homeUrl
+  },
+  ...(resolvedKind === "chapter" && chapter
+    ? [
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: chapter.title,
+          item: canonical
+        }
+      ]
+    : resolvedKind === "about"
+      ? [
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "About",
+            item: canonical
+          }
+        ]
+      : [])
+];
+const webPage = {
+  "@type": "WebPage",
+  "@id": pageId,
+  url: canonical,
+  name: pageTitle,
+  description,
+  image: socialImage,
+  isPartOf: { "@id": websiteId },
+  inLanguage: "en-US",
+  mainEntity: resolvedKind === "home" ? { "@id": bookId } : resolvedKind === "chapter" ? { "@id": workId } : undefined
+};
+const jsonLdGraph = [
+  {
+    "@type": "WebSite",
+    "@id": websiteId,
+    name: "Stop Calling It Green",
+    url: homeUrl,
+    description: "A free online book about how cheap power got dragged into the culture war.",
+    inLanguage: "en-US"
+  },
+  {
+    "@type": "Book",
+    "@id": bookId,
+    name: "Stop Calling It Green",
+    alternateName: "Stop Calling It Green: How Cheap Power Got Dragged Into The Culture War",
+    url: homeUrl,
+    description: "A free online book about solar, oil lobbying, energy propaganda, and why fuel-free power should be judged as infrastructure.",
+    image: socialImage,
+    isAccessibleForFree: true,
+    inLanguage: "en-US",
+    genre: ["Energy policy", "Infrastructure", "Long-form nonfiction"],
+    hasPart: chapterList
+  },
+  webPage,
+  ...(resolvedKind === "chapter" && chapter
+    ? [
+        {
+          "@type": "Chapter",
+          "@id": workId,
+          name: chapter.title,
+          headline: chapter.title,
+          description: chapter.description,
+          url: canonical,
+          position: chapter.order,
+          isPartOf: { "@id": bookId },
+          isAccessibleForFree: true,
+          inLanguage: "en-US",
+          citation: chapter.sources?.map((source) => ({
+            "@type": "CreativeWork",
+            name: source.title,
+            url: source.url
+          }))
+        }
+      ]
+    : []),
+  {
+    "@type": "BreadcrumbList",
+    "@id": `${canonical}#breadcrumb`,
+    itemListElement: breadcrumbItems
+  }
+];
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": jsonLdGraph
 };
 ---
 
@@ -63,13 +165,23 @@ const jsonLd = {
     />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#161512" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="application-name" content="Stop Calling It Green" />
+    <meta name="apple-mobile-web-app-title" content="Stop Calling It Green" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#11100d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)" />
     <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={pageType} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="Stop Calling It Green" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:image" content={socialImage} />
     <meta property="og:image:secure_url" content={socialImage} />
     <meta property="og:image:type" content="image/png" />

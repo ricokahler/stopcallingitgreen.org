@@ -21,7 +21,12 @@ const { previous, next } = getAdjacentChapters(chapter.slug);
 const Content = chapter.Content;
 ---
 
-<Layout title={chapter.title} description={chapter.description}>
+<Layout
+  title={chapter.title}
+  description={chapter.description}
+  pageKind="chapter"
+  chapter={chapter}
+>
   <main class="reader-shell">
     <header class="chapter-header">
       <p class="chapter-meta">{chapter.chapterLabel}</p>
