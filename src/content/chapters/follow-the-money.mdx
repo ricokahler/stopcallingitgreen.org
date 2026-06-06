@@ -19,6 +19,7 @@ sources:
 ---
 
 import BookImage from '../../components/BookImage.astro';
+import VisualFigure from '../../components/VisualFigure.astro';
 import refineryPipes from '../../assets/visuals/refinery-pipes.jpg';
 
 Someone on a podcast says clean energy is just another way for connected people to get rich off government money.
@@ -26,6 +27,17 @@ Someone on a podcast says clean energy is just another way for connected people 
 A lot of people nod.
 
 And the annoying thing is: the instinct is not stupid.
+
+<BookImage
+  src={refineryPipes}
+  alt={"A dense industrial refinery with steel pipes, towers, and catwalks."}
+  caption={"Old infrastructure starts to feel like scenery when it has been profitable for long enough."}
+  creditHref={"https://www.pexels.com/photo/inside-a-petrochemical-industry-5884386/"}
+  creditLabel={"Photo: Pexels"}
+  wide
+  priority
+  position={"center"}
+/>
 
 ## The Instinct Is Not Stupid
 
@@ -49,16 +61,6 @@ No. That is also money.
 
 It is older money. It is better-dressed money. It is money that has had enough time to become scenery.
 
-<BookImage
-  src={refineryPipes}
-  alt={"A dense industrial refinery with steel pipes, towers, and catwalks."}
-  caption={"Old infrastructure starts to feel like scenery when it has been profitable for long enough."}
-  creditHref={"https://www.pexels.com/photo/inside-a-petrochemical-industry-5884386/"}
-  creditLabel={"Photo: Pexels"}
-  wide
-  position={"center"}
-/>
-
 That is the trick. When new industries get public support, it looks like politics. When old industries get public support, it looks like the economy.
 
 This chapter is not an argument that every clean-energy subsidy is wise. Some are probably wasteful. Some are probably captured. Some are probably written in ways that make normal people wonder whether the entire policy process is a haunted spreadsheet. That is government.
@@ -70,6 +72,30 @@ Carry it to the oil and gas lobby.
 ## Follow It To The Lobby
 
 OpenSecrets reporting republished by AllSides found that oil and gas spent more than $153 million lobbying the federal government in 2024 and $38 million in just the first quarter of 2025. Those are not charity numbers. That is not an industry wandering around Washington because it enjoys the architecture.
+
+<VisualFigure
+  eyebrow={"Money trail"}
+  title={"Old money is still money."}
+  body={"If a solar tax credit deserves scrutiny, a permanent incumbent lobby deserves the same curiosity with interest."}
+  items={[
+    {
+      value: "$153M+",
+      label: "Oil and gas federal lobbying in 2024",
+      note: "A mature industry does not stop shaping rules just because its assets look familiar.",
+      size: 100,
+      tone: "money"
+    },
+    {
+      value: "$38M",
+      label: "Oil and gas lobbying in early 2025",
+      note: "The money trail did not end when the slogans got patriotic.",
+      size: 46,
+      tone: "money"
+    }
+  ]}
+  sourceHref={"https://www.allsides.com/blog/oil-and-gas-lobbying-reached-38-million-early-2025-yet-fell-short-previous-highs"}
+  sourceLabel={"AllSides/OpenSecrets reporting"}
+/>
 
 Lobbying is how industries protect definitions. It is how they keep favorable tax rules favorable, slow down competitors, shape permitting, frame export policy, influence school standards, fund friendly research, and keep the public conversation focused on the costs of change instead of the costs of staying stuck.
 

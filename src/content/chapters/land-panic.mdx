@@ -30,12 +30,24 @@ sources:
 
 import BookImage from '../../components/BookImage.astro';
 import VideoCard from '../../components/VideoCard.astro';
+import VisualFigure from '../../components/VisualFigure.astro';
 import cornField from '../../assets/visuals/corn-field.jpg';
 
 
 You can drive for hours past corn that is not dinner and then hear someone panic because a solar farm might use land.
 
 This is one of those American moments where the country looks directly at itself and somehow misses.
+
+<BookImage
+  src={cornField}
+  alt={"Rows of corn plants filling a field under a blue sky."}
+  caption={"America already makes enormous land choices. Familiar land use just stops looking political."}
+  creditHref={"https://www.pexels.com/photo/a-corn-field-20234940/"}
+  creditLabel={"Photo: Pexels"}
+  wide
+  priority
+  position={"center 58%"}
+/>
 
 ## The Fair Concern
 
@@ -49,16 +61,6 @@ It is weird because America is not a country that has been delicate with land.
 
 We have highways, suburbs, parking lots, lawns, golf courses, feedlots, oil fields, gas fields, mines, pipelines, refineries, transmission corridors, reservoirs, military bases, airports, industrial parks, and mile after mile of crop systems built around policies most people never think about. We have already made huge choices about land. We just do not call them choices once they become familiar.
 
-<BookImage
-  src={cornField}
-  alt={"Rows of corn plants filling a field under a blue sky."}
-  caption={"America already makes enormous land choices. Familiar land use just stops looking political."}
-  creditHref={"https://www.pexels.com/photo/a-corn-field-20234940/"}
-  creditLabel={"Photo: Pexels"}
-  wide
-  position={"center 58%"}
-/>
-
 That is the central claim of this chapter:
 
 The land-use objection to solar is often backwards. The United States already devotes enormous land areas to fuel, feed, pasture, and infrastructure. Solar's footprint is small by comparison, and the panic reveals more about cultural acceptance than physical scarcity.
@@ -68,6 +70,37 @@ The land-use objection to solar is often backwards. The United States already de
 Start with the solar numbers.
 
 The Department of Energy's solar-siting research says ground-mounted solar is projected to need about 5.7 million acres by 2035, around 0.3 percent of the contiguous United States, and possibly up to 10 million acres by 2050, about 0.5 percent. That is not nothing. Millions of acres are real acres. But in a country this large, it is also not the land apocalypse.
+
+<VisualFigure
+  eyebrow={"Scale check"}
+  title={"Solar is not America's first land choice."}
+  body={"These categories are not interchangeable. That is the point. We already tolerate enormous land commitments when the use feels familiar."}
+  items={[
+    {
+      value: "5.7M acres",
+      label: "Projected ground-mounted solar need by 2035",
+      note: "DOE's solar-siting research frames this as about 0.3 percent of the contiguous United States.",
+      size: 16,
+      tone: "sun"
+    },
+    {
+      value: "~90M acres",
+      label: "Corn planted in a typical U.S. year",
+      note: "A large share of U.S. corn is used for ethanol fuel, not food on a plate.",
+      size: 72,
+      tone: "land"
+    },
+    {
+      value: "805M acres",
+      label: "U.S. land used for grazing in 2017",
+      note: "Not a replacement proposal. A visibility check.",
+      size: 100,
+      tone: "land"
+    }
+  ]}
+  sourceHref={"https://www.energy.gov/cmei/systems/large-scale-solar-siting-research"}
+  sourceLabel={"DOE solar-siting research; USDA sources in notes"}
+/>
 
 ## Corn That Is Fuel
 

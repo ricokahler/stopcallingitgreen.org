@@ -17,6 +17,7 @@ sources:
 ---
 
 import BookImage from '../../components/BookImage.astro';
+import VisualFigure from '../../components/VisualFigure.astro';
 import transmissionLines from '../../assets/visuals/transmission-lines.jpg';
 
 A fight in a narrow waterway half a world away can make fuel more expensive at home.
@@ -28,6 +29,37 @@ The Strait of Hormuz is not some obscure geography fact you forgot after a quiz.
 You do not need to be a foreign-policy obsessive to understand the problem.
 
 If a fuel system depends on huge volumes of liquid moving through narrow, militarily sensitive passages, that fuel system is exposed. It does not matter how many speeches call it independence. The map gets a vote.
+
+<VisualFigure
+  eyebrow={"Exposure"}
+  title={"A chokepoint is a price signal waiting to happen."}
+  body={"EIA's 2025 Hormuz update makes the strategic problem plain: a narrow route can carry a global amount of fuel risk."}
+  items={[
+    {
+      value: "20M b/d",
+      label: "Oil flow through Hormuz in 2024",
+      note: "About 20 percent of global petroleum liquids consumption.",
+      size: 100,
+      tone: "fuel"
+    },
+    {
+      value: "25%+",
+      label: "Share of global seaborne oil trade",
+      note: "More than one-quarter of traded seaborne oil moved through the strait.",
+      size: 72,
+      tone: "fuel"
+    },
+    {
+      value: "20%",
+      label: "Share of global LNG trade",
+      note: "Around one-fifth of LNG trade also moved through Hormuz in 2024.",
+      size: 58,
+      tone: "grid"
+    }
+  ]}
+  sourceHref={"https://www.eia.gov/todayinenergy/detail.php?embed=true&id=65504"}
+  sourceLabel={"EIA Hormuz update"}
+/>
 
 <BookImage
   src={transmissionLines}

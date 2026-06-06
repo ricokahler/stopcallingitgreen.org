@@ -1000,7 +1000,7 @@ body.home-shell .about-note {
 }
 
 .book-image-frame {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: var(--image-aspect-ratio, 16 / 9);
   overflow: hidden;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
@@ -1012,9 +1012,26 @@ body.home-shell .about-note {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: var(--image-fit, cover);
   object-position: var(--image-position, center);
   filter: saturate(0.92) contrast(1.08);
+}
+
+.book-image-artifact .book-image-frame {
+  padding: clamp(0.55rem, 1.8vw, 1rem);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      oklch(0.96 0.01 82 / 0.07) 0,
+      oklch(0.96 0.01 82 / 0.07) 1px,
+      transparent 1px,
+      transparent 28px
+    ),
+    oklch(0.15 0.012 72);
+}
+
+.book-image-artifact .book-image-media {
+  filter: saturate(0.86) contrast(1.08);
 }
 
 .book-image figcaption {
@@ -1070,6 +1087,154 @@ body.home-shell .about-note {
   color: var(--muted);
   font-size: 0.98rem;
   line-height: 1.5;
+}
+
+.visual-figure {
+  max-width: min(var(--measure), 100%);
+  margin: clamp(1.8rem, 5vw, 3rem) 0;
+  padding: clamp(1rem, 3vw, 1.4rem);
+  border-block: 2px solid var(--line-strong);
+  background:
+    linear-gradient(90deg, color-mix(in oklch, var(--red), transparent 92%), transparent),
+    var(--paper-strong);
+}
+
+.visual-figure-wide {
+  width: min(var(--bleed), 100vw - (var(--page-inline) * 2));
+  max-width: min(var(--bleed), 100vw - (var(--page-inline) * 2));
+}
+
+.prose .visual-figure-wide {
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.visual-figure header {
+  display: grid;
+  gap: 0.45rem;
+  max-width: 58rem;
+}
+
+.visual-figure header p {
+  margin: 0;
+  color: var(--red);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.visual-figure h3 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 4vw, 3.1rem);
+  font-weight: 700;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+.visual-figure header div {
+  max-width: 56ch;
+  color: var(--muted);
+  font-size: clamp(1rem, 0.96rem + 0.18vw, 1.12rem);
+  line-height: 1.55;
+}
+
+.visual-items {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: clamp(1rem, 3vw, 1.5rem);
+}
+
+.visual-item {
+  position: relative;
+  display: grid;
+  gap: 0.12rem;
+  min-height: 5rem;
+  padding: 0.9rem 1rem;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  background: color-mix(in oklch, var(--paper), var(--ink) 4%);
+}
+
+.visual-item::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: min(var(--item-size), 100%);
+  background: color-mix(in oklch, var(--line), transparent 58%);
+  content: "";
+}
+
+.visual-item > * {
+  position: relative;
+}
+
+.visual-item span {
+  color: var(--red);
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 4vw, 3.35rem);
+  font-weight: 700;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.visual-item strong {
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 0.96rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.visual-item p {
+  max-width: 56ch;
+  margin: 0.18rem 0 0;
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.45;
+}
+
+.visual-item-sun {
+  border-color: color-mix(in oklch, var(--gold), var(--line-strong) 42%);
+}
+
+.visual-item-sun::before {
+  background: color-mix(in oklch, var(--gold), transparent 78%);
+}
+
+.visual-item-fuel,
+.visual-item-money {
+  border-color: color-mix(in oklch, var(--red), var(--line-strong) 42%);
+}
+
+.visual-item-fuel::before,
+.visual-item-money::before {
+  background: color-mix(in oklch, var(--red), transparent 84%);
+}
+
+.visual-item-grid {
+  border-color: color-mix(in oklch, var(--blue), var(--line-strong) 42%);
+}
+
+.visual-item-grid::before {
+  background: color-mix(in oklch, var(--blue), transparent 84%);
+}
+
+.visual-item-land {
+  border-color: color-mix(in oklch, var(--green), var(--line-strong) 42%);
+}
+
+.visual-item-land::before {
+  background: color-mix(in oklch, var(--green), transparent 84%);
+}
+
+.visual-figure figcaption {
+  margin-top: 0.85rem;
+  color: var(--quiet);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
 }
 
 .source-details {

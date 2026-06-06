@@ -1,0 +1,54 @@
+---
+interface VisualItem {
+  value?: string;
+  label: string;
+  note?: string;
+  size?: number;
+  tone?: "sun" | "fuel" | "grid" | "money" | "land";
+}
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  body?: string;
+  items: VisualItem[];
+  sourceHref?: string;
+  sourceLabel?: string;
+  wide?: boolean;
+}
+
+const {
+  eyebrow,
+  title,
+  body,
+  items,
+  sourceHref,
+  sourceLabel = "Source",
+  wide = true
+} = Astro.props;
+---
+
+<figure class:list={["visual-figure", wide && "visual-figure-wide"]}>
+  <header>
+    {eyebrow && <p>{eyebrow}</p>}
+    <h3>{title}</h3>
+    {body && <div>{body}</div>}
+  </header>
+  <div class="visual-items">
+    {items.map((item) => (
+      <div
+        class:list={["visual-item", item.tone && `visual-item-${item.tone}`]}
+        style={`--item-size: ${item.size ?? 100}%;`}
+      >
+        {item.value && <span>{item.value}</span>}
+        <strong>{item.label}</strong>
+        {item.note && <p>{item.note}</p>}
+      </div>
+    ))}
+  </div>
+  {sourceHref && (
+    <figcaption>
+      <a href={sourceHref}>{sourceLabel}</a>
+    </figcaption>
+  )}
+</figure>

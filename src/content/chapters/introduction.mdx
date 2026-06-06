@@ -16,6 +16,8 @@ sources:
     url: "https://www.nrel.gov/pv/lifetime"
 ---
 
+import VisualFigure from '../../components/VisualFigure.astro';
+
 A solar panel in a field is a very boring object.
 
 It does not roar. It does not smoke. It does not have a tiny American flag decal on the side of it. It does not need a train full of coal, a tanker full of oil, a refinery, a pipeline, a drilling lease, a fuel contract, a protected shipping lane, or a lobbyist explaining why the entire economy will collapse unless the old system gets one more decade of patience.
@@ -25,6 +27,28 @@ It just sits there.
 Sunlight hits it. Electrons move. Electricity comes out.
 
 And somehow this became the suspicious thing.
+
+<VisualFigure
+  eyebrow={"Frame check"}
+  title={"Same grid. Different burden."}
+  body={"The old system gets to look like the practical world. The fuel-free machine gets treated like it owes America a personality statement."}
+  items={[
+    {
+      value: "repeat",
+      label: "Dig. Ship. Refine. Burn. Repeat.",
+      note: "The familiar fuel chain keeps asking for routes, contracts, price exposure, waste handling, and political protection.",
+      size: 100,
+      tone: "fuel"
+    },
+    {
+      value: "harvest",
+      label: "Build. Connect. Maintain. Generate.",
+      note: "Solar still has real costs, but once the panel is up, the fuel does not need a train, tanker, mine, or cartel.",
+      size: 62,
+      tone: "sun"
+    }
+  ]}
+/>
 
 ## The Suspicious Thing
 

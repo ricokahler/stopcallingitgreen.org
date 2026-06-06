@@ -10,6 +10,9 @@ interface Props {
   wide?: boolean;
   priority?: boolean;
   position?: string;
+  fit?: "cover" | "contain";
+  tone?: "photo" | "artifact";
+  aspectRatio?: string;
 }
 
 const {
@@ -20,7 +23,10 @@ const {
   creditLabel = "Photo source",
   wide = false,
   priority = false,
-  position = "center"
+  position = "center",
+  fit = "cover",
+  tone = "photo",
+  aspectRatio = "16 / 9"
 } = Astro.props;
 
 const width = wide ? 1440 : 1120;
@@ -30,7 +36,10 @@ const sizes = wide
   : "(min-width: 880px) 70ch, calc(100vw - 2rem)";
 ---
 
-<figure class:list={["book-image", wide && "book-image-wide"]} style={`--image-position: ${position};`}>
+<figure
+  class:list={["book-image", wide && "book-image-wide", `book-image-${tone}`]}
+  style={`--image-position: ${position}; --image-fit: ${fit}; --image-aspect-ratio: ${aspectRatio};`}
+>
   <div class="book-image-frame">
     <Image
       src={src}

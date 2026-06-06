@@ -12,13 +12,23 @@ sources:
     url: "https://www.climatetownproductions.com/youtube/landman"
   - title: "Paramount Plus, \"Landman | Tommy Explains Why Even Wind Turbines Depend on the Oil Industry\""
     url: "https://www.youtube.com/watch?v=fmbZwxEnAFc"
+  - title: "OERB Homeroom, \"Petro Pete’s Adventure - Big Bad Dream\""
+    url: "https://oerbhomeroom.com/digital-books/petro-petes-adventure-big-bad-dream/"
+  - title: "Wikimedia Commons, \"Destination Earth (1956) by Carl Urbano\""
+    url: "https://commons.wikimedia.org/wiki/File:Destination_Earth_(1956)_by_Carl_Urbano.webm"
+  - title: "Climate Files, \"1991 Information Council for the Environment Climate Denial Ad Campaign\""
+    url: "https://www.climatefiles.com/denial-groups/ice-ad-campaign/"
   - title: "API, \"Destination Earth\" research trail via Climate Town source page"
     url: "https://www.climatetownproductions.com/youtube/miseducation"
   - title: "Heartland Institute teacher-materials research trail via Climate Town source page"
     url: "https://www.climatetownproductions.com/youtube/miseducation"
 ---
 
+import BookImage from '../../components/BookImage.astro';
 import VideoCard from '../../components/VideoCard.astro';
+import destinationEarthApi from '../../assets/visuals/destination-earth-api.jpg';
+import iceChickenLittleAd from '../../assets/visuals/ice-chicken-little-ad.png';
+import petroPeteCover from '../../assets/visuals/petro-pete-big-bad-dream-cover.jpg';
 
 
 There is a children's book called *Petro Pete's Big Bad Dream*.
@@ -30,6 +40,19 @@ This is one of those facts that makes the whole room tilt a little.
 Because you can spend years hearing that climate education is indoctrination, that "green energy" is propaganda, that environmentalists are trying to brainwash children into hating America, and then you look over and the oil industry has a little character walking into classrooms to tell children fossil fuels are basically the hidden friend inside every object they love.
 
 It would be funnier if it were not so effective.
+
+<BookImage
+  src={petroPeteCover}
+  alt={"Cover art for Petro Pete's Adventure - Big Bad Dream, showing a cartoon child in bed above oil and gas imagery."}
+  caption={"This is the school-material frame in miniature: fossil fuel dependence presented as childhood common sense."}
+  creditHref={"https://oerbhomeroom.com/digital-books/petro-petes-adventure-big-bad-dream/"}
+  creditLabel={"OERB Homeroom"}
+  wide
+  priority
+  fit={"contain"}
+  tone={"artifact"}
+  aspectRatio={"16 / 10"}
+/>
 
 ## How Normal Gets Manufactured
 
@@ -46,6 +69,18 @@ That is not a conspiracy theory. That is a business model for influence.
 ## The Classroom Door
 
 Climate Town's source trail points to a long history: the American Petroleum Institute's mid-century "Destination Earth," Exxon working with Disney in the 1980s, Exxon climate documents, the 1998 API communications plan, Oklahoma energy-education efforts, the Heartland Institute sending climate-denial materials to teachers, and state textbook politics where large markets can shape what publishers produce for everyone else.
+
+<BookImage
+  src={destinationEarthApi}
+  alt={"A still from the 1956 American Petroleum Institute cartoon Destination Earth."}
+  caption={"The older version of the same move: API's 1956 industrial cartoon sold petroleum as the hidden engine of modern life."}
+  creditHref={"https://commons.wikimedia.org/wiki/File:Destination_Earth_(1956)_by_Carl_Urbano.webm"}
+  creditLabel={"Public-domain still via Wikimedia Commons"}
+  wide
+  fit={"contain"}
+  tone={"artifact"}
+  aspectRatio={"4 / 3"}
+/>
 
 You do not need to memorize every organization to understand the mechanism.
 
@@ -94,6 +129,18 @@ This is the part Americans need to understand about propaganda. We tend to imagi
 "Therefore the current fuel system is neutral" is the move.
 
 Propaganda lives in the therefore.
+
+<BookImage
+  src={iceChickenLittleAd}
+  alt={"A 1991 Information Council for the Environment newspaper-style advertisement using Chicken Little imagery to mock global warming warnings."}
+  caption={"The doubt machine eventually got much more direct. Climate Files preserves this 1991 ICE campaign ad as part of a packet whose stated strategy was to make global warming sound uncertain."}
+  creditHref={"https://www.climatefiles.com/denial-groups/ice-ad-campaign/"}
+  creditLabel={"Climate Files / DocumentCloud"}
+  wide
+  fit={"contain"}
+  tone={"artifact"}
+  aspectRatio={"1 / 1"}
+/>
 
 The fossil fuel industry's greatest achievement was not convincing Americans that pollution is good. Very few people believe that. Its greatest achievement was convincing Americans that fossil fuels are normal in a way that competing technologies are not.
 
