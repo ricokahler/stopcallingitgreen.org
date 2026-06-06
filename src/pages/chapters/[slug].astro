@@ -1,6 +1,6 @@
 ---
-import BottomCTA from "../../components/BottomCTA.astro";
 import ChapterNav from "../../components/ChapterNav.astro";
+import ShareCTA from "../../components/ShareCTA.astro";
 import SourceDetails from "../../components/SourceDetails.astro";
 import Layout from "../../layouts/Layout.astro";
 import { chapters, getAdjacentChapters, type ChapterMeta } from "../../lib/chapters";
@@ -33,15 +33,6 @@ const Content = chapter.Content;
     </article>
     <SourceDetails sources={chapter.sources} />
     <ChapterNav previous={previous} next={next} />
-    {chapter.slug === "conclusion" && (
-      <BottomCTA
-        title="What now?"
-        body="Keep the useful skepticism. Vote for wires, storage, local power, and less fuel dependence. Share the argument when it comes up naturally."
-        primaryHref="/chapters/introduction/"
-        primaryLabel="Read from the start"
-        secondaryHref="/about/"
-        secondaryLabel="About the project"
-      />
-    )}
+    {chapter.slug === "conclusion" && <ShareCTA />}
   </main>
 </Layout>

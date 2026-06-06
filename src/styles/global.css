@@ -205,7 +205,8 @@ body.home-shell .site-menu[data-open] {
 .theme-switcher button:focus-visible,
 .nav-toggle:focus-visible,
 .button:focus-visible,
-.chapter-nav-link:focus-visible {
+.chapter-nav-link:focus-visible,
+.share-tool:focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 3px;
 }
@@ -428,7 +429,8 @@ h3,
 .subtitle,
 .chapter-list strong,
 .chapter-nav-link strong,
-.bottom-cta h2 {
+.bottom-cta h2,
+.share-cta h2 {
   font-family: var(--font-display);
 }
 
@@ -1439,6 +1441,134 @@ body.home-shell .about-note {
   gap: 0.7rem;
 }
 
+.share-cta {
+  grid-column: 1 / -1;
+  justify-self: center;
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.72fr) minmax(24rem, 1fr);
+  gap: clamp(1.4rem, 4vw, 3rem);
+  width: min(980px, calc(100vw - (var(--page-inline) * 2)));
+  max-width: none;
+  margin-top: clamp(2.5rem, 7vw, 5rem);
+  padding: clamp(1.2rem, 3.5vw, 2rem);
+  border-block: 2px solid var(--line-strong);
+  background:
+    linear-gradient(90deg, color-mix(in oklch, var(--red), transparent 91%), transparent 70%),
+    var(--paper);
+}
+
+.share-cta-copy {
+  align-self: start;
+}
+
+.share-cta-kicker {
+  margin: 0 0 0.35rem;
+  color: var(--red);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.share-cta h2 {
+  max-width: 11ch;
+  margin: 0;
+  font-size: clamp(1.85rem, 4vw, 3.25rem);
+  font-weight: 700;
+  line-height: 0.96;
+  text-transform: uppercase;
+}
+
+.share-cta-copy > p:last-child {
+  max-width: 44ch;
+  margin: 0.85rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1.02rem, 0.98rem + 0.18vw, 1.12rem);
+  line-height: 1.55;
+}
+
+.share-cta-panel {
+  align-self: start;
+}
+
+.share-tools {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.share-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  padding: 0.68rem 0.78rem;
+  border: 1px solid color-mix(in oklch, var(--line-strong), transparent 12%);
+  border-radius: var(--radius);
+  background: color-mix(in oklch, var(--paper), transparent 10%);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+  line-height: 1.05;
+  text-align: left;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 160ms ease-out, background-color 160ms ease-out, color 160ms ease-out;
+}
+
+.share-tool::after {
+  color: var(--red);
+  content: ">";
+  font-size: 0.9em;
+  line-height: 1;
+}
+
+.share-tool:is(button)::after {
+  content: "";
+}
+
+.share-tool:hover {
+  border-color: var(--red);
+  background: var(--hover);
+  color: var(--ink);
+}
+
+.share-tool-primary {
+  border-color: var(--red);
+  background: var(--red);
+  color: oklch(0.14 0.012 72);
+}
+
+.share-tool-primary:hover {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: oklch(0.14 0.012 72);
+}
+
+.share-tool[hidden] {
+  display: none;
+}
+
+.share-note {
+  margin: 0.7rem 0 0;
+  color: var(--quiet);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.share-cta-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  padding-top: 0.4rem;
+}
+
 .home-page > .bottom-cta {
   grid-template-columns:
     minmax(var(--page-inline), 1fr)
@@ -1682,11 +1812,21 @@ body.home-shell .home-page > .bottom-cta p {
     grid-template-columns: 1fr;
   }
 
+  .share-cta {
+    grid-template-columns: 1fr;
+    width: calc(100vw - (var(--page-inline) * 2));
+  }
+
+  .share-tools {
+    grid-template-columns: 1fr;
+  }
+
   .bottom-cta h2 {
     max-width: 16ch;
   }
 
-  .bottom-cta-actions {
+  .bottom-cta-actions,
+  .share-cta-actions {
     justify-content: flex-start;
   }
 

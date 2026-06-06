@@ -1,0 +1,132 @@
+---
+const shareUrl = "https://stopcallingitgreen.org/";
+const shareTitle = "Stop Calling It Green";
+const shareText = "Cheap power got dragged into the culture war.";
+const encodedUrl = encodeURIComponent(shareUrl);
+const encodedTitle = encodeURIComponent(shareTitle);
+const encodedText = encodeURIComponent(`${shareTitle}: ${shareText}`);
+
+const links = [
+  {
+    label: "X / Twitter",
+    href: `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`,
+    external: true
+  },
+  {
+    label: "Facebook",
+    href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+    external: true
+  },
+  {
+    label: "LinkedIn",
+    href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+    external: true
+  },
+  {
+    label: "Reddit",
+    href: `https://www.reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`,
+    external: true
+  }
+];
+---
+
+<section class="share-cta" aria-labelledby="share-cta-title">
+  <div class="share-cta-copy">
+    <p class="share-cta-kicker">Share it when it comes up.</p>
+    <h2 id="share-cta-title">Pass the book along.</h2>
+    <p>
+      No pitch, no pledge. If the argument helped you see the pattern, send it
+      to someone who keeps hearing "green energy" as a trick.
+    </p>
+  </div>
+  <div class="share-cta-panel">
+    <div class="share-tools" aria-label="Share links">
+      <button
+        class="share-tool share-tool-primary"
+        type="button"
+        data-native-share
+        data-share-url={shareUrl}
+        data-share-title={shareTitle}
+        data-share-text={shareText}
+      >
+        Share sheet
+      </button>
+      <button
+        class="share-tool"
+        type="button"
+        data-copy-share
+        data-default-label="Copy link"
+        data-share-url={shareUrl}
+      >
+        Copy link
+      </button>
+      {
+        links.map((link) => (
+          <a
+            class="share-tool"
+            href={link.href}
+            target={link.external ? "_blank" : undefined}
+            rel={link.external ? "noopener noreferrer" : undefined}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+    <p class="share-note">
+      Platform links open their share composer. Copy link works anywhere else.
+    </p>
+  </div>
+  <div class="share-cta-actions">
+    <a class="button primary" href="/chapters/introduction/">Read from the start</a>
+    <a class="button" href="/about/">About the project</a>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const nativeButtons = document.querySelectorAll("[data-native-share]");
+    const copyButtons = document.querySelectorAll("[data-copy-share]");
+
+    nativeButtons.forEach((button) => {
+      if (!("share" in navigator)) {
+        button.hidden = true;
+        return;
+      }
+
+      button.addEventListener("click", async () => {
+        try {
+          await navigator.share({
+            title: button.dataset.shareTitle,
+            text: button.dataset.shareText,
+            url: button.dataset.shareUrl
+          });
+        } catch {
+          // The user can cancel the native sheet. No UI change needed.
+        }
+      });
+    });
+
+    copyButtons.forEach((button) => {
+      const originalLabel = button.dataset.defaultLabel || button.textContent || "Copy link";
+      const setTemporaryLabel = (label) => {
+        button.textContent = label;
+        window.setTimeout(() => {
+          button.textContent = originalLabel;
+        }, 1600);
+      };
+
+      button.addEventListener("click", async () => {
+        const shareUrl = button.dataset.shareUrl || window.location.href;
+        try {
+          if (!navigator.clipboard || !window.isSecureContext) throw new Error("clipboard unavailable");
+          await navigator.clipboard.writeText(shareUrl);
+          setTemporaryLabel("Copied");
+        } catch {
+          setTemporaryLabel("Copy manually");
+          window.prompt("Copy this link", shareUrl);
+        }
+      });
+    });
+  })();
+</script>
