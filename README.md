@@ -53,3 +53,5 @@ npm run github:configure
 ```
 
 The bootstrap token should be short-lived and only needs to create another Cloudflare API token. The script creates a least-privilege Cloudflare Pages deploy token, stores it in GitHub Secrets, and does not print the secret.
+
+`npm run github:configure` makes pull requests squash-only, turns on automatic branch cleanup after merges, and disables the old GitHub Pages site so Cloudflare is the only deployment path.
