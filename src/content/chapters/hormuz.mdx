@@ -27,7 +27,7 @@ sources:
 import BookImage from '../../components/BookImage.astro';
 import VideoCard from '../../components/VideoCard.astro';
 import VisualFigure from '../../components/VisualFigure.astro';
-import transmissionLines from '../../assets/visuals/transmission-lines.jpg';
+import hormuzOilDeliveries from '../../assets/visuals/hormuz-oil-deliveries-commons.png';
 
 A fight in a narrow waterway half a world away can make fuel more expensive at home.
 
@@ -71,13 +71,15 @@ If a fuel system depends on huge volumes of liquid moving through narrow, milita
 />
 
 <BookImage
-  src={transmissionLines}
-  alt={"Tall transmission towers carrying power lines across a field at sunset."}
-  caption={"A stronger grid is geography too: wires, regions, redundancy, and fewer fragile fuel chains."}
-  creditHref={"https://www.pexels.com/photo/power-lines-over-cornfield-at-sunset-36579198/"}
-  creditLabel={"Photo: Pexels"}
+  src={hormuzOilDeliveries}
+  alt={"World maps centered on the Strait of Hormuz, with oil delivery routes and delivery-time arcs radiating toward Europe, Asia, the Americas, and Oceania."}
+  caption={"The map is the argument: Hormuz is not local drama. It is a narrow fuel route with global reach."}
+  creditHref={"https://commons.wikimedia.org/wiki/File:Oil_Deliveries_From_Hormuz.svg"}
+  creditLabel={"Map: Gringer / Wikimedia Commons (CC BY 4.0)"}
   wide
-  position={"center 48%"}
+  fit={"contain"}
+  tone={"artifact"}
+  aspectRatio={"3 / 1"}
 />
 
 ## The Slogan Problem

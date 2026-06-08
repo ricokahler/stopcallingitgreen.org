@@ -33,7 +33,8 @@ sources:
 import BookImage from '../../components/BookImage.astro';
 import VideoCard from '../../components/VideoCard.astro';
 import VisualFigure from '../../components/VisualFigure.astro';
-import transmissionLines from '../../assets/visuals/transmission-lines.jpg';
+import qinghaiTibetHvdc from '../../assets/visuals/qinghai-tibet-hvdc-commons.jpg';
+import chinaHighVoltageGrid from '../../assets/visuals/china-high-voltage-grid-commons.png';
 
 There is a moment in the American energy argument where a real infrastructure problem turns into a joke.
 
@@ -58,9 +59,11 @@ Fine.
 But a hard thing is not the same as a punchline.
 
 <BookImage
-  src={transmissionLines}
-  alt={"Tall transmission towers carrying power lines across a field at sunset."}
-  caption={"The boring part is the strategic part. Cheap power only matters if the wire can reach the load."}
+  src={qinghaiTibetHvdc}
+  alt={"A Qinghai-Tibet high-voltage direct-current transmission tower and lines crossing open land in western China."}
+  caption={"The boring part is the strategic part. Long-distance power is not a vibe. It is towers, insulators, rights of way, and hard geography."}
+  creditHref={"https://commons.wikimedia.org/wiki/File:%E6%B2%BB%E5%A4%9A_%E9%9D%92%E8%97%8F%C2%B1400%E5%8D%83%E4%BC%8F%E7%9B%B4%E6%B5%81%E8%BE%93%E7%94%B5%E7%BA%BF%E8%B7%AF%E4%B8%8E%E6%9D%86%E5%A1%94_01.jpg"}
+  creditLabel={"Photo: Liuxingy / Wikimedia Commons (CC BY-SA 4.0)"}
   wide
   priority
 />
@@ -127,6 +130,18 @@ That second line is not quite Los Angeles to New York. It is closer to Los Angel
 China is building thousand-mile extension cords for industrial strategy.
 
 America is still deciding whether the extension cord has the right personality.
+
+<BookImage
+  src={chinaHighVoltageGrid}
+  alt={"A cropped OpenStreetMap-derived map of East Asia showing dense high-voltage power lines across China and long lines reaching inland."}
+  caption={"A cropped view of the 2023 high-voltage grid map. Purple lines in the source legend are 800 kV or more, the voltage class where China's long-distance strategy becomes visible."}
+  creditHref={"https://commons.wikimedia.org/wiki/File:High-voltage_power_line_grid_of_the_world.png"}
+  creditLabel={"Map: HighVoltage 5576 / Wikimedia Commons (CC BY-SA 2.0)"}
+  wide
+  fit={"contain"}
+  tone={"artifact"}
+  aspectRatio={"16 / 9"}
+/>
 
 <VisualFigure
   eyebrow={"Scale check"}
