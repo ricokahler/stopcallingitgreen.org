@@ -41,7 +41,7 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         if: ${{ env.CLOUDFLARE_ACCOUNT_ID != '' && env.CLOUDFLARE_API_TOKEN != '' }}
-        run: wrangler pages deploy dist --project-name stopcallingitgreen-org --branch main
+        run: npx wrangler pages deploy dist --project-name stopcallingitgreen-org --branch main
 
       - name: Skip deploy until secrets are installed
         if: ${{ env.CLOUDFLARE_ACCOUNT_ID == '' || env.CLOUDFLARE_API_TOKEN == '' }}
