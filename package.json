@@ -9,9 +9,12 @@
     "preview": "astro preview",
     "migrate:manuscript": "node scripts/migrate-manuscript.mjs",
     "check:public-output": "node scripts/check-public-output.mjs",
+    "check:deployment": "node --test scripts/deployment.test.mjs",
+    "deployment:stamp": "node scripts/deployment.mjs stamp",
+    "deployment:verify": "node scripts/deployment.mjs verify",
     "cloudflare:create-deploy-token": "node scripts/create-cloudflare-deploy-token.mjs",
     "github:configure": "node scripts/configure-github-repo.mjs",
-    "deploy:cloudflare": "npm run build && npm run check:public-output && wrangler pages deploy dist --project-name stopcallingitgreen-org --branch main",
+    "deploy:cloudflare": "npm run build && npm run deployment:stamp && npm run check:public-output && wrangler pages deploy dist --project-name stopcallingitgreen-org --branch main && npm run deployment:verify",
     "registrar:nameservers": "node scripts/namecheap-set-nameservers.mjs"
   },
   "dependencies": {
