@@ -4,12 +4,16 @@ shortTitle: "The Electron Does Not Care"
 slug: "electron-does-not-care"
 order: 1
 chapterLabel: "Chapter 1"
-description: "Electricity is not a culture. The light turns on, or it does not."
+description: "Electricity isn't a culture. Look at what's actually getting built, where, and why."
 sources:
   - title: "EIA, \"Electricity in the U.S.\""
     url: "https://www.eia.gov/energyexplained/electricity/electricity-in-the-us.php"
-  - title: "EIA, \"Solar, natural gas, and batteries account for most new U.S. generating capacity\""
-    url: "https://www.eia.gov/todayinEnergy/detail.php?id=67005"
+  - title: "EIA, \"New U.S. electric generating capacity expected to reach a record high in 2026\""
+    url: "https://www.eia.gov/todayinenergy/detail.php?id=67205"
+  - title: "Inside Climate News, \"Texas Seizes the Solar Crown From California\""
+    url: "https://insideclimatenews.org/news/05032026/inside-clean-energy-texas-utility-scale-solar/"
+  - title: "Inside Climate News, \"Which State Leads in Battery Energy Storage? It Depends on How You Measure.\""
+    url: "https://insideclimatenews.org/news/02042026/inside-clean-energy-us-battery-storage/"
   - title: "Lazard, \"2025 Levelized Cost of Energy+\""
     url: "https://www.lazard.com/media/uounhon4/lazards-lcoeplus-june-2025.pdf"
   - title: "NREL, \"Photovoltaic Lifetime Project\""
@@ -17,20 +21,19 @@ sources:
 ---
 
 import BookImage from '../../components/BookImage.astro';
+import VisualFigure from '../../components/VisualFigure.astro';
 import solarPanelsField from '../../assets/visuals/solar-panels-field.jpg';
 
 Flip a switch.
 
-That is the whole ceremony. No pledge of allegiance. No argument about national identity. No one asks whether the hallway light is powered by a sufficiently masculine molecule. You flip the switch, and the light either turns on or it does not.
+That's the whole ceremony. No pledge, no argument about national identity, nobody asking whether the hallway light runs on a sufficiently masculine molecule. The light comes on or it doesn't.
 
-The light does not know whether the electricity came from a gas plant, a coal plant, a dam, a nuclear reactor, a wind farm, or a solar array. It does not know whether the electrons were blessed by a think tank or denounced by a talk show host. It does not know if the power was "green."
-
-Electricity is not a culture. It is a result.
+The light has no idea whether its power came from a gas plant, a coal plant, a dam, a reactor, a wind farm, or a field of panels. It doesn't know whether the electrons were blessed by a think tank or denounced on cable news. Electricity isn't a culture. It's a result.
 
 <BookImage
   src={solarPanelsField}
   alt={"Rows of solar panels mounted over grass near a tree line."}
-  caption={"The machine still has costs. The sunlight does not send an invoice."}
+  caption={"The machine has costs. The sunlight doesn't send an invoice."}
   creditHref={"https://www.pexels.com/photo/solar-panels-in-modern-photovoltaic-power-station-4320449/"}
   creditLabel={"Photo: Pexels"}
   wide
@@ -40,52 +43,94 @@ Electricity is not a culture. It is a result.
 
 ## Be Boring On Purpose
 
-America has become very bad at obvious things once a symbol gets attached to them.
+The way out of the culture war is to be boring on purpose.
 
-Take a microwave. Nobody asks whether the microwave is "green." They ask whether it heats the food, uses too much power, or fits on the counter. But when we talk about the electricity that runs the microwave, people suddenly act like the source has a personality. Gas is serious. Coal is old-fashioned. Wind is maybe okay if it is far away. Solar is a coastal plot.
+Nobody asks whether a microwave is "green." They ask whether it heats the food, what it costs, and whether it fits on the counter. The power behind the microwave deserves the same treatment. Some plants burn fuel to spin turbines. Some split atoms. Some catch falling water, moving air, or sunlight. Each has strengths and weaknesses, and the grid has always been a mix of them, because no single machine is good at everything.
 
-We do not have an energy debate. We have an identity debate wearing a hard hat.
+So the useful question isn't "which source matches my values?" It's "what combination gets us cheap, reliable power with the least nonsense?"
 
-The first step out is to be boring on purpose. Electricity is made by moving electrons through a system. Different sources push the system in different ways. Some burn fuel to spin turbines. Some use heat from splitting atoms. Some use falling water, wind, or sunlight.
+When someone says "you can't run the whole country on solar," they're right, and they're also arguing with nobody. Nobody serious wants a single tool to run civilization. You don't throw out your hammer because it makes a bad ladder.
 
-Each source has strengths and weaknesses. The right question is not "Which source expresses my values?" The right question is, "What combination gives us cheap, reliable, resilient power with the least nonsense?"
+In 2025, about 41 percent of America's utility-scale electricity came from natural gas, 18 percent from nuclear, 17 percent from coal, and 24 percent from renewables: wind about 11, solar about 7, hydro about 6. That's the portfolio as it stands. The interesting part is which way it's moving, and who's moving it.
 
-The grid is already a messy portfolio. So when someone says, "We cannot run everything on solar," the answer is simple: nobody serious is asking a single tool to become civilization. You do not reject hammers because they are bad at being ladders. Tools have roles. The grid is a system of roles.
+## What's Actually Getting Built
 
-## Normal Is Not Neutral
+Look at what power companies are actually building, as opposed to what people argue about on television.
 
-Fossil fuels get treated as the baseline. They are allowed to have flaws because their flaws are familiar. A gas plant needs fuel forever, but fuel dependence feels normal. A coal plant needs rail deliveries, mining, and waste handling, but that feels like industry. Oil prices swing wildly because of global conflict and OPEC decisions, but that feels like "the economy."
+In 2025 the U.S. added about 53 gigawatts of new generating capacity, the most in a single year since 2002. For 2026, developers told the Energy Information Administration they plan to add a record 86 gigawatts. Here's the mix:
 
-This is how normal works. Normal does not mean neutral. It means the politics got installed so long ago that people forgot to see them.
+<VisualFigure
+  eyebrow={"What's being built"}
+  title={"Planned U.S. capacity additions, 2026"}
+  body={"Developers reported 86 gigawatts of planned utility-scale additions to EIA. Solar and batteries are 79 percent of it."}
+  items={[
+    {
+      value: "51%",
+      label: "Solar (43.4 GW)",
+      note: "The single largest category of new power plants in America.",
+      size: 100,
+      tone: "sun"
+    },
+    {
+      value: "28%",
+      label: "Battery storage (24 GW)",
+      note: "Built to move cheap midday power into the evening peak.",
+      size: 55,
+      tone: "grid"
+    },
+    {
+      value: "14%",
+      label: "Wind (11.8 GW)",
+      note: "Mostly across the Great Plains and Texas.",
+      size: 27,
+      tone: "land"
+    },
+    {
+      value: "7%",
+      label: "Natural gas (6.3 GW)",
+      note: "Gas still runs the most generation, but it's a small slice of what's new.",
+      size: 14,
+      tone: "fuel"
+    }
+  ]}
+  sourceHref={"https://www.eia.gov/todayinenergy/detail.php?id=67205"}
+  sourceLabel={"EIA, February 2026"}
+/>
 
-Fossil fuels won the twentieth century. They powered modern life, built fortunes, and moved armies. We do not need to pretend none of that happened. The mistake is treating that history as a permanent license.
+Those plans don't all get finished on schedule, and some of 2026's rush is developers racing federal tax-credit deadlines (more on that in the next chapter). But the direction has been the same for years. Solar and batteries are most of what's getting built because, for a utility that has to buy new capacity, they're usually the cheapest thing to add and the fastest to put in service.
 
-Something can be historically important and currently over-defended. Something can be familiar and still be expensive, fragile, polluting, politically captured, and strategically dumb.
+The investment bank Lazard has published a cost comparison every year since 2007. In its 2025 edition, new utility-scale solar and onshore wind were again among the cheapest sources of new electricity in America, before any subsidy. That's not the whole story; a grid also has to pay to keep the lights on when the sun's down and the wind's still, and we'll get to night in Chapter 7. But it's why the people who sign the checks keep choosing them.
 
-If your goal is power, then the question is how to get power. If a source is cheap, use it. If it can be built quickly, that matters. If it needs fuel forever, count that. If it requires global supply chains, count that. If it creates local jobs, count that. If its competitors have received subsidies for a century, count that too.
+## Where It's Getting Built
 
-Count all of it. The electron does not care which facts hurt your team.
+Now look at where.
+
+Texas generates more wind power than any other state. In 2025 it also passed California in utility-scale solar generation, and in early 2026 it passed California in battery capacity. Iowa gets most of its electricity from wind, the largest share of any state. Kansas, Oklahoma, the Dakotas, Nebraska, and New Mexico all get a quarter or more of their power from wind.
+
+These aren't places that take orders from climate nonprofits. Texas's grid is famously run as a market: build whatever you want, sell power if anyone will buy it. Wind and solar won that market on price. In farm country, a turbine on your land is a lease check that shows up whether corn is at four dollars or six. It's hard to describe a rancher cashing that check as a coastal lifestyle choice.
+
+The electron doesn't care about the bumper stickers in the parking lot. It turns out the people building the grid mostly don't either.
+
+## Normal Isn't Neutral
+
+Meanwhile fossil fuels get treated as the baseline, the thing you don't have to justify. Their flaws are allowed because they're familiar. A gas plant needs fuel forever, but that feels like normal operations. A coal plant needs mining, rail deliveries, and ash ponds, but that feels like industry. Gasoline swings with wars and OPEC meetings, but that feels like "the economy."
+
+Normal doesn't mean neutral. It means the politics got installed so long ago that people stopped seeing them.
+
+Fossil fuels won the twentieth century. They powered modern life, built fortunes, and moved armies, and nobody needs to pretend otherwise. The mistake is treating that history as a permanent license. Something can be historically essential and currently over-defended. Something can be familiar and still be expensive, fragile, polluting, and strategically dumb.
 
 ## The Fuel Chain
 
-One reason solar is so clarifying is that it changes the logistics of power.
+Here's the difference that matters most, and it isn't about the environment. It's logistics.
 
-A gas plant is not just a machine. It is a machine plus a fuel supply _forever_. An oil-based transport system is vehicles plus refineries plus drilling plus shipping plus geopolitics plus price shocks. These systems are incredibly needy.
+A gas plant is a machine plus a fuel supply, forever. Somebody has to find the gas, drill for it, process it, pipe it, and sell it at whatever the market says that month. An oil-based transportation system is vehicles plus wells plus refineries plus tankers plus shipping lanes plus everything that can go wrong with any of them.
 
-A solar project has manufacturing, installation, land use, and eventual replacement. But once the panel is up, the fuel shows up for free. Nobody has to discover, extract, buy, burn, ship, hedge, invade, insure, or lobby the sun into rising.
+A solar farm has to be manufactured, installed, maintained, and eventually replaced; panels typically lose a fraction of a percent of their output per year and come with 25-year warranties. But once it's up, the fuel arrives on its own. Nobody has to discover, extract, buy, ship, hedge, insure, defend, or lobby the sun into rising.
 
-That is not hippie talk. That is logistics.
+That isn't hippie talk. It's a shorter supply chain. It's fewer people taking a cut between the energy source and your light switch, which ought to appeal to conservatives, libertarians, and anyone who's ever stared at a utility bill wondering how many middlemen got paid before the fan turned on.
 
-People say "energy independence" and imagine more drilling. Sometimes domestic production does reduce dependencies. But if the fuel is part of a globally priced commodity system, your independence has severe limits. If your household budget can be hit by a chokepoint halfway around the world, you are not independent.
+## The Obvious Objection
 
-A wire from a local source shortens the chain. It reduces the number of people who get to take a cut between sunlight and your light switch. That should appeal to conservatives, libertarians, and anyone who has ever looked at a utility bill and wondered how many middlemen got paid before the fan turned on.
+The obvious comeback is the one you've probably already thought of: sure it's cheap, it's subsidized. Somebody is getting rich off this.
 
-But because solar got branded as "green," people stop at the label.
-
-## More Doorways In
-
-Environmental politics helped create some of this mess by talking about energy in a way that made moral urgency sound like the only argument. The climate crisis is real. But persuasion is audience-specific. If someone hears "green" as "you are bad and I am better," the word is doing different work than intended.
-
-Solar can be good because it is cheap. Because it is domestic. Because it is quiet. Because it has no fuel bill. Because it can sit on a warehouse roof or a brownfield. If it also cuts pollution and climate risk, that is not a reason to distrust it. That is what adults call a bonus.
-
-This is where the skeptical instinct comes in. "Follow the incentives. Do not trust a story just because powerful people repeat it. Ask who benefits." That instinct is incredibly healthy. It should just not stop the moment it becomes inconvenient for oil.
+That's a good instinct. Somebody is. So let's follow the money, and let's follow it all the way.
