@@ -4,73 +4,142 @@ shortTitle: "The Sun Goes Down"
 slug: "sun-goes-down"
 order: 7
 chapterLabel: "Chapter 7"
-description: "Variability is not a gotcha. It is a design constraint for a system."
+description: "Every power plant fails sometimes. Reliability is something you design, not something one fuel owns."
 sources:
-  - title: "NREL/DOE, \"Solar Futures Study Fact Sheet\""
-    url: "https://www.nrel.gov/docs/fy21osti/80826.pdf"
-  - title: "DOE, \"Solar Futures Study\""
-    url: "https://www.energy.gov/eere/solar/solar-futures-study"
-  - title: "EIA, \"Solar power generation drives electricity generation growth over the next two years\""
+  - title: "FERC-NERC, \"The February 2021 Cold Weather Outages in Texas and the South Central United States\""
+    url: "https://www.nerc.com/pa/rrm/ea/Documents/February_2021_Cold_Weather_Report.pdf"
+  - title: "FactCheck.org, \"Wind Turbines Didn't Cause Texas Energy Crisis\""
+    url: "https://www.factcheck.org/2021/02/wind-turbines-didnt-cause-texas-energy-crisis/"
+  - title: "CNN, fact check on Texas outages and renewable energy (February 2021)"
+    url: "https://www.cnn.com/2021/02/19/politics/texas-energy-outage-wind-turbine-blame-green-energy-fact-check/index.html"
+  - title: "Texas Comptroller, \"Winter Storm Uri 2021\""
+    url: "https://comptroller.texas.gov/economy/fiscal-notes/archive/2021/oct/winter-storm-impact.php"
+  - title: "Community Impact, \"Texas Department of State Health Services increases death toll from winter storm to 246\""
+    url: "https://communityimpact.com/austin/central-austin/dallas-fort-worth/2022/01/03/texas-department-of-state-health-services-increases-death-toll-from-winter-storm-to-246/"
+  - title: "Office of the Texas Governor, \"Governor Abbott Signs ERCOT Reforms, Power Grid Weatherization Legislation Into Law\" (2021)"
+    url: "https://gov.texas.gov/news/post/governor-abbott-signs-ercot-reforms-power-grid-weatherization-legislation-into-law"
+  - title: "Utility Dive, PJM report on Winter Storm Elliott (2023)"
+    url: "https://www.utilitydive.com/news/pjm-winter-storm-elliott-report-gas-generation/688217/"
+  - title: "EIA, \"Solar power generation drives electricity generation growth over the next two years\" (January 2026)"
     url: "https://www.eia.gov/todayinEnergy/detail.php?id=67005"
-  - title: "EIA, \"New U.S. electric generating capacity expected to reach a record high in 2026\""
-    url: "https://www.eia.gov/todayinEnergy/detail.php?id=67205"
-  - title: "Lazard, \"2025 Levelized Cost of Energy+ Report\""
-    url: "https://www.lazard.com/news-announcements/lazard-releases-2025-levelized-cost-of-energyplus-report-pr/"
-  - title: "Undecided with Matt Ferrell, \"What the Iran War Means for Renewable Energy\""
-    url: "https://undecided.tech/what-the-iran-war-means-for-renewable-energy/"
+  - title: "Modo Energy, \"ERCOT BESS buildout: 16 GW in Q2 2026\""
+    url: "https://modoenergy.com/research/en/ercot-bess-buildout-16-gw-q2-2026-growth-slowing"
+  - title: "Grid Status, \"ERCOT records, July 2026\""
+    url: "https://blog.gridstatus.io/ercot-record-july-2026/"
+  - title: "CAISO, \"Key Statistics,\" August 2026"
+    url: "https://www.caiso.com/documents/key-statistics-aug-2026.pdf"
+  - title: "Inside Climate News, \"Which State Leads in Battery Energy Storage? It Depends on How You Measure.\""
+    url: "https://insideclimatenews.org/news/02042026/inside-clean-energy-us-battery-storage/"
+  - title: "Lazard, \"Levelized Cost of Energy+\" (2026, version 19.0)"
+    url: "https://www.lazard.com/media/kcfconhf/lazards-lcoeplus_vf.pdf"
+  - title: "DOE, \"Solar Futures Study\" (2021)"
+    url: "https://www.energy.gov/sites/default/files/2021-09/Solar%20Futures%20Study.pdf"
 ---
 
 import BookImage from '../../components/BookImage.astro';
+import VisualFigure from '../../components/VisualFigure.astro';
 import windLinesField from '../../assets/visuals/wind-lines-field.jpg';
 
-Every family has one guy who says, "What about at night?" like he personally discovered astronomy.
+The most common objection to solar is also the best one: what about at night?
 
-He is not wrong. The sun does go down. Clouds exist. Wind changes. Demand rises and falls. Equipment breaks. Fuel plants trip offline. Reality keeps showing up to meetings without checking the agenda.
+It's a fair question. The sun goes down. Clouds happen. The wind dies. Demand spikes on hot afternoons and cold mornings. Equipment breaks. Reality keeps showing up to the meeting without checking the agenda.
 
-The question is not whether solar varies. The question is whether variability is a fatal flaw or an engineering problem.
-
-It is an engineering problem.
+The real question is whether that variability is a fatal flaw or an engineering problem. It's an engineering problem. And the best way to see that is to look at what happened the last time the lights went out in a big way.
 
 <BookImage
   src={windLinesField}
   alt={"A wind turbine and power lines standing over green fields under a gray sky."}
-  caption={"Variable generation is not a personality flaw. It is a grid design problem."}
+  caption={"Variable output is a design constraint, like everything else on the grid."}
   creditHref={"https://www.pexels.com/photo/green-fields-with-wind-turbine-and-power-lines-35440924/"}
   creditLabel={"Photo: Pexels"}
   wide
   position={"center 44%"}
 />
 
-## The Real Questions
+## The Week Texas Froze
 
-The grid has always been a balancing act. Supply and demand must be matched constantly. Solar adds a major new variable, but it does not introduce the concept of variability into a previously serene universe.
+In February 2021, Winter Storm Uri pushed Arctic air deep into Texas. Demand for heat soared just as power plants across the state started failing. On February 15, at the peak, more than 4.5 million Texas homes and businesses were without power, and about two-thirds of Texans lost power at some point that week. The state's official count put the death toll at 246, most of them from the cold. The Dallas Fed cited estimates of $80 billion to $130 billion in economic losses.
 
-"Solar does not work at night" sounds like common sense, but it does not end the conversation. It begins the real conversation: _How much solar? Paired with what storage? With what transmission? At what cost? Compared with what alternative?_
+The next night, Governor Greg Abbott went on Fox News and told Sean Hannity what had gone wrong:
 
-Solar plus storage is not competing against a perfect fossil grid that never fails, never needs fuel, never pollutes, and never freezes. It is competing against the actual system we have.
+> "This shows how the Green New Deal would be a deadly deal for the United States of America. ... Our wind and our solar, they got shut down."
 
-Lazard's 2025 LCOE work finds utility-scale solar and onshore wind among the lowest-cost new-build generation sources. That is why serious power markets keep building them. But the grid does not only buy kilowatt-hours; it needs dependable capacity. The right question is: what portfolio gives us reliable delivered power at the best total cost?
+Some wind turbines did freeze. That part was true. But the grid operator's own numbers told a different story. At the worst point, about 28,000 megawatts of thermal power (gas, coal, and nuclear) was offline, compared with about 18,000 megawatts of wind and solar. "There is significantly more megawatts in that thermal unit category than in the renewable category," an ERCOT official told reporters.
 
-That portfolio includes solar, wind, batteries, transmission, nuclear, geothermal, hydro, and some gas backup during the transition. You do not keep all your money in one asset. You do not ask your pickup truck to also be a refrigerator. The fact that a tool does not do all jobs does not make it a bad tool.
+When federal regulators finished their investigation, the picture was clear. Of the 1,045 generating units that broke down, cut output, or failed to start across Texas and the South Central U.S., 58 percent were natural gas plants. Wind was 27 percent, coal 6, solar 2. The biggest causes were frozen equipment and fuel problems, and most of the fuel problems were gas that couldn't get to the plants because wellheads, pipelines, and processing facilities froze too.
 
-## Texas Is Already Doing It
+To his credit, Abbott then made grid reform an emergency item for the legislature, and that June he signed a law requiring power plants and gas facilities to winterize. That was the right lesson.
 
-Batteries are where the cultural story is changing fast. Storage used to sound like an environmentalist handwave. Now it is a grid asset that utilities and markets dispatch and build. EIA forecasted that ERCOT, the Texas grid, would expand battery capacity from about 15 gigawatts in 2025 to 37 gigawatts by the end of 2027.
+<VisualFigure
+  eyebrow={"February 2021"}
+  title={"Which plants failed during Winter Storm Uri?"}
+  body={"Share of the 1,045 generating units that had an outage, derate, or failure to start, by fuel. Counted by number of units, not megawatts."}
+  items={[
+    {
+      value: "58%",
+      label: "Natural gas",
+      note: "Frozen equipment, plus gas supply that froze before it reached the plant.",
+      size: 100,
+      tone: "fuel"
+    },
+    {
+      value: "27%",
+      label: "Wind",
+      note: "Mostly icing on turbines that weren't built for extreme cold.",
+      size: 47,
+      tone: "land"
+    },
+    {
+      value: "6%",
+      label: "Coal",
+      note: "Frozen equipment and fuel handling.",
+      size: 10,
+      tone: "fuel"
+    },
+    {
+      value: "2%",
+      label: "Solar",
+      note: "Snow, ice, and cold.",
+      size: 4,
+      tone: "sun"
+    }
+  ]}
+  sourceHref={"https://www.nerc.com/pa/rrm/ea/Documents/February_2021_Cold_Weather_Report.pdf"}
+  sourceLabel={"FERC-NERC final report"}
+/>
 
-Texas is politically conservative, energy-hungry, highly industrial, and not famous for taking orders from climate nonprofits. It builds wind, solar, and batteries because the economics work.
+Less than two years later, in December 2022, Winter Storm Elliott hit the eastern U.S. On Christmas Eve, about 46,000 megawatts of capacity in PJM, the grid that serves 65 million people from Chicago to Washington, unexpectedly went offline, nearly a quarter of its fleet. About 70 percent of it was gas.
 
-Storage is not free. Batteries have material supply chains, degradation, and fire-safety concerns. But every tool arrives with a bill. A gas plant has fuel costs. A nuclear plant has high capital costs. The adult question is which bills are worth paying.
+None of this means gas is uniquely bad. It means every kind of power plant fails, the "always on" ones included, and the fuel that's supposed to be the reliable backstop has its own way of failing in exactly the weather when you need it most. The lesson of Uri wasn't "renewables are dangerous." It was "nothing is reliable unless you design and pay for reliability": winterize everything, keep reserves, and connect to your neighbors so you can borrow power in a crisis. (The Texas grid is mostly islanded from the rest of the country, which limited how much help it could import.)
 
-## Serious Skepticism
+The night question is a real one. It just deserves to be aimed at every kind of plant.
 
-Sometimes the answer will include fossil fuel backup, at least for a while. Reliability matters. If the lights go out, the public will not give you extra credit for elegant intentions.
+## Batteries Grew Up
 
-But the existence of backup does not make solar fake. The better skeptical question is not "does solar vary?" It is "are we building the complementary systems fast enough and cheaply enough?"
+For years, "storage" sounded like an environmentalist's handwave. Not anymore: it's one of the fastest-growing things on the grid, and it's growing fastest in Texas.
 
-Are we building transmission fast enough? Are interconnection queues too slow? Do we need better long-duration storage and nuclear? Yes.
+Texas passed California in early 2026 to become the state with the most battery capacity, by megawatts. ERCOT had about 16.5 gigawatts of batteries by mid-2026, and the EIA expects that to reach about 37 gigawatts by the end of 2027. On July 22, 2026, Texas batteries set a discharge record of nearly 12 gigawatts, pushing cheap afternoon solar into the evening peak, which is the exact moment the "what about night?" question is supposed to bite. California, which pioneered grid batteries, has a fleet of similar size, and because its batteries typically run longer, it still stores more total energy.
 
-That is serious skepticism. It asks what the system needs and whether politics is blocking it. Design constraints are normal. Bridges have load limits. The fossil fuel system has massive constraints too: fuels must be extracted, combustion creates waste, prices fluctuate, and pipelines leak. We just stopped calling them constraints because we are used to them.
+Texas is doing this for the money. Its power market pays whoever can deliver electricity when it's scarce, and batteries filled with cheap midday solar turned out to be very good at that.
 
-The strongest case for solar is not that it eliminates the need for planning. It is that, with planning, it can provide huge amounts of low-cost electricity without ongoing fuel dependence.
+Storage isn't free. Batteries use minerals with their own supply chains, they wear out, and they need real fire-safety standards. Most of today's grid batteries cover a few hours, not a few days. But every tool on the grid comes with a bill. Gas plants pay for fuel forever. Nuclear plants are expensive to build. So which bills are worth paying? For covering the evening peak, Lazard's 2026 numbers put new solar paired with storage at $61 to $156 per megawatt-hour, below the $144 to $276 for a new gas "peaker" plant, the kind built to run only during the highest-demand hours. For a multi-day winter lull, a few hours of batteries are no substitute, which brings us to the hard part.
 
-But planning has a physical form. Most of it is wire. And the wire is exactly where America keeps flinching.
+## The Honest Hard Part
+
+Serious skeptics do have a point here, and it's worth being exact about it.
+
+Getting through a normal night is mostly a solved problem: solar plus a few hours of batteries, plus the rest of the grid, handles it, and that combination is getting cheaper. The hard part is the rare stretch of several cold, cloudy, windless days in winter, when demand is high and wind and solar are both weak for longer than a battery lasts. Covering that last slice of the year is the expensive part of a very clean grid.
+
+There are several ways to handle it, and a sensible grid uses more than one: keep some gas plants around as backup and run them rarely; keep existing nuclear plants running and build new nuclear and geothermal where it pencils out; use hydro; develop longer-duration storage; pay big customers to shift demand; and, most important of all, build long transmission lines so a still day in Texas can borrow wind from Kansas or sun from Arizona. Weather is regional, and the worst storms are huge (Uri forced rolling blackouts in Kansas and Oklahoma that same week), so long lines help most when they reach beyond the storm. They're one tool, not the whole answer.
+
+That's what the Department of Energy's Solar Futures study modeled: solar supplying roughly 40 percent of U.S. electricity by 2035, with storage, wind, and expanded transmission doing the rest of the work, and some firm backup still in the mix. It isn't a plan to run the country on panels alone.
+
+## Gotcha Versus Skepticism
+
+"Solar doesn't work at night" sounds like the end of a conversation. It's really the beginning of a better one. How much solar? Paired with how much storage? Connected to what? Backed up by what? At what cost, compared with what alternative?
+
+That's serious skepticism. It asks what the system needs and whether we're building it. Are interconnection queues too slow? Yes. Are we building enough transmission? No. Do we need firm, clean power for the winter lull? Yes. Those are good questions with real answers.
+
+The gotcha version pretends the fossil grid never fails, never needs fuel, never freezes, and never makes anyone sick. That grid doesn't exist. Texas found that out in 2021.
+
+The strongest case for solar was never that it eliminates planning. It's that, with planning, it supplies enormous amounts of cheap power without buying fuel forever. And planning has a physical form. Mostly, it's wire.

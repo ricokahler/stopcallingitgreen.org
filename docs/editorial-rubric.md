@@ -25,19 +25,28 @@ This pass is for tone, flow, and trust. The book should feel like a person makin
 
 ## 4. Chapter job
 
-Each chapter should answer one main question and hand the reader to the next one.
+Each chapter should answer one main question with its own evidence, and hand the reader to the next one. A chapter that only restates the thesis is not doing its job.
 
-- Introduction: Why is the label a problem?
-- Chapter 1: What happens if we look at electricity as a machine first?
-- Chapter 2: What does "follow the money" require if applied evenly?
-- Chapter 3: How did fossil fuels become common sense?
-- Chapter 4: What did "natural gas" hide?
-- Chapter 5: Why is the solar land panic selective?
-- Chapter 6: What does fuel dependence look like on a map and in a household budget?
-- Chapter 7: What is the serious version of the night/storage objection?
-- Chapter 8: What does the China/transmission contrast reveal about building capacity?
-- Chapter 9: What cultural lane makes electrification feel like capability?
+- Introduction: Why is the label a problem, and why does it fit so badly (Texas and the Great Plains build the most)?
+- Chapter 1: What is actually getting built, where, and why (EIA additions, Lazard costs, state leaders)?
+- Chapter 2: What does "follow the money" find if applied evenly (concede the EIA subsidy data, then the century-old fossil preferences, the 2025 law, lobbying)?
+- Chapter 3: How did fossil fuels become common sense (OERB, Destination Earth, ICE 1991, API 1998, Landman)?
+- Chapter 4: What did "natural gas" hide, and what did gas genuinely do (coal-to-gas, leaks, LNG, turbine backlog)?
+- Chapter 5: Why is the solar land panic selective (ethanol corn, grazing, property rights, the good-faith version)?
+- Chapter 6: What did the 2026 Hormuz shock reveal about "energy independence"?
+- Chapter 7: What is the serious version of the night objection (Uri and Elliott failure data, batteries, the winter lull)?
+- Chapter 8: What does the China transmission contrast reveal about building capacity (queues, line miles, UHV)?
+- Chapter 9: What cultural lane makes electrification feel like capability (trucks that power houses, Not A Wheelchair, trades)?
 - Conclusion: What should a reader carry into politics and daily conversation?
+
+## 4a. Sourcing rules
+
+- Every number in the text should trace to a source in that chapter's frontmatter. Prefer primary sources (EIA, FERC/NERC, USDA, BLS, IEA PDFs, peer-reviewed papers, original documents) over summaries.
+- Say what a statistic counts. Example: the Uri figures are shares of generating units, not megawatts.
+- Quote documents exactly. If a famous quote is usually paraphrased or stitched, use the original wording.
+- Date-sensitive claims (2026 prices, the Strait of Hormuz, queue sizes) should say when they were true. Re-check them before each revision.
+- Concede the inconvenient facts (for example, renewables received the largest share of direct federal energy subsidies in FY2016-2022). The argument is stronger for it.
+- NREL is now the National Laboratory of the Rockies (nlr.gov). Old nrel.gov links are dead.
 
 ## 5. Humanize checks
 
@@ -64,6 +73,7 @@ These phrases or moves are useful only when rare. Keep the strongest uses and re
 - "leverage"
 - "not purity"
 - "the map gets a vote"
+- "it isn't X. It's Y." sentence pairs (one or two per chapter, at most)
 - "become harder to fool"
 - "stop being unserious"
 

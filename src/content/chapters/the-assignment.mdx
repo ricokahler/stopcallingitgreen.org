@@ -6,24 +6,26 @@ order: 8
 chapterLabel: "Chapter 8"
 description: "America treats transmission like a punchline. China treats it like an assignment."
 sources:
+  - title: "Berkeley Lab, \"Queued Up: 2026 Edition\""
+    url: "https://eta-publications.lbl.gov/publications/queued-2026-edition-characteristics"
+  - title: "ACEG / Grid Strategies, \"Fewer New Miles: The US Transmission Grid in the 2020s\" (2025, Rev. 1)"
+    url: "https://gridstrategiesllc.com/wp-content/uploads/ACEG_Grid-Strategies_Fewer-New-Miles-2025_Rev-1.pdf"
+  - title: "Grid Strategies, \"National Load Growth Report\" (2025)"
+    url: "https://gridstrategiesllc.com/wp-content/uploads/Grid-Strategies-National-Load-Growth-Report-2025.pdf"
+  - title: "IEA, \"Energy and AI\" (2025)"
+    url: "https://iea.blob.core.windows.net/assets/b3a8b37f-32d1-4873-9eca-31cec5895264/EnergyandAI.pdf"
   - title: "Caleb Writes Code, \"Why USA is disadvantaged in AI Race\""
     url: "https://www.youtube.com/watch?v=sa_7w0iTJt0"
   - title: "ChinaTalk, \"Energy: How to Build Compute in America\""
     url: "https://www.chinatalk.media/p/energy-how-to-build-compute-in-america"
   - title: "Xinhua, \"China to build national computing hubs, data center clusters\""
     url: "https://english.news.cn/20220217/340f80f39e3e44aca99ef64334133c53/c.html"
-  - title: "Huawei, \"Eastern Data, Western Computing\""
-    url: "https://www.huawei.com/en/huaweitech/publication/202202/eastern-data-western-computing-network"
   - title: "Global Energy Monitor, \"Ultra-High-Voltage (UHV) Power Transmission System in China\""
     url: "https://www.gem.wiki/Ultra-High-Voltage_%28UHV%29_Power_Transmission_System_in_China"
   - title: "Hitachi Energy, \"Xiangjiaba-Shanghai\""
     url: "https://www.hitachienergy.com/news-and-events/customer-success-stories/xiangjiaba---shanghai"
-  - title: "IEA, \"Energy and AI\""
-    url: "https://www.iea.org/reports/energy-and-ai"
-  - title: "Berkeley Lab, \"Queued Up: Characteristics of Power Plants Seeking Transmission Interconnection\""
-    url: "https://emp.lbl.gov/queues"
-  - title: "ACEG / Grid Strategies, \"Fewer New Miles: The US Transmission Grid in the 2020s\""
-    url: "https://gridstrategiesllc.com/wp-content/uploads/ACEG_Grid-Strategies_Fewer-New-Miles-2025_Rev-1.pdf"
+  - title: "Hitachi Energy, \"Changji-Guquan UHVDC link\""
+    url: "https://www.hitachienergy.com/us/en/news-and-events/customer-stories/changji-guquan-uhvdc-link"
   - title: "Enerdata, \"China's State Grid plans US$574bn power grid upgrade by 2030\""
     url: "https://www.enerdata.net/publications/daily-energy-news/china-plans-us574bn-grid-upgrade-2030-40-last-five-year-plan.html"
   - title: "ABC News Live Prime, \"China's investment in renewable energy pays off\""
@@ -36,32 +38,20 @@ import VisualFigure from '../../components/VisualFigure.astro';
 import qinghaiTibetHvdc from '../../assets/visuals/qinghai-tibet-hvdc-commons.jpg';
 import chinaHighVoltageGrid from '../../assets/visuals/china-high-voltage-grid-commons.png';
 
-There is a moment in the American energy argument where a real infrastructure problem turns into a joke.
+There's a moment in every American energy argument where a real infrastructure problem turns into a joke.
 
-Transmission lines? Good luck.
+Transmission lines? Good luck. Permitting? Impossible. Interconnection queues? A swamp. Building enough power for the next fifty years? Sure, right after everybody agrees at the zoning meeting.
 
-Permitting? Impossible.
+Then the room laughs, or sighs, or shrugs, and the incumbent fuel system gets another year.
 
-Interconnection queues? Bureaucratic swamp.
+The problems aren't fake. The grid is hard. Long power lines cross a lot of property, a lot of counties, and a lot of jurisdictions. A country with states, utilities, regulators, landowners, courts, tribes, environmental rules, and voters is always going to move differently from a centralized one-party state. Fine.
 
-Storage? Maybe someday.
-
-Building enough cheap power to run the next century? Sure, right after everyone in America agrees on a zoning meeting.
-
-And then the room laughs, or sighs, or shrugs, and the incumbent fuel system gets another year.
-
-That is the part that should bother us.
-
-Not because the problems are fake. They are not fake. The grid is hard. Transmission is hard. Siting is hard. Local trust is hard. Power markets are hard. A country with states, counties, utilities, regulators, landowners, courts, tribes, environmental rules, property rights, and voters will always move differently from a centralized state.
-
-Fine.
-
-But a hard thing is not the same as a punchline.
+But a hard thing isn't the same as a punchline.
 
 <BookImage
   src={qinghaiTibetHvdc}
   alt={"A Qinghai-Tibet high-voltage direct-current transmission tower and lines crossing open land in western China."}
-  caption={"The boring part is the strategic part. Long-distance power is not a vibe. It is towers, insulators, rights of way, and hard geography."}
+  caption={"The boring part is the strategic part. Long-distance power is towers, insulators, rights-of-way, and hard geography."}
   creditHref={"https://commons.wikimedia.org/wiki/File:%E6%B2%BB%E5%A4%9A_%E9%9D%92%E8%97%8F%C2%B1400%E5%8D%83%E4%BC%8F%E7%9B%B4%E6%B5%81%E8%BE%93%E7%94%B5%E7%BA%BF%E8%B7%AF%E4%B8%8E%E6%9D%86%E5%A1%94_01.jpg"}
   creditLabel={"Photo: Liuxingy / Wikimedia Commons (CC BY-SA 4.0)"}
   wide
@@ -70,71 +60,55 @@ But a hard thing is not the same as a punchline.
 
 ## AI Made The Wire Visible
 
-This is where the AI story is useful, even though this is not an AI book.
+For about fifteen years, U.S. electricity demand was nearly flat. Utilities didn't have to plan for much growth, and mostly didn't. Now data centers, new factories, and electrification have turned that around fast. In late 2025, the consultancy Grid Strategies tallied utilities' own five-year forecasts and found they expected peak demand to grow by 166 gigawatts, up from 24 gigawatts in the forecasts made just three years earlier. About 90 gigawatts of that was data centers.
 
-Caleb Writes Code has a video about why the United States may be disadvantaged against China in the AI race because of power. The framing is data centers, chips, models, and hyperscalers. But underneath the tech story is the old energy story with better branding:
+Not every forecast should be swallowed whole. Grid Strategies itself thinks the data-center number is overstated by around 25 gigawatts, and plenty of announced projects won't happen. The International Energy Agency still expects global data-center electricity use to roughly double by 2030, and it expects data centers to account for nearly half of all U.S. electricity demand growth over that period.
 
-Where does the electricity come from?
-
-How fast can it be built?
-
-Can it move?
-
-Can a real project get connected before the opportunity passes?
-
-The old internet ran on data centers too, but the next wave is different. AI loads can be enormous. Caleb's video talks about data centers moving from the old tens-of-megawatts scale into at least 100 megawatts, with some expansion plans discussed in the 1-to-2-gigawatt range. The International Energy Agency makes the same basic point at the system level: electricity demand from data centers is expected to rise sharply this decade as AI expands.
-
-That does not mean every AI projection should be swallowed whole. Tech people can also hype themselves into a fever. Some efficiency gains will be real. Some projects will be delayed. Some announced loads will never materialize.
-
-But the stress test is real.
-
-If one industrial customer can show up asking for power at the scale of a small city, the energy system stops being wallpaper. The wire becomes part of industrial policy. The substation becomes part of national competitiveness. The permitting meeting becomes part of whether the future gets built here or somewhere else.
-
-That is why AI is useful in this chapter. Not because AI is sacred. Because AI makes the hidden bottleneck visible.
+When one customer can show up asking for as much power as a small city, the grid stops being wallpaper. The substation becomes part of national competitiveness. The permitting fight becomes part of whether the next industry gets built here or somewhere else. The questions are old ones. Where does the power come from? How fast can it be built? Can it move to where it's needed? Can a real project get connected before the opportunity passes?
 
 <VideoCard
   title={"Caleb Writes Code - Why USA is disadvantaged in AI Race"}
   embedUrl={"https://www.youtube.com/embed/sa_7w0iTJt0"}
   iframeTitle={"Caleb Writes Code: Why USA is disadvantaged in AI Race"}
-  caption={"The AI frame is only the hook. The durable question is older and bigger: who can build and move enormous amounts of electricity when the economy asks for it?"}
+  caption={"The AI frame is the hook. The lasting question is older: who can build and move enormous amounts of electricity when the economy asks for it?"}
   sourceLabel={"Video"}
   sourceUrl={"https://www.youtube.com/watch?v=sa_7w0iTJt0"}
 />
 
-## East Data, West Compute
+## America's Waiting Room
 
-China looked at this problem and gave it a very literal name: Eastern Data, Western Computing.
+The frustrating thing is that America isn't short on power projects. It's short on doors.
 
-The basic idea is not mystical. China's eastern cities have huge demand, dense tech activity, and expensive land. Western and inland regions have more space and large energy resources, including coal, wind, solar, and hydro depending on the region. So the state started organizing national computing hubs and data-center clusters to push some computing work west while connecting the system back to eastern demand.
+Every new power plant has to get permission to connect to the grid, which means a utility has to study what the plant would do to the system and who pays for upgrades. At the end of 2025, according to Lawrence Berkeley National Laboratory, about 2,060 gigawatts of proposed generation and storage were waiting in those interconnection queues. That's roughly one and a half times the capacity of every power plant now running in the United States. Most of it is solar and batteries.
 
-This is not a climate fairy tale. China still burns a huge amount of coal. Some western data-center power is not clean. Some renewable energy still gets curtailed because the grid cannot absorb or move it perfectly. Provincial politics still exist. Waste and overbuilding still exist. The point is not that China found a magic spreadsheet.
+The queue isn't a to-do list. Plenty of those projects are speculative, and some shouldn't be built. But the process itself has become a trap. Projects that reached operation in 2025 had spent a median of more than five years between applying to connect and switching on. Of all the capacity that applied between 2000 and 2020, only 13 percent had been built by the end of 2025. About three-quarters had withdrawn.
 
-The point is that China treated the map as an assignment.
+Transmission is the same story. Big high-voltage lines (345 kilovolts and up) are how power moves between regions. In the early 2010s, the U.S. built an average of about 1,800 miles of them a year. In the first half of the 2020s, the average was about 540. Even 2024, a better year, managed about 900.
 
-It asked where the loads were, where the land was, where the power was, and what would have to connect them.
+We're trying to run a growing, electrifying economy through a grid we keep treating as someone else's homework.
 
-That sounds obvious until you compare it with the American habit of treating every new wire like an invasive species.
+## Meanwhile, In China
 
-## A Wire The Size Of A Country
+China looked at a similar problem and gave it a very literal name: "Eastern Data, Western Computing."
 
-Ultra-high-voltage transmission sounds like a comic-book phrase, but it is very literal. Global Energy Monitor describes China's UHV threshold as alternating current at 1,000 kilovolts or more, or direct current at plus-or-minus 800 kilovolts or more. As of December 2025, GEM counted 45 operating UHV lines in China.
+The idea isn't mystical. China's eastern cities have the demand, the tech companies, and expensive land. The west and the interior have space and big energy resources: coal, wind, sun, and hydropower. So in 2022 the government approved eight national computing hubs and ten data-center clusters to push computing west, near the power, and connect it back east.
 
-That is the scale difference.
+This isn't a climate fairy tale. China still burns huge amounts of coal, and some of that western computing runs on it. Renewable power still gets wasted when the grid can't move it. Provincial politics, waste, and overbuilding are all real. The point isn't that China found a magic spreadsheet.
 
-The Xiangjiaba-Shanghai UHVDC project moves hydropower from southwest China toward Shanghai. Hitachi Energy describes it as an 800-kilovolt line built in 30 months, with thousands of towers and gigawatts of transfer capacity. Another famous line, often described as Changji-Guquan or Zhundong-Anhui, runs from Xinjiang toward eastern China at roughly 1,100 kilovolts, around 3,300 kilometers, and 12 gigawatts.
+The point is that China treated the map as an assignment. It asked where the loads were, where the land and power were, and what would have to connect them. Then it built the connections.
 
-Do not get lost in the numbers. Put the map in your head.
+## Extension Cords The Size Of Countries
 
-That second line is not quite Los Angeles to New York. It is closer to Los Angeles to Chicago, give or take the route. In American terms, that is not a local project. That is a continental-scale electrical decision.
+"Ultra-high-voltage" sounds like comic-book language, but it's a technical category: alternating current at 1,000 kilovolts or more, or direct current at 800 kilovolts or more. These lines move enormous amounts of power across very long distances with relatively low losses. As of December 2025, Global Energy Monitor counted 45 of them operating in China.
 
-China is building thousand-mile extension cords for industrial strategy.
+The Xiangjiaba–Shanghai line, which carries hydropower from China's southwest to Shanghai, runs about 1,980 kilometers (roughly 1,230 miles) at 800 kilovolts and can move 6,400 megawatts. It was built in 30 months and finished a year ahead of schedule, in 2010. The Changji–Guquan line, which entered service in 2019, runs about 3,300 kilometers from Xinjiang in the far west toward eastern China at 1,100 kilovolts and carries 12,000 megawatts. That's about as far as driving from Los Angeles to Chicago, on a single power line.
 
-America is still deciding whether the extension cord has the right personality.
+And China is speeding up. In January 2026, State Grid announced plans to invest about 4 trillion yuan, roughly $570 billion, in its network from 2026 through 2030, 40 percent more than in the previous five years.
 
 <BookImage
   src={chinaHighVoltageGrid}
   alt={"A cropped OpenStreetMap-derived map of East Asia showing dense high-voltage power lines across China and long lines reaching inland."}
-  caption={"A cropped view of the 2023 high-voltage grid map. Purple lines in the source legend are 800 kV or more, the voltage class where China's long-distance strategy becomes visible."}
+  caption={"A cropped view of a 2023 map of the world's high-voltage grid. Purple lines are 800 kV or more, the class where China's long-distance strategy shows up."}
   creditHref={"https://commons.wikimedia.org/wiki/File:High-voltage_power_line_grid_of_the_world.png"}
   creditLabel={"Map: HighVoltage 5576 / Wikimedia Commons (CC BY-SA 2.0)"}
   wide
@@ -146,141 +120,73 @@ America is still deciding whether the extension cord has the right personality.
 <VisualFigure
   eyebrow={"Scale check"}
   title={"The wire is the strategy."}
-  body={"The problem is not that America lacks sun, wind, engineers, capital, or demand. The problem is that useful power keeps getting stuck before it reaches the load."}
+  body={"America doesn't lack sun, wind, engineers, capital, or demand. Useful power keeps getting stuck before it reaches the people who need it."}
   items={[
     {
-      value: "45",
-      label: "operating UHV lines counted in China by GEM as of December 2025.",
-      note: "UHV is not a mood. It is a voltage class.",
-      size: 92,
+      value: "~1,800 → ~540",
+      label: "Miles of new U.S. high-voltage lines per year, early 2010s vs. 2020–2024",
+      note: "Lines of 345 kV and up, using revised FERC data reported by Grid Strategies.",
+      size: 100,
       tone: "grid"
     },
     {
-      value: "2.6 TW",
-      label: "roughly the U.S. interconnection queue scale reported by Berkeley Lab.",
-      note: "Mostly generation and storage waiting to connect.",
+      value: "5+ years",
+      label: "Median wait to connect a new U.S. power project",
+      note: "Projects that came online in 2025, per Berkeley Lab.",
       size: 100,
       tone: "sun"
     },
     {
-      value: "$574B",
-      label: "reported State Grid upgrade plan through 2030.",
-      note: "Industrial advantage, not moral performance.",
-      size: 86,
+      value: "$570B",
+      label: "China State Grid investment plan, 2026–2030",
+      note: "Up 40 percent from the previous five years.",
+      size: 100,
       tone: "money"
     }
   ]}
-  sourceHref={"https://www.gem.wiki/Ultra-High-Voltage_%28UHV%29_Power_Transmission_System_in_China"}
-  sourceLabel={"Global Energy Monitor"}
+  sourceHref={"https://gridstrategiesllc.com/wp-content/uploads/ACEG_Grid-Strategies_Fewer-New-Miles-2025_Rev-1.pdf"}
+  sourceLabel={"Grid Strategies; Berkeley Lab; Enerdata"}
 />
-
-## America Has The Machines In A Waiting Room
-
-The frustrating thing is that America is not out of ideas.
-
-America has excellent engineers. America has big capital markets. America has solar resources, wind resources, geothermal possibilities, nuclear expertise, battery deployment, software, universities, trades, manufacturing ambition, and a ridiculous amount of entrepreneurial energy. The country is not helpless.
-
-But a lot of useful machinery is stuck in a waiting room.
-
-Berkeley Lab's interconnection work has tracked a gigantic queue of proposed generation and storage projects waiting to connect to the grid. The queue is not the same thing as built capacity. Some projects are speculative. Some should not be built. Some will die for good reasons. But the size of the queue still tells you something: there is a lot of cheap-power ambition piled up at the door.
-
-The door is the problem.
-
-Transmission is the same story. The ACEG and Grid Strategies report on recent U.S. transmission buildout found painfully low new high-voltage mileage in the 2020s compared with what a growing, electrifying economy needs. You do not have to memorize every line-mile figure to understand the pattern. We are trying to run a bigger economy through a grid we keep treating as someone else's homework.
-
-This is where the "what about the grid?" argument becomes useful, if it stays honest. Yes - what about the grid? What about transmission, interconnection reform, transformers, local benefits so communities are not treated like scenery, and utilities that make more money building the wrong thing than the useful one?
-
-Those are real questions. But they are not arguments for giving up. They are the assignment.
 
 ## Tommy Was Right About The Hard Part
 
-This is why the *Landman* clip in Chapter 3 is so annoying.
+This is why that *Landman* scene from Chapter 3 is so annoying.
 
-One of Tommy Norris's strongest points is true: you cannot electrify a country by announcing that everyone should flip a switch. You need transmission. You need storage. You need substations. You need workers. You need materials. You need years of boring execution.
+Tommy Norris's best line is the one about wires: if everybody went electric tomorrow, "we don't have the transmission lines to get the electricity to the cities. It would take 30 years if we started tomorrow." Given the numbers above, he's not far off. You need transmission, storage, substations, transformers, workers, materials, and years of unglamorous execution.
 
-That is a good point.
+Then the scene uses that good point as a trapdoor. It turns "we have to build the system" into "so the system we have is permanent." If something takes 30 years, that's an argument for starting, not for giving up. The scene turns a construction problem into fatalism and lets the audience feel like quitting is realism.
 
-Then the scene uses that good point as a trapdoor.
+That's backwards. If the bottleneck is transmission, build lines. If it's permitting, fix it without steamrolling towns. If it's transformers, build the factories. If utility rules reward the wrong investments, change the rules.
 
-It turns "we need to build the system" into "therefore the fuel system we have is permanent." It turns a construction problem into fatalism. It takes the assignment, folds it into a cowboy monologue, and lets the audience feel like quitting is realism.
+The hard part isn't proof that the work is fake. The hard part is the work.
 
-That is backwards.
+## Don't Learn The Wrong Lesson
 
-If the grid is the bottleneck, build the grid.
+There's an easy bad reading of this chapter, so let's deal with it directly. The lesson is not "authoritarianism is good."
 
-If transmission is the bottleneck, build transmission.
+China can move faster partly because it can force decisions through a political system Americans shouldn't want. Consent matters. Property rights matter. Environmental review matters. A government that can build a power line across your land in 30 months can also flatten your town to do it. Don't turn competence into romance.
 
-If permitting is the bottleneck, fix permitting without treating every community like an obstacle.
+The real lesson is narrower and more embarrassing: a free country should still be able to build wires.
 
-If local trust is the bottleneck, make projects that share benefits, respect landowners, and answer real concerns instead of treating people like paperwork.
+Democracy shouldn't mean every necessary project enters a maze and comes out as a consultant's invoice. Local control shouldn't mean every region enjoys the benefits of a national grid while blocking every piece of it. And skepticism shouldn't mean the familiar fuel system gets treated like the weather while new electrical infrastructure has to win a popularity contest.
 
-If transformers are the bottleneck, build transformer capacity.
-
-If the utility model rewards dumb infrastructure, change the utility model.
-
-The hard part is not proof that the work is fake.
-
-The hard part is the work.
-
-## Do Not Learn The Wrong Lesson
-
-There is an easy bad reading of this chapter, so let's handle it directly.
-
-The lesson is not "authoritarianism good."
-
-No.
-
-China can move faster partly because it can force decisions through a political system Americans should not want. That matters. Consent matters. Property rights matter. Environmental review matters. Local communities matter. A country that can build a power line quickly can also crush people quickly. Do not turn competence into romance.
-
-The lesson is narrower and more humiliating:
-
-A free country should still be capable of building wires.
-
-Democracy should not mean every necessary project enters a maze and comes out as a consultancy invoice. Freedom should not mean a grid so clogged that cheap domestic power cannot reach the people who need it. Local control should not mean every region gets to benefit from national strength while refusing every piece of national infrastructure. Skepticism should not mean familiar fuel systems get treated like weather while new electrical systems have to survive a televised personality test.
-
-We do not need to become China.
-
-We need to build like the problem is real.
+We don't need to become China. We need to build like the problem is real.
 
 <VideoCard
-  title={"ABC News - China's Renewable Investment Pays Off"}
+  title={"ABC News - China's investment in renewable energy pays off"}
   embedUrl={"https://www.youtube.com/embed/tYnyAamblSo"}
   iframeTitle={"ABC News: China's investment in renewable energy pays off"}
-  caption={"This is the practical contrast: China is not pure, but it is treating solar, wind, storage, and transmission as strategic advantage. That should make Americans competitive, not smug."}
+  caption={"China isn't pure, but it treats solar, wind, storage, and transmission as a strategic advantage. That should make Americans competitive, not smug."}
   sourceLabel={"ABC News"}
   sourceUrl={"https://www.youtube.com/watch?v=tYnyAamblSo"}
 />
 
 ## The American Assignment
 
-America should be good at this.
+America should be good at this, and not just on a bumper sticker.
 
-Not in a fake patriotic way. In the actual way.
+This country built the transcontinental railroad, the interstate highways, rural electrification, the internet, and a military supply network so large it practically counts as geography. When the country decides something is real, it can build at a scale nobody else can match.
 
-We built continent-scale systems before. Railroads. Highways. Rural electrification. The internet. Military logistics so sprawling they almost become geography. We know how to build enormous things when the country decides they count as real.
+So count this as real. Solar farms, wind farms, batteries, nuclear plants, geothermal wells, transmission corridors, substations, transformer factories, and the control software that runs the grid. None of them is perfect. The question is whether America wants the advantage that comes from building a system out of the best tools available, or whether it would rather keep letting the difficulty of building the future serve as free advertising for the past.
 
-So count this as real.
-
-Solar farms are real.
-
-Wind farms are real.
-
-Batteries are real.
-
-Nuclear plants are real.
-
-Transmission corridors are real.
-
-Heat pumps, transformers, substations, control rooms, and boring grid software are real.
-
-The question is not whether every tool is perfect. The question is whether America wants the advantage that comes from building the system around useful tools.
-
-That is the assignment.
-
-Not to worship China.
-
-Not to worship solar.
-
-Not to pretend the grid is easy.
-
-To stop letting the difficulty of building the future become free advertising for the past.
+That's the assignment. And it's going to take a lot of people who are good with their hands.
