@@ -1,9 +1,10 @@
 ---
 import ChapterNav from "../../components/ChapterNav.astro";
+import ChapterSide from "../../components/ChapterSide.astro";
+import References from "../../components/References.astro";
 import ShareCTA from "../../components/ShareCTA.astro";
-import SourceDetails from "../../components/SourceDetails.astro";
 import Layout from "../../layouts/Layout.astro";
-import { chapters, getAdjacentChapters, type ChapterMeta } from "../../lib/chapters";
+import { chapters, chapterNumber, getAdjacentChapters, type ChapterMeta } from "../../lib/chapters";
 
 export function getStaticPaths() {
   return chapters.map((chapter) => ({
@@ -21,23 +22,173 @@ const { previous, next } = getAdjacentChapters(chapter.slug);
 const Content = chapter.Content;
 ---
 
-<Layout
-  title={chapter.title}
-  description={chapter.description}
-  pageKind="chapter"
-  chapter={chapter}
->
-  <main class="reader-shell">
-    <header class="chapter-header">
-      <p class="chapter-meta">{chapter.chapterLabel}</p>
-      <h1>{chapter.title}</h1>
-      <p>{chapter.description}</p>
+<Layout title={chapter.title} description={chapter.description} pageKind="chapter" chapter={chapter}>
+  <main id="main" class="reader" data-reader data-slug={chapter.slug} data-prev={previous ? `/chapters/${previous.slug}/` : "/"} data-next={next ? `/chapters/${next.slug}/` : "/#chapters"}>
+    <header class="chapter-hero">
+      <div class="wrap chapter-hero-inner">
+        <p class="eyebrow">{chapter.chapterLabel.startsWith("Chapter") ? <>{chapter.chapterLabel} <span class="dim">of {chapters.length - 1}</span></> : chapter.chapterLabel}</p>
+        <h1>{chapter.title}</h1>
+        <p class="standfirst">{chapter.description}</p>
+        <ul class="chapter-meta">
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+            <span>{chapter.minutes} min read</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8M8 13h5"></path></svg>
+            <span>{chapter.sources.length} sources</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+            <span>Checked October 2026</span>
+          </li>
+        </ul>
+      </div>
     </header>
-    <article class="prose">
-      <Content />
-    </article>
-    <SourceDetails sources={chapter.sources} />
-    <ChapterNav previous={previous} next={next} />
-    {chapter.slug === "conclusion" && <ShareCTA />}
+    <div class="wrap reader-grid">
+      <ChapterSide chapter={chapter} />
+      <div>
+        <article class="prose" data-article>
+          <Content />
+        </article>
+        <References sources={chapter.sources} />
+        <ChapterNav previous={previous} next={next} />
+        {chapter.slug === "conclusion" && <ShareCTA />}
+      </div>
+    </div>
   </main>
 </Layout>
+
+<script is:inline>
+  (() => {
+    const reader = document.querySelector("[data-reader]");
+    if (!reader) return;
+    const slug = reader.dataset.slug;
+
+    // Reading progress bar.
+    const bar = document.querySelector("[data-progress-bar]");
+    const article = document.querySelector("[data-article]");
+    let ticking = false;
+    const updateProgress = () => {
+      ticking = false;
+      if (!bar || !article) return;
+      const rect = article.getBoundingClientRect();
+      const total = rect.height - window.innerHeight * 0.6;
+      const done = Math.min(Math.max(-rect.top + window.innerHeight * 0.2, 0), Math.max(total, 1));
+      const progress = total > 0 ? done / total : 1;
+      bar.style.setProperty("--progress", progress.toFixed(4));
+      if (progress > 0.85) markRead();
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateProgress);
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    updateProgress();
+
+    // Remember what was read.
+    let marked = false;
+    function markRead() {
+      if (marked) return;
+      marked = true;
+      try {
+        const read = JSON.parse(localStorage.getItem("scig-read") || "{}");
+        read[slug] = Date.now();
+        localStorage.setItem("scig-read", JSON.stringify(read));
+      } catch {}
+    }
+    try {
+      localStorage.setItem("scig-last", slug);
+      const read = JSON.parse(localStorage.getItem("scig-read") || "{}");
+      document.querySelectorAll("[data-track]").forEach((dot) => {
+        if (read[dot.dataset.track]) dot.setAttribute("data-done", "");
+      });
+    } catch {}
+
+    // Table of contents scroll-spy.
+    const links = [...document.querySelectorAll("[data-toc-link]")];
+    const headings = links.map((link) => document.getElementById(link.dataset.tocLink)).filter(Boolean);
+    if (headings.length && "IntersectionObserver" in window) {
+      let active = null;
+      const setActive = (id) => {
+        if (active === id) return;
+        active = id;
+        links.forEach((link) => {
+          if (link.dataset.tocLink === id) link.setAttribute("aria-current", "true");
+          else link.removeAttribute("aria-current");
+        });
+      };
+      const pick = () => {
+        const line = window.innerHeight * 0.3;
+        let current = headings[0].id;
+        for (const heading of headings) {
+          if (heading.getBoundingClientRect().top <= line) current = heading.id;
+        }
+        setActive(current);
+      };
+      window.addEventListener("scroll", () => requestAnimationFrame(pick), { passive: true });
+      pick();
+    }
+
+    // Animated figures.
+    const figs = document.querySelectorAll("[data-fig]");
+    if (figs.length && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-in");
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.25 }
+      );
+      figs.forEach((fig) => io.observe(fig));
+    } else {
+      figs.forEach((fig) => fig.classList.add("is-in"));
+    }
+
+    // Table toggles.
+    document.querySelectorAll("[data-fig-toggle]").forEach((button) => {
+      const table = document.getElementById(button.getAttribute("aria-controls"));
+      if (!table) return;
+      button.addEventListener("click", () => {
+        const open = button.getAttribute("aria-expanded") === "true";
+        button.setAttribute("aria-expanded", String(!open));
+        table.hidden = open;
+        button.textContent = open ? "Show table" : "Hide table";
+      });
+    });
+
+    // Video facades.
+    document.querySelectorAll("[data-video]").forEach((frame) => {
+      const play = frame.querySelector("[data-video-play]");
+      if (!play) return;
+      play.addEventListener("click", () => {
+        const iframe = document.createElement("iframe");
+        const url = new URL(frame.dataset.embed);
+        url.searchParams.set("autoplay", "1");
+        iframe.src = url.toString();
+        iframe.title = frame.dataset.title || "Video";
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        iframe.allowFullscreen = true;
+        frame.replaceChildren(iframe);
+      });
+    });
+
+    // Keyboard navigation between chapters.
+    window.addEventListener("keydown", (event) => {
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      const target = event.target;
+      if (target instanceof HTMLElement && (target.isContentEditable || /^(input|textarea|select)$/i.test(target.tagName))) return;
+      if (event.key === "ArrowRight" && reader.dataset.next) window.location.href = reader.dataset.next;
+      if (event.key === "ArrowLeft" && reader.dataset.prev) window.location.href = reader.dataset.prev;
+    });
+
+    document.querySelector("[data-next-link]")?.addEventListener("click", markRead);
+  })();
+</script>

@@ -1,0 +1,184 @@
+---
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  body?: string;
+}
+
+const {
+  eyebrow = "Two different questions",
+  title = "What runs the grid today, and what's being built next",
+  body = "Gas and coal still generate most of America's electricity. The pipeline of new power plants looks nothing like that."
+} = Astro.props;
+
+// Fixed entity order so colors never move between views.
+const entities = [
+  { key: "solar", name: "Solar", tone: "sun" },
+  { key: "wind", name: "Wind", tone: "land" },
+  { key: "hydro", name: "Hydro", tone: "grid" },
+  { key: "batteries", name: "Batteries", tone: "money" },
+  { key: "nuclear", name: "Nuclear", tone: "nuclear" },
+  { key: "gas", name: "Natural gas", tone: "fuel" },
+  { key: "coal", name: "Coal", tone: "coal" }
+];
+
+const views = {
+  gen: {
+    label: "Generation in 2025",
+    caption:
+      "Share of U.S. electricity generated in 2025. Fossil fuels still made most of it, and gas alone made about two-fifths.",
+    unit: "of 2025 generation",
+    values: { solar: 7, wind: 11, hydro: 6, batteries: 0, nuclear: 18, gas: 41, coal: 17 },
+    sourceHref: "https://www.eia.gov/energyexplained/electricity/electricity-in-the-us.php",
+    sourceLabel: "EIA, Electricity in the U.S."
+  },
+  add: {
+    label: "Planned additions in 2026",
+    caption:
+      "Share of the 86 gigawatts of new utility-scale capacity developers told EIA they plan to bring online in 2026. Solar and batteries are about four-fifths of it.",
+    unit: "of 2026 planned additions",
+    values: { solar: 51, wind: 14, hydro: 0, batteries: 28, nuclear: 0, gas: 7, coal: 0 },
+    sourceHref: "https://www.eia.gov/todayinenergy/detail.php?id=67205",
+    sourceLabel: "EIA, February 2026"
+  }
+};
+
+const initial = views.gen;
+const payload = JSON.stringify({ entities, views });
+---
+
+<figure class="mix" data-mix aria-labelledby="mix-title">
+  <header class="fig-head">
+    <p class="eyebrow">{eyebrow}</p>
+    <h3 class="fig-title" id="mix-title">{title}</h3>
+    <p class="fig-body">{body}</p>
+  </header>
+  <div class="mix-tabs" role="tablist" aria-label="Choose a view">
+    {Object.entries(views).map(([key, view], index) => (
+      <button
+        class="mix-tab"
+        type="button"
+        role="tab"
+        aria-selected={index === 0 ? "true" : "false"}
+        data-mix-tab={key}
+      >
+        {view.label}
+      </button>
+    ))}
+  </div>
+  <p class="mix-caption" data-mix-caption>{initial.caption}</p>
+  <div class="mix-wrap">
+    <div class="mix-bar" role="img" aria-label={`Stacked bar: ${initial.label}`} data-mix-bar>
+      {entities.map((entity) => (
+        <div
+          class:list={["mix-seg", `tone-${entity.tone}`]}
+          data-key={entity.key}
+          data-small={initial.values[entity.key as keyof typeof initial.values] < 9 ? "" : undefined}
+          style={`--w: ${initial.values[entity.key as keyof typeof initial.values]}%;`}
+          tabindex="0"
+          aria-label={`${entity.name}: ${initial.values[entity.key as keyof typeof initial.values]}% ${initial.unit}`}
+        >
+          <span class="mix-seg-label">{initial.values[entity.key as keyof typeof initial.values]}%</span>
+        </div>
+      ))}
+    </div>
+    <div class="mix-tip" data-mix-tip hidden role="status"></div>
+  </div>
+  <ul class="mix-legend" aria-label="Legend">
+    {entities.map((entity) => (
+      <li class={`tone-${entity.tone}`} data-legend={entity.key} data-zero={initial.values[entity.key as keyof typeof initial.values] === 0 ? "" : undefined}>
+        <span class="swatch" aria-hidden="true"></span>
+        <span class="name">{entity.name}</span>
+        <span class="val" data-legend-val>{initial.values[entity.key as keyof typeof initial.values]}%</span>
+      </li>
+    ))}
+  </ul>
+  <footer class="fig-foot">
+    <span>Source: <a data-mix-source href={initial.sourceHref} rel="noreferrer" target="_blank">{initial.sourceLabel}</a></span>
+    <button class="fig-toggle" type="button" data-fig-toggle aria-expanded="false" aria-controls="mix-table">Show table</button>
+  </footer>
+  <table class="fig-table" id="mix-table" hidden>
+    <thead>
+      <tr>
+        <th scope="col">Source</th>
+        <th scope="col">2025 generation</th>
+        <th scope="col">2026 planned additions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {entities.map((entity) => (
+        <tr>
+          <td>{entity.name}</td>
+          <td class="num">{views.gen.values[entity.key as keyof typeof views.gen.values]}%</td>
+          <td class="num">{views.add.values[entity.key as keyof typeof views.add.values]}%</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <script type="application/json" data-mix-data set:html={payload} />
+</figure>
+
+<script is:inline>
+  (() => {
+    document.querySelectorAll("[data-mix]").forEach((root) => {
+      const data = JSON.parse(root.querySelector("[data-mix-data]").textContent);
+      const tabs = root.querySelectorAll("[data-mix-tab]");
+      const caption = root.querySelector("[data-mix-caption]");
+      const bar = root.querySelector("[data-mix-bar]");
+      const source = root.querySelector("[data-mix-source]");
+      const tip = root.querySelector("[data-mix-tip]");
+      const wrap = root.querySelector(".mix-wrap");
+      let current = "gen";
+
+      const nameOf = (key) => data.entities.find((e) => e.key === key)?.name || key;
+
+      const render = (key) => {
+        current = key;
+        const view = data.views[key];
+        tabs.forEach((tab) => tab.setAttribute("aria-selected", String(tab.dataset.mixTab === key)));
+        caption.textContent = view.caption;
+        bar.setAttribute("aria-label", `Stacked bar: ${view.label}`);
+        source.href = view.sourceHref;
+        source.textContent = view.sourceLabel;
+        root.querySelectorAll(".mix-seg").forEach((seg) => {
+          const value = view.values[seg.dataset.key] || 0;
+          seg.style.setProperty("--w", `${value}%`);
+          seg.toggleAttribute("data-small", value < 9);
+          seg.setAttribute("aria-label", `${nameOf(seg.dataset.key)}: ${value}% ${view.unit}`);
+          seg.querySelector(".mix-seg-label").textContent = `${value}%`;
+          seg.tabIndex = value === 0 ? -1 : 0;
+        });
+        root.querySelectorAll("[data-legend]").forEach((item) => {
+          const value = view.values[item.dataset.legend] || 0;
+          item.toggleAttribute("data-zero", value === 0);
+          item.querySelector("[data-legend-val]").textContent = `${value}%`;
+        });
+      };
+
+      tabs.forEach((tab) => tab.addEventListener("click", () => render(tab.dataset.mixTab)));
+
+      const showTip = (seg) => {
+        const value = data.views[current].values[seg.dataset.key] || 0;
+        if (!value) return hideTip();
+        tip.textContent = "";
+        const b = document.createElement("b");
+        b.textContent = `${value}%`;
+        tip.append(b, ` ${nameOf(seg.dataset.key)}`);
+        const segRect = seg.getBoundingClientRect();
+        const wrapRect = wrap.getBoundingClientRect();
+        tip.style.left = `${segRect.left - wrapRect.left + segRect.width / 2}px`;
+        tip.style.top = `${segRect.top - wrapRect.top}px`;
+        tip.hidden = false;
+      };
+      const hideTip = () => {
+        tip.hidden = true;
+      };
+      root.querySelectorAll(".mix-seg").forEach((seg) => {
+        seg.addEventListener("pointerenter", () => showTip(seg));
+        seg.addEventListener("pointerleave", hideTip);
+        seg.addEventListener("focus", () => showTip(seg));
+        seg.addEventListener("blur", hideTip);
+      });
+    });
+  })();
+</script>

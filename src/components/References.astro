@@ -1,0 +1,36 @@
+---
+import type { SourceLink } from "../lib/chapters";
+
+interface Props {
+  sources?: SourceLink[];
+}
+
+const { sources = [] } = Astro.props;
+
+const hostOf = (url: string) => {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+};
+---
+
+{sources.length > 0 && (
+  <section class="refs" aria-labelledby="refs-title">
+    <div class="refs-head">
+      <h2 id="refs-title">Sources for this chapter</h2>
+      <p>{sources.length} references · primary where possible</p>
+    </div>
+    <ol>
+      {sources.map((source) => (
+        <li>
+          <span>
+            <a href={source.url} rel="noreferrer" target="_blank">{source.title}</a>
+            <span class="host">{hostOf(source.url)}</span>
+          </span>
+        </li>
+      ))}
+    </ol>
+  </section>
+)}

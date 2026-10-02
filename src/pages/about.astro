@@ -1,80 +1,76 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { bookStats, editionLabel } from "../lib/chapters";
 ---
 
-<Layout
-  title="About"
-  description="About Stop Calling It Green, a free self-funded open-source online book."
-  pageKind="about"
->
-  <main class="about-page">
-    <h1>About this book</h1>
-    <p>
-      The author name is not printed here because the book is not about the
-      author. It is about the argument, the sources, and whether Americans can
-      get a little harder to fool about energy.
-    </p>
-    <p>
-      The project is open source on
-      <a href="https://github.com/ricokahler/stopcallingitgreen.org">GitHub</a>,
-      so the authorship is not hidden. It is just not the point.
-    </p>
-    <p>
-      It is self-funded and free. There is no donation link, no merch, no
-      foundation, and no plan to turn this into an organization. The best way to
-      help is to share it with someone who hears "green energy" and checks out
-      before the facts arrive.
-    </p>
+<Layout title="About" description="About Stop Calling It Green, a free, self-funded, open-source online book." pageKind="about">
+  <main id="main" class="doc">
+    <div class="wrap">
+      <header class="doc-head">
+        <p class="eyebrow">About the book <span class="dim">· {editionLabel}</span></p>
+        <h1>What this is, who made it, and how to check it.</h1>
+      </header>
+      <article class="prose">
+        <p>
+          <em>Stop Calling It Green</em> is a short, free online book about energy framing: why solar, wind, batteries,
+          and power lines keep getting treated like a political identity instead of ordinary infrastructure, and who
+          benefits when that happens. It runs {bookStats.chapters} chapters, about {Math.round(bookStats.words / 1000)},000
+          words, and cites {bookStats.sources} sources.
+        </p>
 
-    <h2>Why it exists</h2>
-    <p>
-      Mostly because I was frustrated and wanted to be able to say I tried. The
-      goal is not to force anyone into a new identity. The goal is to get
-      skeptical Americans to apply their skepticism evenly.
-    </p>
-    <p>
-      A very specific dream sits behind the book: get the argument into the
-      kinds of rooms where people already say "follow the money." If Joe Rogan
-      reads it, hears about it, or starts pulling on the oil-lobby side of the
-      story on his podcast, the project has done its job.
-    </p>
+        <h2>Who wrote it</h2>
+        <p>
+          The author's name isn't printed on the chapters because the book isn't about the author. It's about the
+          argument and whether the sources hold up. The project is open source on
+          <a href="https://github.com/ricokahler/stopcallingitgreen.org">GitHub</a>, so the authorship isn't hidden. It's
+          just not the point.
+        </p>
+        <p>
+          It's self-funded and free. There is no donation link, no merch, no foundation, and no plan to turn this into an
+          organization. The best way to help is to send it to someone who hears "green energy" and checks out before the
+          facts arrive.
+        </p>
 
-    <h2>Source trail</h2>
-    <p>
-      This is a synthesis. Major source trails come from Climate Town,
-      Technology Connections, Hank Green, Undecided with Matt Ferrell,
-      JerryRigEverything, the U.S. Energy Information Administration, the
-      Department of Energy, NREL, FERC and NERC, Berkeley Lab, USDA, USGS, the
-      International Energy Agency, Lazard, OpenSecrets, Global Energy Monitor,
-      and the reporting and research linked inside each chapter. Every chapter
-      lists its sources at the bottom of the page.
-    </p>
-    <p>
-      The videos are not decoration. They are part of the reading experience:
-      examples of propaganda, practical engineering arguments, and source
-      trails that make the machinery easier to see.
-    </p>
+        <h2>Why it exists</h2>
+        <p>
+          Mostly because I was frustrated and wanted to be able to say I tried. The goal isn't to recruit anyone into a
+          new identity. It's to get skeptical Americans to apply their skepticism evenly, to the new machine and the old
+          one.
+        </p>
+        <p>
+          A very specific hope sits behind it: get the argument into the rooms where people already say "follow the
+          money." If a big podcast host reads it and starts pulling on the oil-lobby side of the story, the project has
+          done its job.
+        </p>
 
-    <h2>Images</h2>
-    <p>
-      The homepage and social card use
-      <a href="https://images.nasa.gov/details/PIA26681">NASA/SDO imagery of the sun</a>
-      because the argument starts with the fuel source itself. The homepage
-      land-use image is
-      <a href="https://unsplash.com/photos/aerial-view-shows-a-solar-farm-next-to-farmland-5czuT4jlN9s">a solar farm beside farmland by Aivars Vilks on Unsplash</a>
-      because the land question should be visible instead of abstract. Other
-      chapter images are credited in their captions.
-    </p>
+        <h2>How to check it</h2>
+        <p>
+          Every chapter lists its sources at the bottom of the page, and the links go to primary documents where they
+          exist: the Energy Information Administration, the Department of Energy, FERC and NERC, the National Laboratory
+          of the Rockies, Berkeley Lab, USDA, USGS, the International Energy Agency, Lazard, OpenSecrets, and the
+          reporting and research named next to each claim. The video clips from Climate Town, Technology Connections,
+          Hank Green, and Undecided with Matt Ferrell are part of the reading, not decoration.
+        </p>
+        <p>
+          Numbers were last re-checked in October 2026. If a figure has moved since, or you think a source is misread,
+          <a href="https://github.com/ricokahler/stopcallingitgreen.org/issues">open an issue</a>. Corrections get
+          folded in.
+        </p>
 
-    <h2>How it was made</h2>
-    <p>
-      The short version is also disclosed at the end of the book: this was
-      created with heavy AI assistance and human responsibility. The first
-      version came together in about a day. The current edition was rebuilt
-      and re-checked against primary sources, with numbers updated through
-      2026. The model helped organize, draft, and fact-check. The sources
-      still have to stand on their own, and corrections are welcome on
-      <a href="https://github.com/ricokahler/stopcallingitgreen.org">GitHub</a>.
-    </p>
+        <h2>How it was made</h2>
+        <p>
+          The book was created with heavy AI assistance and human responsibility. The first version came together in
+          about a day. This edition was rebuilt and re-checked against primary sources, with numbers updated through
+          2026. The model helped organize, draft, fact-check, and design the site. The sources still have to stand on
+          their own.
+        </p>
+
+        <h2>Images</h2>
+        <p>
+          Chapter photos and documents are credited in their captions. The diagrams and figures are drawn for the book
+          from the sources they cite.
+        </p>
+      </article>
+    </div>
   </main>
 </Layout>

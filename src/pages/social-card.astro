@@ -1,11 +1,10 @@
 ---
-import { Image } from "astro:assets";
-import nasaSunSdo from "../assets/visuals/nasa-sun-sdo.jpg";
+import PowerFlow from "../components/PowerFlow.astro";
 import "../styles/global.css";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="robots" content="noindex" />
@@ -13,58 +12,123 @@ import "../styles/global.css";
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap"
       rel="stylesheet"
     />
-    <title>Stop Calling It Green Social Card</title>
-  </head>
-  <body class="m-0 overflow-hidden bg-[oklch(0.12_0.012_72)]">
-    <main
-      id="social-card"
-      class="relative h-[630px] w-[1200px] overflow-hidden bg-[oklch(0.12_0.012_72)] text-[oklch(0.96_0.01_82)]"
-      style="
+    <title>Stop Calling It Green social card</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        background: #0e1118;
+      }
+
+      .card {
+        position: relative;
+        display: grid;
+        grid-template-columns: 640px 1fr;
+        align-items: center;
+        width: 1200px;
+        height: 630px;
+        padding: 0 64px;
+        overflow: hidden;
         background:
-          radial-gradient(circle at 88% 46%, oklch(0.78 0.16 82 / 0.22), transparent 25%),
-          repeating-linear-gradient(90deg, oklch(0.95 0.01 82 / 0.07) 0, oklch(0.95 0.01 82 / 0.07) 1px, transparent 1px, transparent 44px),
-          repeating-linear-gradient(0deg, oklch(0.95 0.01 82 / 0.055) 0, oklch(0.95 0.01 82 / 0.055) 1px, transparent 1px, transparent 44px),
-          oklch(0.12 0.012 72);
-      "
-    >
-      <div
-        class="absolute inset-[46px] border-[5px] border-[oklch(0.67_0.2_38)]"
-      ></div>
-      <div
-        class="absolute right-[-92px] top-[62px] h-[536px] w-[536px] overflow-hidden rounded-full opacity-95 mix-blend-screen"
-      >
-        <Image
-          src={nasaSunSdo}
-          alt=""
-          width={720}
-          height={720}
-          widths={[720]}
-          sizes="536px"
-          format="webp"
-          quality={90}
-          loading="eager"
-          decoding="sync"
-          class="h-full w-full scale-[1.16] rounded-full object-cover saturate-[1.2] contrast-[1.08]"
-        />
+          radial-gradient(52rem 30rem at 88% 20%, rgb(217 156 0 / 0.2), transparent 62%),
+          radial-gradient(36rem 22rem at 6% 100%, rgb(217 72 15 / 0.18), transparent 60%),
+          #0e1118;
+        color: #eceae2;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgb(236 234 226 / 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgb(236 234 226 / 0.05) 1px, transparent 1px);
+        background-size: 48px 48px;
+      }
+
+      .card > * {
+        position: relative;
+      }
+
+      .card .eyebrow {
+        color: #b2b1aa;
+        font-size: 17px;
+      }
+
+      .card h1 {
+        margin: 18px 0 0;
+        font-size: 92px;
+        font-weight: 800;
+        line-height: 0.94;
+        letter-spacing: -0.03em;
+        color: #fff;
+      }
+
+      .card .strike {
+        position: relative;
+        color: #7fd39a;
+      }
+
+      .card .strike::after {
+        content: "";
+        position: absolute;
+        left: -0.04em;
+        right: -0.04em;
+        top: 52%;
+        height: 0.09em;
+        border-radius: 999px;
+        background: #d9480f;
+      }
+
+      .card .answer {
+        display: block;
+        color: #f0b429;
+      }
+
+      .card p.sub {
+        margin: 26px 0 0;
+        max-width: 560px;
+        color: #b2b1aa;
+        font-family: var(--font-serif);
+        font-size: 24px;
+        line-height: 1.4;
+      }
+
+      .card .hero-visual {
+        justify-self: end;
+        width: 460px;
+        max-width: 460px;
+      }
+
+      .card .readouts {
+        display: none;
+      }
+
+      .card .url {
+        position: absolute;
+        left: 64px;
+        bottom: 36px;
+        margin: 0;
+        color: #7f8088;
+        font-family: var(--font-mono);
+        font-size: 15px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="social-card" class="card">
+      <div>
+        <p class="eyebrow">A free online book · 11 chapters · sourced</p>
+        <h1>Stop calling it <span class="strike">green</span>.<span class="answer">It's just cheap power.</span></h1>
+        <p class="sub">How solar, wind, and batteries got dragged into the culture war, and why the electron doesn't care.</p>
       </div>
-      <div
-        class="absolute bottom-[46px] right-[46px] top-[46px] w-[30%] bg-gradient-to-r from-transparent via-[oklch(0.12_0.012_72/0.12)] to-[oklch(0.12_0.012_72/0.42)]"
-      ></div>
-      <section class="absolute left-[76px] top-[82px] w-[680px]">
-        <h1
-          class="m-0 max-w-[650px] font-[var(--font-display)] text-[116px] font-bold uppercase leading-[0.86] tracking-[0.008em]"
-        >
-          Stop Calling It Green
-        </h1>
-        <p
-          class="mt-[38px] max-w-[700px] text-[31px] font-medium leading-[1.05] tracking-[0.005em] text-[oklch(0.82_0.012_82)] [font-family:var(--font-sans)]"
-        >
-          Cheap power got dragged into the culture war.
-        </p>
-      </section>
+      <PowerFlow />
+      <p class="url">stopcallingitgreen.org</p>
     </main>
   </body>
 </html>

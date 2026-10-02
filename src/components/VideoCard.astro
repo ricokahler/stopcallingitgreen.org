@@ -8,29 +8,24 @@ interface Props {
   sourceUrl: string;
 }
 
-const {
-  title,
-  embedUrl,
-  iframeTitle = title,
-  caption,
-  sourceLabel = "Video",
-  sourceUrl
-} = Astro.props;
+const { title, embedUrl, iframeTitle = title, caption, sourceLabel = "Video", sourceUrl } = Astro.props;
+const videoId = embedUrl.split("/embed/")[1]?.split(/[?&]/)[0] ?? "";
+const poster = videoId ? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg` : "";
 ---
 
-<figure class="video-card">
-  <div class="video-frame">
-    <iframe
-      src={embedUrl}
-      title={iframeTitle}
-      loading="lazy"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen
-    ></iframe>
+<figure class="video">
+  <div class="video-frame" data-video data-embed={embedUrl} data-title={iframeTitle}>
+    {poster && <img src={poster} alt="" width="480" height="360" loading="lazy" decoding="async" />}
+    <button class="video-play" type="button" data-video-play aria-label={`Play video: ${title}`}>
+      <span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"></path></svg>
+      </span>
+      <span class="video-badge">YouTube · click to load</span>
+    </button>
   </div>
   <figcaption>
     <strong>{title}</strong>
     <p>{caption}</p>
-    <a href={sourceUrl} rel="noreferrer" target="_blank">{sourceLabel}</a>
+    <a href={sourceUrl} rel="noreferrer" target="_blank">{sourceLabel} ↗</a>
   </figcaption>
 </figure>

@@ -1,11 +1,10 @@
 ---
 import "../styles/global.css";
-import { chapters, type ChapterMeta } from "../lib/chapters";
+import { chapters, chapterNumber, editionLabel, type ChapterMeta } from "../lib/chapters";
 
 interface Props {
   title?: string;
   description?: string;
-  bodyClass?: string;
   pageKind?: "home" | "chapter" | "about" | "page";
   chapter?: ChapterMeta;
 }
@@ -13,15 +12,12 @@ interface Props {
 const {
   title,
   description = "A free online book about how cheap power got dragged into the culture war.",
-  bodyClass,
   pageKind,
   chapter
 } = Astro.props;
 
 const siteUrl = Astro.site ?? new URL("https://stopcallingitgreen.org");
-const pageTitle = title
-  ? `${title} | Stop Calling It Green`
-  : "Stop Calling It Green";
+const pageTitle = title ? `${title} | Stop Calling It Green` : "Stop Calling It Green";
 const canonical = new URL(Astro.url.pathname, siteUrl).toString();
 const homeUrl = new URL("/", siteUrl).toString();
 const bookId = new URL("/#book", siteUrl).toString();
@@ -29,7 +25,8 @@ const websiteId = new URL("/#website", siteUrl).toString();
 const pageId = `${canonical}#webpage`;
 const workId = `${canonical}#work`;
 const socialImage = new URL("/og/stop-calling-it-green.png", siteUrl).toString();
-const socialImageAlt = "Stop Calling It Green social card with a NASA image of the sun and the subtitle, Cheap power got dragged into the culture war.";
+const socialImageAlt =
+  "Stop calling it green. It's just cheap power. A free online book about how solar, wind, and batteries got dragged into the culture war.";
 const resolvedKind = pageKind ?? (chapter ? "chapter" : title ? "page" : "home");
 const pageType = resolvedKind === "chapter" ? "article" : "website";
 const chapterList = chapters.map((item) => ({
@@ -43,97 +40,75 @@ const chapterList = chapters.map((item) => ({
   inLanguage: "en-US"
 }));
 const breadcrumbItems = [
-  {
-    "@type": "ListItem",
-    position: 1,
-    name: "Home",
-    item: homeUrl
-  },
+  { "@type": "ListItem", position: 1, name: "Home", item: homeUrl },
   ...(resolvedKind === "chapter" && chapter
-    ? [
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: chapter.title,
-          item: canonical
-        }
-      ]
+    ? [{ "@type": "ListItem", position: 2, name: chapter.title, item: canonical }]
     : resolvedKind === "about"
-      ? [
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "About",
-            item: canonical
-          }
-        ]
+      ? [{ "@type": "ListItem", position: 2, name: "About", item: canonical }]
       : [])
-];
-const webPage = {
-  "@type": "WebPage",
-  "@id": pageId,
-  url: canonical,
-  name: pageTitle,
-  description,
-  image: socialImage,
-  isPartOf: { "@id": websiteId },
-  inLanguage: "en-US",
-  mainEntity: resolvedKind === "home" ? { "@id": bookId } : resolvedKind === "chapter" ? { "@id": workId } : undefined
-};
-const jsonLdGraph = [
-  {
-    "@type": "WebSite",
-    "@id": websiteId,
-    name: "Stop Calling It Green",
-    url: homeUrl,
-    description: "A free online book about how cheap power got dragged into the culture war.",
-    inLanguage: "en-US"
-  },
-  {
-    "@type": "Book",
-    "@id": bookId,
-    name: "Stop Calling It Green",
-    alternateName: "Stop Calling It Green: How Cheap Power Got Dragged Into The Culture War",
-    url: homeUrl,
-    description: "A free online book about solar, oil lobbying, energy propaganda, and why fuel-free power should be judged as infrastructure.",
-    image: socialImage,
-    isAccessibleForFree: true,
-    inLanguage: "en-US",
-    genre: ["Energy policy", "Infrastructure", "Long-form nonfiction"],
-    hasPart: chapterList
-  },
-  webPage,
-  ...(resolvedKind === "chapter" && chapter
-    ? [
-        {
-          "@type": "Chapter",
-          "@id": workId,
-          name: chapter.title,
-          headline: chapter.title,
-          description: chapter.description,
-          url: canonical,
-          position: chapter.order,
-          isPartOf: { "@id": bookId },
-          isAccessibleForFree: true,
-          inLanguage: "en-US",
-          citation: chapter.sources?.map((source) => ({
-            "@type": "CreativeWork",
-            name: source.title,
-            url: source.url
-          }))
-        }
-      ]
-    : []),
-  {
-    "@type": "BreadcrumbList",
-    "@id": `${canonical}#breadcrumb`,
-    itemListElement: breadcrumbItems
-  }
 ];
 const jsonLd = {
   "@context": "https://schema.org",
-  "@graph": jsonLdGraph
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": websiteId,
+      name: "Stop Calling It Green",
+      url: homeUrl,
+      description: "A free online book about how cheap power got dragged into the culture war.",
+      inLanguage: "en-US"
+    },
+    {
+      "@type": "Book",
+      "@id": bookId,
+      name: "Stop Calling It Green",
+      alternateName: "Stop Calling It Green: How Cheap Power Got Dragged Into The Culture War",
+      url: homeUrl,
+      description:
+        "A free online book about solar, oil lobbying, energy propaganda, and why fuel-free power should be judged as infrastructure.",
+      image: socialImage,
+      isAccessibleForFree: true,
+      inLanguage: "en-US",
+      genre: ["Energy policy", "Infrastructure", "Long-form nonfiction"],
+      hasPart: chapterList
+    },
+    {
+      "@type": "WebPage",
+      "@id": pageId,
+      url: canonical,
+      name: pageTitle,
+      description,
+      image: socialImage,
+      isPartOf: { "@id": websiteId },
+      inLanguage: "en-US",
+      mainEntity:
+        resolvedKind === "home" ? { "@id": bookId } : resolvedKind === "chapter" ? { "@id": workId } : undefined
+    },
+    ...(resolvedKind === "chapter" && chapter
+      ? [
+          {
+            "@type": "Chapter",
+            "@id": workId,
+            name: chapter.title,
+            headline: chapter.title,
+            description: chapter.description,
+            url: canonical,
+            position: chapter.order,
+            isPartOf: { "@id": bookId },
+            isAccessibleForFree: true,
+            inLanguage: "en-US",
+            citation: chapter.sources.map((source) => ({
+              "@type": "CreativeWork",
+              name: source.title,
+              url: source.url
+            }))
+          }
+        ]
+      : []),
+    { "@type": "BreadcrumbList", "@id": `${canonical}#breadcrumb`, itemListElement: breadcrumbItems }
+  ]
 };
+const currentSlug = chapter?.slug ?? "";
 ---
 
 <!doctype html>
@@ -143,15 +118,13 @@ const jsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script is:inline>
       (() => {
-        const storageKey = "stopcallingitgreen-theme";
         const root = document.documentElement;
+        root.classList.add("js");
         const media = window.matchMedia("(prefers-color-scheme: dark)");
         let saved = null;
         try {
-          saved = localStorage.getItem(storageKey);
-        } catch {
-          saved = null;
-        }
+          saved = localStorage.getItem("scig-theme");
+        } catch {}
         const mode = saved === "light" || saved === "dark" ? saved : "system";
         root.dataset.themeMode = mode;
         root.dataset.theme = mode === "system" ? (media.matches ? "dark" : "light") : mode;
@@ -160,7 +133,7 @@ const jsonLd = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap"
       rel="stylesheet"
     />
     <title>{pageTitle}</title>
@@ -168,9 +141,9 @@ const jsonLd = {
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="application-name" content="Stop Calling It Green" />
     <meta name="apple-mobile-web-app-title" content="Stop Calling It Green" />
-    <meta name="color-scheme" content="dark light" />
-    <meta name="theme-color" content="#11100d" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#0f1218" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f2ec" media="(prefers-color-scheme: light)" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
@@ -195,222 +168,227 @@ const jsonLd = {
     <meta name="twitter:image:alt" content={socialImageAlt} />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
-  <body class={bodyClass}>
+  <body data-page={resolvedKind} data-chapter={currentSlug || undefined}>
+    <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header" data-site-header>
-      <a class="brand" href="/" aria-label="Stop Calling It Green home">
-        <span>Stop Calling It Green</span>
-      </a>
-      <button
-        class="nav-toggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="site-menu"
-        aria-label="Open navigation"
-        data-nav-toggle
-      >
-        <span class="hamburger-lines" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </button>
-      <div id="site-menu" class="site-menu" data-site-menu>
-        <nav class="site-nav" aria-label="Primary navigation">
-          <div class="chapter-menu" data-chapter-menu>
-            <button
-              class="chapter-menu-button"
-              type="button"
-              aria-expanded="false"
-              aria-controls="chapter-selector"
-              data-chapter-toggle
-            >
-              <span>Chapters</span>
-              <svg class="chapter-menu-chevron" aria-hidden="true" viewBox="0 0 24 24">
-                <path d="m6 9 6 6 6-6"></path>
-              </svg>
-            </button>
-            <div
-              id="chapter-selector"
-              class="chapter-panel"
-              role="menu"
-              aria-label="Chapter selector"
-              data-chapter-panel
-            >
-              {chapters.map((chapter) => (
-                <a role="menuitem" href={`/chapters/${chapter.slug}/`}>
-                  <span>{chapter.chapterLabel}</span>
-                  <strong>{chapter.shortTitle}</strong>
-                </a>
-              ))}
+      <div class="wrap site-header-inner">
+        <a class="brand" href="/" aria-label="Stop Calling It Green home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M5.6 18.4l1.6-1.6M16.8 7.2l1.6-1.6"></path>
+            </svg>
+          </span>
+          <span class="brand-text">Stop Calling It Green</span>
+        </a>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-menu"
+          aria-label="Open menu"
+          data-nav-toggle
+        >
+          <svg class="icon-menu" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+        <div id="site-menu" class="site-menu" data-site-menu>
+          <nav class="site-nav" aria-label="Primary">
+            <div class="chapter-menu" data-chapter-menu>
+              <button
+                class="chapter-menu-button"
+                type="button"
+                aria-expanded="false"
+                aria-controls="chapter-panel"
+                data-chapter-toggle
+              >
+                <span>Chapters</span>
+                <svg class="chapter-menu-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+              </button>
+              <div id="chapter-panel" class="chapter-panel" data-chapter-panel>
+                <ol>
+                  {chapters.map((item) => (
+                    <li>
+                      <a
+                        href={`/chapters/${item.slug}/`}
+                        aria-current={item.slug === currentSlug ? "page" : undefined}
+                        data-chapter-link={item.slug}
+                      >
+                        <span class="num">{chapterNumber(item)}</span>
+                        <span class="name">{item.shortTitle}<span class="done" data-read-badge hidden>read</span></span>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </div>
             </div>
-          </div>
-          <a href="/about/">About</a>
-        </nav>
-        <div class="theme-switcher" role="group" aria-label="Color theme">
-          <button
-            type="button"
-            data-theme-choice="light"
-            aria-label="Use light theme"
-            aria-pressed="false"
-            title="Light"
-          >
-            <svg aria-hidden="true" viewBox="0 0 24 24">
+            <a href="/about/">About</a>
+          </nav>
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme">
+            <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="12" cy="12" r="4"></circle>
               <path d="M12 2v2.5M12 19.5V22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2 12h2.5M19.5 12H22M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77"></path>
             </svg>
-          </button>
-          <button
-            type="button"
-            data-theme-choice="dark"
-            aria-label="Use dark theme"
-            aria-pressed="false"
-            title="Dark"
-          >
-            <svg aria-hidden="true" viewBox="0 0 24 24">
+            <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M20.3 14.4A7.4 7.4 0 0 1 9.6 3.7 8.6 8.6 0 1 0 20.3 14.4Z"></path>
-            </svg>
-          </button>
-          <button
-            type="button"
-            data-theme-choice="system"
-            aria-label="Use system theme"
-            aria-pressed="false"
-            title="System"
-          >
-            <svg aria-hidden="true" viewBox="0 0 24 24">
-              <rect x="3" y="4" width="18" height="13" rx="2"></rect>
-              <path d="M8 21h8M12 17v4"></path>
             </svg>
           </button>
         </div>
       </div>
+      {resolvedKind === "chapter" && (
+        <div class="read-progress" aria-hidden="true"><div class="read-progress-bar" data-progress-bar></div></div>
+      )}
     </header>
     <slot />
     <footer class="site-footer">
-      <p>
-        Free, online-only, self-funded, and built to be shared. No donations, no
-        merch, no foundation.
-      </p>
-      <nav aria-label="Footer navigation">
-        <a href="/">Home</a>
-        <a href="/#chapters">Chapters</a>
-        <a href="/about/">About</a>
-      </nav>
+      <div class="wrap">
+        <div class="site-footer-grid">
+          <div>
+            <a class="brand" href="/">
+              <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <path d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M5.6 18.4l1.6-1.6M16.8 7.2l1.6-1.6"></path>
+                </svg>
+              </span>
+              <span class="brand-text">Stop Calling It Green</span>
+            </a>
+            <p class="site-footer-blurb">
+              A free online book about how cheap power got dragged into the culture war. Self-funded, open source, and built to be checked.
+            </p>
+          </div>
+          <div>
+            <h2>Chapters</h2>
+            <ol>
+              {chapters.map((item) => (
+                <li>
+                  <a href={`/chapters/${item.slug}/`}><span class="num">{chapterNumber(item)}</span>{item.shortTitle}</a>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <div>
+            <h2>Project</h2>
+            <ul>
+              <li><a href="/about/">About the book</a></li>
+              <li><a href="https://github.com/ricokahler/stopcallingitgreen.org">Source on GitHub</a></li>
+              <li><a href="https://github.com/ricokahler/stopcallingitgreen.org/issues">Send a correction</a></li>
+              <li><a href="/#chapters">Table of contents</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="site-footer-bottom">
+          <p>{editionLabel} · Written with heavy AI assistance and human responsibility.</p>
+          <p>No donations, no merch, no organization.</p>
+        </div>
+      </div>
     </footer>
     <script is:inline>
-      const toggle = document.querySelector("[data-nav-toggle]");
-      const siteMenu = document.querySelector("[data-site-menu]");
-      const chapterMenu = document.querySelector("[data-chapter-menu]");
-      const chapterToggle = document.querySelector("[data-chapter-toggle]");
-      const chapterPanel = document.querySelector("[data-chapter-panel]");
-      const root = document.documentElement;
-      let navScrollY = 0;
+      (() => {
+        const root = document.documentElement;
+        const toggle = document.querySelector("[data-nav-toggle]");
+        const menu = document.querySelector("[data-site-menu]");
+        const chapterMenu = document.querySelector("[data-chapter-menu]");
+        const chapterToggle = document.querySelector("[data-chapter-toggle]");
 
-      const lockPageScroll = () => {
-        navScrollY = window.scrollY || root.scrollTop || 0;
-        document.body.style.top = `-${navScrollY}px`;
-        root.setAttribute("data-nav-open", "");
-      };
-
-      const unlockPageScroll = () => {
-        root.removeAttribute("data-nav-open");
-        document.body.style.top = "";
-        window.scrollTo(0, navScrollY);
-      };
-
-      const closeChapterMenu = () => {
-        if (!chapterMenu || !chapterToggle) return;
-        chapterMenu.removeAttribute("data-open");
-        chapterToggle.setAttribute("aria-expanded", "false");
-      };
-
-      if (toggle && siteMenu) {
-        const closeNav = () => {
-          const wasOpen = toggle.getAttribute("aria-expanded") === "true";
-          toggle.setAttribute("aria-expanded", "false");
-          toggle.setAttribute("aria-label", "Open navigation");
-          siteMenu.removeAttribute("data-open");
-          if (wasOpen) unlockPageScroll();
-          closeChapterMenu();
+        const closeChapters = () => {
+          if (!chapterMenu || !chapterToggle) return;
+          chapterMenu.removeAttribute("data-open");
+          chapterToggle.setAttribute("aria-expanded", "false");
         };
 
-        toggle.addEventListener("click", () => {
-          const isOpen = toggle.getAttribute("aria-expanded") === "true";
-          if (isOpen) {
-            closeNav();
-            return;
-          }
+        if (toggle && menu) {
+          const closeNav = () => {
+            toggle.setAttribute("aria-expanded", "false");
+            toggle.setAttribute("aria-label", "Open menu");
+            menu.removeAttribute("data-open");
+            root.removeAttribute("data-nav-open");
+            closeChapters();
+          };
+          toggle.addEventListener("click", () => {
+            const open = toggle.getAttribute("aria-expanded") === "true";
+            if (open) return closeNav();
+            toggle.setAttribute("aria-expanded", "true");
+            toggle.setAttribute("aria-label", "Close menu");
+            menu.setAttribute("data-open", "");
+            root.setAttribute("data-nav-open", "");
+          });
+          menu.addEventListener("click", (event) => {
+            if (event.target instanceof Element && event.target.closest("a")) closeNav();
+          });
+          window.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") closeNav();
+          });
+        }
 
-          toggle.setAttribute("aria-expanded", "true");
-          toggle.setAttribute("aria-label", "Close navigation");
-          siteMenu.setAttribute("data-open", "");
-          lockPageScroll();
-        });
+        if (chapterMenu && chapterToggle) {
+          chapterToggle.addEventListener("click", () => {
+            const open = chapterToggle.getAttribute("aria-expanded") === "true";
+            chapterToggle.setAttribute("aria-expanded", String(!open));
+            chapterMenu.toggleAttribute("data-open", !open);
+          });
+          document.addEventListener("click", (event) => {
+            if (event.target instanceof Node && !chapterMenu.contains(event.target)) closeChapters();
+          });
+          window.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") closeChapters();
+          });
+        }
 
-        siteMenu.addEventListener("click", (event) => {
-          if (!(event.target instanceof Element)) return;
-          if (event.target.closest("a")) closeNav();
-        });
-
-        window.addEventListener("keydown", (event) => {
-          if (event.key === "Escape") closeNav();
-        });
-      }
-
-      if (chapterMenu && chapterToggle && chapterPanel) {
-        chapterToggle.addEventListener("click", () => {
-          const isOpen = chapterToggle.getAttribute("aria-expanded") === "true";
-          chapterToggle.setAttribute("aria-expanded", String(!isOpen));
-          chapterMenu.toggleAttribute("data-open", !isOpen);
-        });
-
-        document.addEventListener("click", (event) => {
-          if (!(event.target instanceof Node)) return;
-          if (!chapterMenu.contains(event.target)) closeChapterMenu();
-        });
-
-        window.addEventListener("keydown", (event) => {
-          if (event.key === "Escape") closeChapterMenu();
-        });
-      }
-
-      (() => {
-        const storageKey = "stopcallingitgreen-theme";
-        const root = document.documentElement;
+        // Theme toggle: light <-> dark, remembered per browser.
         const media = window.matchMedia("(prefers-color-scheme: dark)");
-        const buttons = [...document.querySelectorAll("[data-theme-choice]")];
-
-        const resolvedTheme = (mode) =>
-          mode === "system" ? (media.matches ? "dark" : "light") : mode;
-
-        const setTheme = (mode, persist = true) => {
-          const nextMode = mode === "light" || mode === "dark" ? mode : "system";
-          root.dataset.themeMode = nextMode;
-          root.dataset.theme = resolvedTheme(nextMode);
+        const themeButton = document.querySelector("[data-theme-toggle]");
+        const applyTheme = (theme, persist) => {
+          root.dataset.theme = theme;
+          root.dataset.themeMode = persist ? theme : "system";
+          if (themeButton) {
+            themeButton.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
+          }
           if (persist) {
             try {
-              if (nextMode === "system") localStorage.removeItem(storageKey);
-              else localStorage.setItem(storageKey, nextMode);
+              localStorage.setItem("scig-theme", theme);
             } catch {}
           }
-          buttons.forEach((button) => {
-            const selected = button.dataset.themeChoice === nextMode;
-            button.setAttribute("aria-pressed", String(selected));
-          });
         };
-
-        buttons.forEach((button) => {
-          button.addEventListener("click", () => setTheme(button.dataset.themeChoice));
+        applyTheme(root.dataset.theme || "light", false);
+        if (themeButton) {
+          themeButton.addEventListener("click", () => {
+            applyTheme(root.dataset.theme === "dark" ? "light" : "dark", true);
+          });
+        }
+        media.addEventListener?.("change", () => {
+          if (root.dataset.themeMode === "system") applyTheme(media.matches ? "dark" : "light", false);
         });
 
-        const handleSystemThemeChange = () => {
-          if (root.dataset.themeMode === "system") setTheme("system", false);
-        };
+        // Read-state badges in the chapter menu.
+        try {
+          const read = JSON.parse(localStorage.getItem("scig-read") || "{}");
+          document.querySelectorAll("[data-chapter-link]").forEach((link) => {
+            if (read[link.dataset.chapterLink]) {
+              const badge = link.querySelector("[data-read-badge]");
+              if (badge) badge.hidden = false;
+            }
+          });
+        } catch {}
 
-        if (media.addEventListener) media.addEventListener("change", handleSystemThemeChange);
-        else media.addListener(handleSystemThemeChange);
-
-        setTheme(root.dataset.themeMode, false);
+        // Reveal-on-scroll.
+        const revealed = document.querySelectorAll(".reveal");
+        if (revealed.length && "IntersectionObserver" in window) {
+          const io = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("is-in");
+                  io.unobserve(entry.target);
+                }
+              });
+            },
+            { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+          );
+          revealed.forEach((element) => io.observe(element));
+        } else {
+          revealed.forEach((element) => element.classList.add("is-in"));
+        }
       })();
     </script>
   </body>

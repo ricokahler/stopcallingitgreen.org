@@ -1,0 +1,70 @@
+---
+interface Stat {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  decimals?: number;
+  label: string;
+  note: string;
+  sourceHref: string;
+  sourceLabel: string;
+  tone?: "sun" | "fuel" | "land" | "grid";
+}
+
+interface Props {
+  stats: Stat[];
+}
+
+const { stats } = Astro.props;
+---
+
+<div class="stats">
+  {stats.map((stat) => (
+    <div class="stat reveal" data-tone={stat.tone}>
+      <div class="stat-value">
+        {stat.prefix && <small>{stat.prefix}</small>}
+        <span data-count={stat.value} data-decimals={stat.decimals ?? 0}>{stat.value.toLocaleString("en-US", { maximumFractionDigits: stat.decimals ?? 0 })}</span>
+        {stat.suffix && <small>{stat.suffix}</small>}
+      </div>
+      <p class="stat-label">{stat.label}</p>
+      <p class="stat-note">{stat.note}</p>
+      <p class="stat-source"><a href={stat.sourceHref} rel="noreferrer" target="_blank">{stat.sourceLabel}</a></p>
+    </div>
+  ))}
+</div>
+
+<script is:inline>
+  (() => {
+    const counters = document.querySelectorAll("[data-count]");
+    if (!counters.length) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const run = (el) => {
+      const target = Number(el.dataset.count);
+      const decimals = Number(el.dataset.decimals || 0);
+      const format = (n) => n.toLocaleString("en-US", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+      if (reduce) {
+        el.textContent = format(target);
+        return;
+      }
+      const start = performance.now();
+      const duration = 1300;
+      const tick = (now) => {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = format(target * eased);
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    if (!("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          run(entry.target);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    counters.forEach((el) => io.observe(el));
+  })();
+</script>

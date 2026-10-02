@@ -91,3 +91,13 @@ Flag anything that:
 - repeats a move the reader just saw,
 - makes the argument feel smaller by trying too hard,
 - or would make a skeptical reader quit even if the facts are good.
+
+## 9. Voice
+
+A smart friend explaining something over a beer, not a columnist scoring points.
+
+- Plain words. Gloss a technical term the first time it appears, in one clause.
+- "You" and "we" where natural. Acknowledge a reasonable doubt before answering it, but not formulaically.
+- Aim sharpness at institutions, tactics, and marketing, never at the reader or the groups the book is trying to reach.
+- No em dashes. No "Let's dive in," "Here's the thing," "It's worth noting," stacked rhetorical questions, or lists of three adjectives.
+- Keep the jokes. Cut the throat-clearing.

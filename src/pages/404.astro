@@ -3,12 +3,16 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Not Found">
-  <main class="about-page">
-    <h1>Page not found</h1>
-    <p>
-      That link does not point to a current page. The chapter list is still the
-      fastest way back in.
-    </p>
-    <p><a href="/#chapters">Browse chapters</a></p>
+  <main id="main" class="doc">
+    <div class="wrap">
+      <header class="doc-head">
+        <p class="eyebrow">404</p>
+        <h1>That page isn't on the grid.</h1>
+      </header>
+      <article class="prose">
+        <p>The link doesn't point to a current page. The table of contents is the fastest way back in.</p>
+        <p><a class="button primary" href="/#chapters">Browse chapters</a></p>
+      </article>
+    </div>
   </main>
 </Layout>

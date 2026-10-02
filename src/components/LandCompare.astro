@@ -1,0 +1,109 @@
+---
+// Technology Connections' 120-acre example: ethanol corn on 120 acres fuels about
+// 2 million car-miles a year; a solar farm on the same 120 acres powers roughly
+// 74 million EV miles a year.
+const acresPerMillionMilesEthanol = 120 / 2;
+const acresPerMillionMilesSolar = 120 / 74;
+---
+
+<div
+  class="land"
+  data-land
+  data-ethanol={acresPerMillionMilesEthanol}
+  data-solar={acresPerMillionMilesSolar}
+  role="group"
+  aria-labelledby="land-title"
+>
+  <header class="fig-head">
+    <p class="eyebrow">Try it</p>
+    <h3 class="fig-title" id="land-title">How much land does it take to move a car?</h3>
+    <p class="fig-body">
+      Pick how many miles get driven in a year. The calculator uses the 120-acre example from the Technology
+      Connections video above: ethanol corn on that land moves a gas car about 2 million miles a year; a solar farm on
+      the same land moves electric cars about 74 million miles.
+    </p>
+  </header>
+  <div class="land-control">
+    <label for="land-miles">
+      <span>Miles driven per year</span>
+      <output for="land-miles" data-land-out>10 million</output>
+    </label>
+    <input id="land-miles" type="range" min="1" max="100" step="1" value="10" data-land-input aria-describedby="land-title" />
+    <div class="land-presets" aria-label="Presets">
+      <button class="land-preset" type="button" data-land-preset="1" aria-pressed="false">A big family, 80 years (1M)</button>
+      <button class="land-preset" type="button" data-land-preset="10" aria-pressed="true">A small town (10M)</button>
+      <button class="land-preset" type="button" data-land-preset="50" aria-pressed="false">A mid-size city (50M)</button>
+      <button class="land-preset" type="button" data-land-preset="100" aria-pressed="false">A busy county (100M)</button>
+    </div>
+  </div>
+  <div class="land-results">
+    <div class="land-result tone-land">
+      <span class="name">Ethanol corn, feeding gas cars</span>
+      <span class="acres"><span data-land-ethanol>600</span> <small>acres</small></span>
+      <span class="compare" data-land-ethanol-note>About 454 football fields of corn, every year.</span>
+    </div>
+    <div class="land-result tone-sun">
+      <span class="name">Solar, charging electric cars</span>
+      <span class="acres"><span data-land-solar>16</span> <small>acres</small></span>
+      <span class="compare" data-land-solar-note>About 12 football fields, and the fuel is free after that.</span>
+    </div>
+  </div>
+  <div class="land-visual" aria-hidden="true">
+    <div class="land-square tone-land" data-land-square-ethanol style="--side: 120px;"></div>
+    <div class="land-square tone-sun" data-land-square-solar style="--side: 20px;"></div>
+    <span class="land-visual-note">Squares drawn to scale by area</span>
+  </div>
+  <footer class="fig-foot">
+    <span>
+      Rough comparison. Assumptions and sources:
+      <a href="https://www.youtube.com/watch?v=KtQ9nt2ZeGM" rel="noreferrer" target="_blank">Technology Connections</a>
+    </span>
+    <span>Ratio: about 37 to 1</span>
+  </footer>
+</div>
+
+<script is:inline>
+  (() => {
+    document.querySelectorAll("[data-land]").forEach((root) => {
+      const perMillionEthanol = Number(root.dataset.ethanol);
+      const perMillionSolar = Number(root.dataset.solar);
+      const input = root.querySelector("[data-land-input]");
+      const out = root.querySelector("[data-land-out]");
+      const ethanolEl = root.querySelector("[data-land-ethanol]");
+      const solarEl = root.querySelector("[data-land-solar]");
+      const ethanolNote = root.querySelector("[data-land-ethanol-note]");
+      const solarNote = root.querySelector("[data-land-solar-note]");
+      const sqE = root.querySelector("[data-land-square-ethanol]");
+      const sqS = root.querySelector("[data-land-square-solar]");
+      const presets = root.querySelectorAll("[data-land-preset]");
+      const fields = (acres) => Math.max(1, Math.round(acres / 1.32)); // one football field is about 1.32 acres
+      const fmt = (n) => Math.round(n).toLocaleString("en-US");
+
+      const render = () => {
+        const millions = Number(input.value);
+        const ethanol = millions * perMillionEthanol;
+        const solar = millions * perMillionSolar;
+        out.textContent = `${millions} million`;
+        ethanolEl.textContent = fmt(ethanol);
+        solarEl.textContent = solar < 10 ? solar.toFixed(1) : fmt(solar);
+        ethanolNote.textContent = `About ${fmt(fields(ethanol))} football fields of corn, every year.`;
+        solarNote.textContent = `About ${fmt(fields(solar))} football field${fields(solar) === 1 ? "" : "s"}, and the fuel is free after that.`;
+        const maxSide = 120;
+        const sideE = maxSide;
+        const sideS = Math.max(6, Math.round(maxSide * Math.sqrt(solar / ethanol)));
+        sqE.style.setProperty("--side", `${sideE}px`);
+        sqS.style.setProperty("--side", `${sideS}px`);
+        presets.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.landPreset === input.value)));
+      };
+
+      input.addEventListener("input", render);
+      presets.forEach((button) =>
+        button.addEventListener("click", () => {
+          input.value = button.dataset.landPreset;
+          render();
+        })
+      );
+      render();
+    });
+  })();
+</script>

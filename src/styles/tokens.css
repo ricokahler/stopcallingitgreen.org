@@ -1,0 +1,84 @@
+:root {
+  color-scheme: light;
+
+  /* Surfaces and ink */
+  --bg: #f4f2ec;
+  --surface: #fffdf9;
+  --surface-2: #ebe8e0;
+  --surface-3: #dfdcd3;
+  --ink: #15171c;
+  --ink-2: #474a53;
+  --ink-3: #70737c;
+  --line: #dbd8cf;
+  --line-2: #bdbab1;
+
+  /* Brand accent: signal orange for links and primary actions */
+  --accent: #d9480f;
+  --accent-hover: #b93c0b;
+  --accent-ink: #fffdf9;
+  --accent-soft: #fbe6d8;
+
+  /* Figure tones (validated for light surfaces; identity never rests on color alone) */
+  --sun: #d99c00;
+  --fuel: #b8303a;
+  --grid: #2d6fd8;
+  --land: #2a9752;
+  --money: #1a9fa5;
+  --coal: #6b4a2b;
+  --nuclear: #7a56c8;
+
+  /* Always-dark hero and footer */
+  --night: #0e1118;
+  --night-2: #151a24;
+  --night-line: #2a3140;
+  --night-ink: #eceae2;
+  --night-ink-2: #b2b1aa;
+  --night-ink-3: #7f8088;
+
+  --focus: #2d6fd8;
+  --shadow-1: 0 1px 2px rgb(21 23 28 / 0.05), 0 10px 30px rgb(21 23 28 / 0.08);
+  --shadow-2: 0 2px 6px rgb(21 23 28 / 0.08), 0 24px 60px rgb(21 23 28 / 0.14);
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-lg: 16px;
+
+  --font-display: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-serif: "Source Serif 4", ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --measure: 66ch;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --max: 1200px;
+  --header-h: 60px;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f1218;
+  --surface: #161a22;
+  --surface-2: #1e232d;
+  --surface-3: #272d39;
+  --ink: #eceae2;
+  --ink-2: #b7b5ad;
+  --ink-3: #868579;
+  --line: #2a2f3a;
+  --line-2: #3d4350;
+
+  --accent: #ff7a2f;
+  --accent-hover: #ff9152;
+  --accent-ink: #15171c;
+  --accent-soft: #3a2316;
+
+  --sun: #c2891a;
+  --fuel: #d64a5c;
+  --grid: #4f8ae8;
+  --land: #2fa06c;
+  --money: #17a08f;
+  --coal: #a07a52;
+  --nuclear: #a088e6;
+
+  --focus: #7fb0ff;
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 30px rgb(0 0 0 / 0.35);
+  --shadow-2: 0 2px 6px rgb(0 0 0 / 0.35), 0 24px 60px rgb(0 0 0 / 0.5);
+}
