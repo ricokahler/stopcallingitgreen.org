@@ -30,6 +30,8 @@ Please keep the tone plain, unsmug, and useful. The point is to make the evidenc
 
 The site deploys automatically to Cloudflare Pages when `main` changes.
 
+Pull requests run the build, deployment-verification tests, and public-output check. After a merge, the same workflow publishes the site and checks that `https://stopcallingitgreen.org/deployment.json` reports the merged commit. Missing credentials, failed uploads, and a stale public domain fail the workflow instead of silently skipping publication. Production deployments run in sequence so an older upload cannot replace a newer one.
+
 Maintainer notes:
 
 ```bash
