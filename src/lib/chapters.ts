@@ -3,6 +3,12 @@ export interface SourceLink {
   url: string;
 }
 
+export interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
 export interface ChapterMeta {
   title: string;
   shortTitle: string;
@@ -10,26 +16,70 @@ export interface ChapterMeta {
   order: number;
   chapterLabel: string;
   description: string;
-  sources?: SourceLink[];
+  sources: SourceLink[];
+  headings: Heading[];
+  words: number;
+  minutes: number;
   Content: unknown;
 }
 
 interface ChapterModule {
-  frontmatter: Omit<ChapterMeta, "Content">;
+  frontmatter: Omit<ChapterMeta, "Content" | "headings" | "words" | "minutes" | "sources"> & {
+    sources?: SourceLink[];
+  };
   default: unknown;
+  getHeadings?: () => Heading[];
+  file?: string;
 }
 
 const modules = import.meta.glob<ChapterModule>("../content/chapters/*.mdx", {
   eager: true
 });
 
-export const chapters = Object.values(modules)
-  .map((module) => ({
-    ...module.frontmatter,
-    sources: module.frontmatter.sources ?? [],
-    Content: module.default
-  }))
+const rawModules = import.meta.glob<string>("../content/chapters/*.mdx", {
+  eager: true,
+  query: "?raw",
+  import: "default"
+});
+
+const WORDS_PER_MINUTE = 230;
+
+function countWords(raw: string) {
+  const body = raw
+    .replace(/^---[\s\S]*?---/, "")
+    .replace(/^import .*$/gm, "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\{[^}]*\}/g, " ")
+    .replace(/[#>*_`]/g, " ");
+  return body.split(/\s+/).filter((token) => /[A-Za-z0-9]/.test(token)).length;
+}
+
+export const chapters = Object.entries(modules)
+  .map(([path, module]) => {
+    const words = countWords(rawModules[path] ?? "");
+    return {
+      ...module.frontmatter,
+      sources: module.frontmatter.sources ?? [],
+      headings: (module.getHeadings?.() ?? []).filter((heading) => heading.depth === 2),
+      words,
+      minutes: Math.max(1, Math.round(words / WORDS_PER_MINUTE)),
+      Content: module.default
+    };
+  })
   .sort((a, b) => a.order - b.order) as ChapterMeta[];
+
+export const bookStats = {
+  chapters: chapters.length,
+  words: chapters.reduce((sum, chapter) => sum + chapter.words, 0),
+  minutes: chapters.reduce((sum, chapter) => sum + chapter.minutes, 0),
+  sources: chapters.reduce((sum, chapter) => sum + chapter.sources.length, 0)
+};
+
+export const editionLabel = "Edition 2 · October 2026";
+
+export function chapterNumber(chapter: ChapterMeta) {
+  return String(chapter.order).padStart(2, "0");
+}
 
 export function getChapterIndex(slug: string) {
   return chapters.findIndex((chapter) => chapter.slug === slug);

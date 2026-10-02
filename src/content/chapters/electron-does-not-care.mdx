@@ -27,7 +27,7 @@ sources:
 ---
 
 import BookImage from '../../components/BookImage.astro';
-import VisualFigure from '../../components/VisualFigure.astro';
+import MixExplorer from '../../components/MixExplorer.astro';
 import solarPanelsField from '../../assets/visuals/solar-panels-field.jpg';
 
 Flip a switch.
@@ -51,63 +51,27 @@ The light has no idea whether its power came from a gas plant, a coal plant, a d
 
 The way out of the culture war is to be boring on purpose.
 
-Nobody asks whether a microwave is "green." They ask whether it heats the food, what it costs, and whether it fits on the counter. The power behind the microwave deserves the same treatment. Some plants burn fuel to spin turbines. Some split atoms. Some catch falling water, moving air, or sunlight. Each has strengths and weaknesses, and the grid has always been a mix of them, because no single machine is good at everything.
+Nobody asks whether a microwave is "green." You ask whether it heats the food, what it costs, and whether it fits on the counter. The power behind the microwave deserves the same treatment. Some plants burn fuel to spin turbines. Some split atoms. Some catch falling water, moving air, or sunlight. Each has strengths and weaknesses, and the grid has always been a mix of them, because no single machine is good at everything.
 
-So the useful question isn't "which source matches my values?" It's "what combination gets us cheap, reliable power with the least nonsense?"
+So skip "which source matches my values?" The useful question is "what combination gets us cheap, reliable power with the least nonsense?"
 
-When someone says "you can't run the whole country on solar," they're right, and they're also arguing with nobody. Nobody serious wants a single tool to run civilization. You don't throw out your hammer because it makes a bad ladder.
+When someone says "you can't run the whole country on solar," they're right. They're also pushing on an open door, because nobody serious wants a single tool to run civilization. You don't throw out your hammer because it makes a bad ladder.
 
-In 2025, about 41 percent of America's utility-scale electricity came from natural gas, 18 percent from nuclear, 17 percent from coal, and 24 percent from renewables: wind about 11, solar about 7, hydro about 6. That's the portfolio as it stands. The interesting part is which way it's moving, and who's moving it.
+In 2025, about 41 percent of America's utility-scale electricity came from natural gas, 18 percent from nuclear, 17 percent from coal, and 24 percent from renewables: wind about 11, solar about 7, hydro about 6. That's the mix today. The interesting part is which way it's moving, and who's moving it.
 
 ## What's Actually Getting Built
 
-Look at what power companies are actually building, as opposed to what people argue about on television.
+Look at what power companies are actually building, not what people argue about on television.
 
-In 2025 the U.S. added about 53 gigawatts of new generating capacity, the most in a single year since 2002. Solar (27 gigawatts) and batteries (a record 15) made up about 80 percent of it. For 2026, developers told the Energy Information Administration they plan to add a record 86 gigawatts. Here's the mix:
+In 2025 the U.S. added about 53 gigawatts of new generating capacity, the most in a single year since 2002. (Capacity is what the plants can put out at full tilt, not what they end up producing over a year.) Solar (27 gigawatts) and batteries (a record 15) made up about 80 percent of it. For 2026, developers told the Energy Information Administration they plan to add a record 86 gigawatts. Here's the mix:
 
-<VisualFigure
-  eyebrow={"What's being built"}
-  title={"Planned U.S. capacity additions, 2026"}
-  body={"Developers reported 86 gigawatts of planned utility-scale additions to EIA. Solar and batteries are 79 percent of it."}
-  items={[
-    {
-      value: "51%",
-      label: "Solar (43.4 GW)",
-      note: "The single largest category of new power plants in America.",
-      size: 100,
-      tone: "sun"
-    },
-    {
-      value: "28%",
-      label: "Battery storage (24 GW)",
-      note: "Built to move cheap midday power into the evening peak.",
-      size: 55,
-      tone: "grid"
-    },
-    {
-      value: "14%",
-      label: "Wind (11.8 GW)",
-      note: "Mostly across the Great Plains and Texas.",
-      size: 27,
-      tone: "land"
-    },
-    {
-      value: "7%",
-      label: "Natural gas (6.3 GW)",
-      note: "Gas still runs the most generation, but it's a small slice of what's new.",
-      size: 14,
-      tone: "fuel"
-    }
-  ]}
-  sourceHref={"https://www.eia.gov/todayinenergy/detail.php?id=67205"}
-  sourceLabel={"EIA, February 2026"}
-/>
+<MixExplorer />
 
 Those plans don't all get finished on schedule, and some of 2026's rush is developers racing federal tax-credit deadlines (more on that in the next chapter). But the direction has been the same for years. Solar and batteries are most of what's getting built because, for a utility that has to buy new capacity, they're usually the cheapest thing to add and the fastest to put in service.
 
-The investment bank Lazard has published a widely used cost comparison for nearly two decades. Its 2026 edition puts new, unsubsidized utility-scale solar at $40 to $98 per megawatt-hour and onshore wind at $37 to $99, against $51 to $129 for a new combined-cycle gas plant and $175 to $255 for new nuclear. "Unsubsidized renewable energy remains the most cost-competitive form of new-build generation," it concludes.
+The investment bank Lazard has published a widely used cost comparison for nearly two decades. Its 2026 edition puts new, unsubsidized utility-scale solar at $40 to $98 per megawatt-hour (a thousand of the kilowatt-hours on your power bill) and onshore wind at $37 to $99, against $51 to $129 for a new combined-cycle gas plant and $175 to $255 for new nuclear. "Unsubsidized renewable energy remains the most cost-competitive form of new-build generation," it concludes.
 
-Two honest caveats come with that. First, wind and solar costs have been creeping up lately, along with interest rates, tariffs, and equipment prices. Second, a grid also has to pay to keep the lights on when the sun is down and the wind is still. Lazard tries to price that in, and finds renewables "remain broadly cost-competitive" with gas even after adding firming costs. We'll get to night properly in Chapter 7. But this is why the people who sign the checks keep choosing them.
+Two caveats, and both are fair. First, wind and solar costs have been creeping up lately, along with interest rates, tariffs, and equipment prices. Second, a grid also has to pay to keep the lights on when the sun is down and the wind is still. Lazard tries to price that in, and finds renewables "remain broadly cost-competitive" with gas even after adding firming costs, meaning the backup that covers those gaps. We'll get to night properly in Chapter 7. But this is why the people who sign the checks keep choosing them.
 
 ## Where It's Getting Built
 
@@ -115,7 +79,7 @@ Now look at where.
 
 Texas has led the country in wind power for years. In 2025 it passed California in utility-scale solar generation, and in early 2026 it passed California in battery capacity, measured in megawatts. Iowa gets most of its electricity from wind, the largest share of any state. Kansas, Oklahoma, the Dakotas, Nebraska, and New Mexico all get a quarter or more of their power from wind.
 
-Texas's grid is famously run as a market: build whatever you want, sell power if anyone will buy it. Wind and solar won a big share of that market on price. They had help, from federal tax credits and from a $6.9 billion network of state-planned power lines, paid for by Texas ratepayers, that connected West Texas wind to the cities. But it was a market where anyone could have built gas instead, and plenty did. In farm country, a turbine on your land is a lease check that shows up whether corn is at four dollars or six. It's hard to describe a rancher cashing that check as a coastal lifestyle choice.
+Texas's grid is famously run as a market: build whatever you want, sell power if anyone will buy it. Wind and solar won a big share of that market on price. They had help, from federal tax credits and from a $6.9 billion network of state-planned power lines, paid for by Texas ratepayers (the people paying the power bills), that connected West Texas wind to the cities. But it was a market where anyone could have built gas instead, and plenty did. In farm country, a turbine on your land is a lease check that shows up whether corn is at four dollars or six. It's hard to describe a rancher cashing that check as a coastal lifestyle choice.
 
 The electron doesn't care about the bumper stickers in the parking lot. It turns out the people building the grid mostly don't either.
 

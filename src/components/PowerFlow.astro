@@ -1,0 +1,91 @@
+---
+// Animated schematic for the home hero: sun -> panel -> wire -> house.
+---
+
+<div class="hero-visual" aria-hidden="true">
+  <svg class="flow" viewBox="0 0 560 360" data-flow>
+    <defs>
+      <linearGradient id="panelGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#24395f"></stop>
+        <stop offset="1" stop-color="#132038"></stop>
+      </linearGradient>
+    </defs>
+
+    <!-- Sun -->
+    <circle class="sun-glow" cx="92" cy="86" r="54"></circle>
+    <g class="ray">
+      <line x1="92" y1="18" x2="92" y2="34"></line>
+      <line x1="92" y1="138" x2="92" y2="154"></line>
+      <line x1="24" y1="86" x2="40" y2="86"></line>
+      <line x1="144" y1="86" x2="160" y2="86"></line>
+      <line x1="44" y1="38" x2="55" y2="49"></line>
+      <line x1="129" y1="123" x2="140" y2="134"></line>
+      <line x1="44" y1="134" x2="55" y2="123"></line>
+      <line x1="129" y1="49" x2="140" y2="38"></line>
+    </g>
+    <circle class="sun-core" cx="92" cy="86" r="28"></circle>
+    <text class="label" x="60" y="182">Fuel · free</text>
+
+    <!-- Panel -->
+    <g transform="translate(150 150)">
+      <path class="panel" d="M48 0 L212 0 L228 76 L0 76 Z" fill="url(#panelGrad)"></path>
+      <line class="panel-line" x1="88" y1="0" x2="60" y2="76"></line>
+      <line class="panel-line" x1="130" y1="0" x2="114" y2="76"></line>
+      <line class="panel-line" x1="172" y1="0" x2="170" y2="76"></line>
+      <line class="panel-line" x1="24" y1="38" x2="220" y2="38"></line>
+      <line class="ground" x1="114" y1="76" x2="114" y2="118"></line>
+      <line class="ground" x1="84" y1="118" x2="144" y2="118"></line>
+    </g>
+    <text class="label" x="206" y="300">Panel · ~30 yr</text>
+
+    <!-- Wire -->
+    <path id="wire" class="wire" d="M378 196 C 420 196, 430 120, 468 120 S 520 196, 520 230"></path>
+    <path class="wire-live" d="M378 196 C 420 196, 430 120, 468 120 S 520 196, 520 230"></path>
+    <circle class="electron" r="4">
+      <animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#wire"></mpath></animateMotion>
+    </circle>
+    <circle class="electron" r="4">
+      <animateMotion dur="2.6s" begin="0.9s" repeatCount="indefinite"><mpath href="#wire"></mpath></animateMotion>
+    </circle>
+    <circle class="electron" r="4">
+      <animateMotion dur="2.6s" begin="1.8s" repeatCount="indefinite"><mpath href="#wire"></mpath></animateMotion>
+    </circle>
+    <text class="label" x="400" y="100">Wire · 0 mi of fuel</text>
+
+    <!-- House -->
+    <g transform="translate(468 230)">
+      <path class="house" d="M52 0 L104 44 L104 106 L0 106 L0 44 Z"></path>
+      <rect class="window" x="24" y="58" width="18" height="18" rx="2"></rect>
+      <rect class="window" x="62" y="58" width="18" height="18" rx="2"></rect>
+      <rect x="44" y="80" width="16" height="26" rx="1" fill="rgb(236 234 226 / 0.25)"></rect>
+    </g>
+    <text class="label" x="442" y="352">Outlet · no opinion</text>
+  </svg>
+  <dl class="readouts">
+    <div>
+      <dt><span class="live-dot"></span>Fuel bill</dt>
+      <dd>$0.00 <small>/ kWh, forever</small></dd>
+    </div>
+    <div>
+      <dt>Supply chain</dt>
+      <dd>0 mi <small>of fuel</small></dd>
+    </div>
+    <div>
+      <dt>Service life</dt>
+      <dd>~30 yr <small>mostly unattended</small></dd>
+    </div>
+    <div>
+      <dt>Political opinions</dt>
+      <dd>0 <small>per electron</small></dd>
+    </div>
+  </dl>
+</div>
+
+<script is:inline>
+  (() => {
+    const svg = document.querySelector("[data-flow]");
+    if (svg && window.matchMedia("(prefers-reduced-motion: reduce)").matches && svg.pauseAnimations) {
+      svg.pauseAnimations();
+    }
+  })();
+</script>

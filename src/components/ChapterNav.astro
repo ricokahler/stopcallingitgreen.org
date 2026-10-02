@@ -1,5 +1,5 @@
 ---
-import type { ChapterMeta } from "../lib/chapters";
+import { chapterNumber, type ChapterMeta } from "../lib/chapters";
 
 interface Props {
   previous: ChapterMeta | null;
@@ -7,29 +7,32 @@ interface Props {
 }
 
 const { previous, next } = Astro.props;
-
-const withColon = (label: string) => `${label}:`;
 ---
 
-<nav class:list={["chapter-nav", !previous && "chapter-nav-no-previous"]} aria-label="Chapter navigation">
-  {previous ? (
-    <a class="chapter-nav-link" href={`/chapters/${previous.slug}/`} rel="prev">
-      <span class="chapter-nav-eyebrow">Previous</span>
-      <span class="chapter-nav-subtitle">{withColon(previous.chapterLabel)}</span>
-      <strong>{previous.shortTitle}</strong>
-    </a>
-  ) : null}
+<nav class="chapter-next" aria-label="Chapter navigation">
   {next ? (
-    <a class="chapter-nav-link next" href={`/chapters/${next.slug}/`} rel="next">
-      <span class="chapter-nav-eyebrow">Next</span>
-      <span class="chapter-nav-subtitle">{withColon(next.chapterLabel)}</span>
-      <strong>{next.shortTitle}</strong>
+    <a class="next-card" href={`/chapters/${next.slug}/`} rel="next" data-next-link>
+      <p class="eyebrow">Up next · {next.chapterLabel} <span class="dim">/ {chapterNumber(next)}</span></p>
+      <strong>{next.title}</strong>
+      <p>{next.description}</p>
+      <span class="next-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </span>
     </a>
   ) : (
-    <a class="chapter-nav-link next" href="/" rel="index">
-      <span class="chapter-nav-eyebrow">Back to</span>
-      <span class="chapter-nav-subtitle">Index:</span>
-      <strong>All chapters</strong>
+    <a class="next-card" href="/#chapters" rel="index" data-next-link>
+      <p class="eyebrow">That's the book</p>
+      <strong>Back to the table of contents</strong>
+      <p>Reread a chapter, send one to someone, or open an issue if you caught a mistake.</p>
+      <span class="next-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </span>
+    </a>
+  )}
+  {previous && (
+    <a class="prev-link" href={`/chapters/${previous.slug}/`} rel="prev" data-prev-link>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>
+      <span>Previous: {previous.shortTitle}</span>
     </a>
   )}
 </nav>

@@ -1,123 +1,251 @@
 ---
-import { Image } from "astro:assets";
-import BookImage from "../components/BookImage.astro";
 import BottomCTA from "../components/BottomCTA.astro";
+import MixExplorer from "../components/MixExplorer.astro";
+import PowerFlow from "../components/PowerFlow.astro";
+import StatRow from "../components/StatRow.astro";
 import Layout from "../layouts/Layout.astro";
-import { chapters } from "../lib/chapters";
-import nasaSunSdo from "../assets/visuals/nasa-sun-sdo.jpg";
-import solarFarmFarmland from "../assets/visuals/solar-farm-farmland-unsplash.jpg";
+import { bookStats, chapters, chapterNumber, editionLabel } from "../lib/chapters";
 
 const firstChapter = chapters[0];
+
+const stats = [
+  {
+    value: 86,
+    suffix: "GW",
+    label: "of new U.S. power plants planned for 2026",
+    note: "About four-fifths of it is solar and batteries. Gas is 7 percent.",
+    sourceHref: "https://www.eia.gov/todayinenergy/detail.php?id=67205",
+    sourceLabel: "EIA, Feb 2026",
+    tone: "sun"
+  },
+  {
+    value: 150,
+    prefix: "$",
+    suffix: "M+",
+    label: "spent lobbying Washington by oil and gas in 2024",
+    note: "The highest since 2009. Nobody calls it a green agenda.",
+    sourceHref: "https://insideclimatenews.org/news/08092025/energy-sector-lobbying-spending/",
+    sourceLabel: "Inside Climate News / OpenSecrets",
+    tone: "fuel"
+  },
+  {
+    value: 30,
+    prefix: "~",
+    suffix: "M acres",
+    label: "of U.S. cropland grow corn to burn as ethanol",
+    note: "Three to five times the land solar would need by 2050. Nobody calls it a land grab.",
+    sourceHref: "https://www.usgs.gov/publications/ecologically-informed-solar-enables-a-sustainable-energy-transition-us-croplands",
+    sourceLabel: "USGS / PNAS 2025",
+    tone: "land"
+  },
+  {
+    value: 58,
+    suffix: "%",
+    label: "of the plants that failed in the 2021 Texas freeze burned gas",
+    note: "Wind was 27 percent, coal 6, solar 2. Every kind of plant has a bad week.",
+    sourceHref: "https://www.nerc.com/pa/rrm/ea/Documents/February_2021_Cold_Weather_Report.pdf",
+    sourceLabel: "FERC-NERC report",
+    tone: "grid"
+  }
+];
+
+const thesis = [
+  {
+    num: "01",
+    title: "The machine is boring.",
+    body: "A panel in a field needs no coal train, tanker, refinery, pipeline, or Navy escort. Light lands, electrons move, power comes out for thirty years. Boring is the point.",
+    href: `/chapters/${chapters[1].slug}/`,
+    more: "Start with the electron"
+  },
+  {
+    num: "02",
+    title: "The costume was paid for.",
+    body: "Oil became \"energy,\" gas became \"natural,\" and solar got a political color. That framing didn't happen by accident. Some of it had a budget and a classroom.",
+    href: `/chapters/${chapters[3].slug}/`,
+    more: "See the receipts"
+  },
+  {
+    num: "03",
+    title: "One standard, both directions.",
+    body: "If solar has to answer for subsidies, land, and nighttime, fine. Then the century-old fuel system answers for its subsidies, its land, and its February week in Texas.",
+    href: `/chapters/${chapters[7].slug}/`,
+    more: "Read the hard part"
+  }
+];
 ---
 
-<Layout bodyClass="home-shell" pageKind="home">
-  <main class="home-page">
-    <section class="home-hero" aria-labelledby="site-title">
-      <div class="home-hero-inner">
-        <div class="home-hero-copy">
-          <p class="kicker">Free online book</p>
-          <h1 id="site-title">Stop Calling It Green</h1>
-          <p class="subtitle">How Cheap Power Got Dragged Into The Culture War</p>
-          <p class="lede">
-            Solar is not a virtue product. It is infrastructure. Oil and gas
-            look normal because the incumbent energy system won the framing war
-            first.
+<Layout pageKind="home">
+  <main id="main">
+    <section class="hero" aria-labelledby="site-title">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Free book <b>·</b> {bookStats.chapters} chapters <b>·</b> ~{bookStats.minutes} min</p>
+          <h1 class="hero-title" id="site-title">
+            Stop calling it <span class="strike">green</span>.
+            <span class="hero-answer">It's just cheap power.</span>
+          </h1>
+          <p class="hero-lede">
+            Solar, wind, batteries, and power lines got turned into a personality test. This is a short, sourced book
+            about how that happened, who paid for it, and why <strong>the electron doesn't care</strong> who you voted
+            for.
           </p>
-          <div class="actions">
-            <a class="button primary" href={`/chapters/${firstChapter.slug}/`}>
+          <div class="hero-actions">
+            <a class="button primary" href={`/chapters/${firstChapter.slug}/`} data-start-link>
               Start reading
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
             </a>
-            <a class="button" href="#chapters">Browse chapters</a>
+            <a class="button" href="#chapters">See the chapters</a>
           </div>
         </div>
-        <figure class="hero-sun">
-          <Image
-            src={nasaSunSdo}
-            alt="A full disk image of the sun captured by NASA's Solar Dynamics Observatory."
-            width={720}
-            widths={[320, 480, 640, 720]}
-            sizes="(min-width: 900px) 38vw, 72vw"
-            format="webp"
-            quality={78}
-            loading="eager"
-            decoding="async"
-            class="hero-sun-image"
-          />
-          <figcaption>NASA/SDO image. The fuel source, not the brand identity.</figcaption>
-        </figure>
+        <PowerFlow />
       </div>
     </section>
 
-    <section class="premise-band" aria-labelledby="premise-title">
-      <div class="premise-visual">
-        <BookImage
-          src={solarFarmFarmland}
-          alt="Aerial view of solar panels installed beside farm fields."
-          caption="Look at it first: farmland beside fuel-free generation. The question is not whether energy uses land. It is what the land is being asked to do."
-          creditHref="https://unsplash.com/photos/aerial-view-shows-a-solar-farm-next-to-farmland-5czuT4jlN9s"
-          creditLabel="Photo: Aivars Vilks / Unsplash"
-          wide
+    <div class="meta-strip">
+      <ul class="wrap">
+        <li><b>{editionLabel}</b></li>
+        <li>{bookStats.sources} sources, linked at the end of every chapter</li>
+        <li>Numbers checked through 2026</li>
+        <li>Open source, no ads, no donations</li>
+      </ul>
+    </div>
+
+    <section class="section" aria-labelledby="numbers-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Four numbers to start with</p>
+          <h2 id="numbers-title">Half the skepticism is missing.</h2>
+          <p>Each of these shows up in the book with its source. Together they're the whole argument in miniature.</p>
+        </div>
+        <StatRow stats={stats} />
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="thesis-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">The argument in one minute</p>
+          <h2 id="thesis-title">Three things the book asks you to look at.</h2>
+        </div>
+        <div class="thesis">
+          {thesis.map((item) => (
+            <a class="thesis-card reveal" href={item.href}>
+              <span class="num">{item.num}</span>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+              <span class="more">{item.more} →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="mix-section-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Try the data</p>
+          <h2 id="mix-section-title">Two bars that explain most of the fight.</h2>
+          <p>The grid you have and the grid being built are different pictures. Switch between them.</p>
+        </div>
+        <MixExplorer />
+      </div>
+    </section>
+
+    <section class="section" id="chapters" aria-labelledby="chapters-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Table of contents</p>
+          <h2 id="chapters-title">Read it in order, or jump to the argument you keep hearing.</h2>
+          <p>Each chapter stands on its own, with its sources at the bottom. Your place is remembered in this browser.</p>
+        </div>
+        <ol class="chapters" data-chapter-grid>
+          {chapters.map((chapter, index) => (
+            <li style="display: contents;">
+              <a class:list={["chapter-card", "reveal", index === 0 && "is-first"]} href={`/chapters/${chapter.slug}/`} data-chapter-card={chapter.slug}>
+                <div class="chapter-card-body">
+                  <div class="chapter-card-top">
+                    <span class="label">{chapter.chapterLabel} · {chapterNumber(chapter)}</span>
+                    <span class="read">✓ read</span>
+                  </div>
+                  <h3>{chapter.title}</h3>
+                </div>
+                <p>{chapter.description}</p>
+                <div class="chapter-card-meta">
+                  <span>{chapter.minutes} min · {chapter.sources.length} sources</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="about-title">
+      <div class="wrap about-strip">
+        <h2 id="about-title">Online only, free, and built to be checked.</h2>
+        <div>
+          <p>
+            This is the only place the book exists. No donation page, no merch, no organization behind it, no mailing
+            list. It was written with heavy AI assistance and human responsibility, and every number was re-checked
+            against primary sources in 2026.
+          </p>
+          <p>
+            If you catch a mistake, <a href="https://github.com/ricokahler/stopcallingitgreen.org/issues">open an issue on GitHub</a>.
+            If it helped you see the pattern, send it to someone. That's the whole business model.
+            <a href="/about/">More about the project →</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <BottomCTA
+          title="Read it once. Then listen for the pattern."
+          body="No pitch, no pledge. If the argument is right, you'll start hearing it everywhere: the slogans, the subsidies, the land panic, and the way cheap power got made to sound suspicious."
+          primaryHref={`/chapters/${firstChapter.slug}/`}
+          primaryLabel="Start from the beginning"
+          secondaryHref="/about/"
+          secondaryLabel="About the project"
         />
       </div>
-      <h2 id="premise-title">Just energy. No costume.</h2>
-      <div class="premise-copy">
-        <p>
-          A panel in a field does not need a train full of coal, a tanker full
-          of oil, a refinery, a pipeline, a drilling lease, a fuel contract, or
-          a protected shipping lane. Sunlight hits it. Electrons move.
-          Electricity comes out.
-        </p>
-        <p>
-          The argument here is not that every solar project is good, or that
-          every other source is evil. It is that Americans should stop letting
-          old energy call itself reality while cheap fuel-free power gets
-          treated like a personality test.
-        </p>
-      </div>
     </section>
-
-    <section class="chapters-section" id="chapters" aria-labelledby="chapters-title">
-      <header>
-        <h2 id="chapters-title">Read the book.</h2>
-        <p>
-          Each chapter is built for online reading, with sources and videos
-          close to the claims they support.
-        </p>
-      </header>
-      <ol class="chapter-list">
-        {chapters.map((chapter) => (
-          <li>
-            <a href={`/chapters/${chapter.slug}/`}>
-              <span>{chapter.chapterLabel}</span>
-              <div>
-                <strong>{chapter.title}</strong>
-                <p>{chapter.description}</p>
-              </div>
-            </a>
-          </li>
-        ))}
-      </ol>
-    </section>
-
-    <section class="about-note" aria-labelledby="online-title">
-      <h2 id="online-title">Online-only, on purpose.</h2>
-      <div>
-        <p>
-          This is the only place this book exists: self-funded, free, public,
-          and built to be inspected. No donation page, no merch table, no
-          organization waiting behind it.
-        </p>
-        <p><a href="/about/">About the project</a></p>
-      </div>
-    </section>
-
-    <BottomCTA
-      title="Read it once."
-      body="No pitch, no pledge. If the argument is right, you will start noticing the pattern everywhere: the slogans, the subsidies, the land panic, and the way cheap power got made to sound suspicious."
-      primaryHref={`/chapters/${firstChapter.slug}/`}
-      primaryLabel="Read from the start"
-      secondaryHref="#chapters"
-      secondaryLabel="Browse chapters"
-    />
   </main>
 </Layout>
+
+<script is:inline>
+  (() => {
+    try {
+      const read = JSON.parse(localStorage.getItem("scig-read") || "{}");
+      document.querySelectorAll("[data-chapter-card]").forEach((card) => {
+        if (read[card.dataset.chapterCard]) card.setAttribute("data-read", "");
+      });
+      const last = localStorage.getItem("scig-last");
+      const start = document.querySelector("[data-start-link]");
+      const cards = [...document.querySelectorAll("[data-chapter-card]")];
+      if (last && start && cards.length) {
+        const index = cards.findIndex((card) => card.dataset.chapterCard === last);
+        const next = read[last] ? cards[index + 1] : cards[index];
+        if (next && next !== cards[0]) {
+          start.href = next.getAttribute("href");
+          const title = next.querySelector("h3")?.textContent?.trim() || "";
+          start.firstChild.textContent = `Continue: ${next.querySelector(".label")?.textContent?.split("·")[0]?.trim() || "next chapter"} `;
+          start.title = title;
+        }
+      }
+    } catch {}
+
+    // Table toggle for the home-page explorer.
+    document.querySelectorAll("[data-fig-toggle]").forEach((button) => {
+      const table = document.getElementById(button.getAttribute("aria-controls"));
+      if (!table) return;
+      button.addEventListener("click", () => {
+        const open = button.getAttribute("aria-expanded") === "true";
+        button.setAttribute("aria-expanded", String(!open));
+        table.hidden = open;
+        button.textContent = open ? "Show table" : "Hide table";
+      });
+    });
+  })();
+</script>

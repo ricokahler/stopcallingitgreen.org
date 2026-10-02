@@ -10,7 +10,7 @@ interface Props {
 
 const {
   title = "Read it straight through.",
-  body = "It is short on purpose. Start at the beginning, or jump to the part that already sounds like the argument you keep hearing.",
+  body = "It's short on purpose. Start at the beginning, or jump to the chapter that already sounds like the argument you keep hearing.",
   primaryHref = "/chapters/introduction/",
   primaryLabel = "Start reading",
   secondaryHref = "/#chapters",
@@ -18,12 +18,12 @@ const {
 } = Astro.props;
 ---
 
-<section class="bottom-cta" aria-labelledby="bottom-cta-title">
+<section class="cta" aria-labelledby="cta-title">
   <div>
-    <h2 id="bottom-cta-title">{title}</h2>
+    <h2 id="cta-title">{title}</h2>
     <p>{body}</p>
   </div>
-  <div class="bottom-cta-actions">
+  <div class="cta-actions">
     <a class="button primary" href={primaryHref}>{primaryLabel}</a>
     <a class="button" href={secondaryHref}>{secondaryLabel}</a>
   </div>

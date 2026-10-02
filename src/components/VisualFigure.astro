@@ -4,7 +4,7 @@ interface VisualItem {
   label: string;
   note?: string;
   size?: number;
-  tone?: "sun" | "fuel" | "grid" | "money" | "land";
+  tone?: "sun" | "fuel" | "grid" | "money" | "land" | "coal" | "nuclear";
 }
 
 interface Props {
@@ -17,38 +17,71 @@ interface Props {
   wide?: boolean;
 }
 
-const {
-  eyebrow,
-  title,
-  body,
-  items,
-  sourceHref,
-  sourceLabel = "Source",
-  wide = true
-} = Astro.props;
+const { eyebrow, title, body, items, sourceHref, sourceLabel = "Source" } = Astro.props;
+
+const sizes = items.map((item) => item.size ?? 100);
+const isList = sizes.every((size) => size === sizes[0]);
+const figureId = `fig-${Math.random().toString(36).slice(2, 8)}`;
 ---
 
-<figure class:list={["visual-figure", wide && "visual-figure-wide"]}>
-  <header>
-    {eyebrow && <p>{eyebrow}</p>}
-    <h3>{title}</h3>
-    {body && <div>{body}</div>}
+<figure class:list={["fig", isList && "fig-list"]} data-fig aria-labelledby={`${figureId}-title`}>
+  <header class="fig-head">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h3 class="fig-title" id={`${figureId}-title`}>{title}</h3>
+    {body && <p class="fig-body">{body}</p>}
   </header>
-  <div class="visual-items">
+  <div class="fig-rows" role="list">
     {items.map((item) => (
       <div
-        class:list={["visual-item", item.tone && `visual-item-${item.tone}`]}
-        style={`--item-size: ${item.size ?? 100}%;`}
+        class:list={["fig-row", item.tone && `tone-${item.tone}`]}
+        role="listitem"
+        style={`--size: ${item.size ?? 100}%;`}
       >
-        {item.value && <span>{item.value}</span>}
-        <strong>{item.label}</strong>
-        {item.note && <p>{item.note}</p>}
+        <div class="fig-row-head">
+          <span class="fig-label">{item.label}</span>
+          {item.value && <span class="fig-value">{item.value}</span>}
+        </div>
+        {!isList && (
+          <div class="fig-track" aria-hidden="true">
+            <div class="fig-bar"></div>
+          </div>
+        )}
+        {item.note && <p class="fig-note">{item.note}</p>}
       </div>
     ))}
   </div>
-  {sourceHref && (
-    <figcaption>
-      <a href={sourceHref}>{sourceLabel}</a>
-    </figcaption>
+  <footer class="fig-foot">
+    <span>
+      {sourceHref ? (
+        <>Source: <a href={sourceHref} rel="noreferrer" target="_blank">{sourceLabel}</a></>
+      ) : (
+        <span>Book figure</span>
+      )}
+    </span>
+    {!isList && (
+      <button class="fig-toggle" type="button" data-fig-toggle aria-expanded="false" aria-controls={`${figureId}-table`}>
+        Show table
+      </button>
+    )}
+  </footer>
+  {!isList && (
+    <table class="fig-table" id={`${figureId}-table`} hidden>
+      <thead>
+        <tr>
+          <th scope="col">Category</th>
+          <th scope="col">Value</th>
+          <th scope="col">Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        {items.map((item) => (
+          <tr>
+            <td>{item.label}</td>
+            <td class="num">{item.value ?? ""}</td>
+            <td>{item.note ?? ""}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   )}
 </figure>
